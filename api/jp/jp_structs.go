@@ -4,7 +4,7 @@
 
 package jp
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* Appkey的站点导购数据 */
 type SpmResult struct {
@@ -64,14 +64,6 @@ type TmallMinisite struct {
 	Promotions string `json:"promotions"`
 	Title      string `json:"title"`
 	Type       int    `json:"type"`
-}
-
-/* 天猫精选商品列表 */
-type SelectedItem struct {
-	Cid       int    `json:"cid"`
-	ItemScore string `json:"item_score"`
-	ShopId    int    `json:"shop_id"`
-	TrackIid  string `json:"track_iid"`
 }
 
 /* 天猫品牌特卖搜索结果数据结构 */

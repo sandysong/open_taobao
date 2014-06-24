@@ -18,7 +18,7 @@ func (r *FavoriteAddRequest) SetCollectType(value string) {
 	r.SetValue("collect_type", value)
 }
 
-/* 如果收藏的是商品，就传num_iid，如果是店铺，就传入sid */
+/* 如果收藏的是商品，就传num_iid，如果是店铺，就传入sid<br /> 支持最大值为：9223372036854775807<br /> 支持最小值为：1 */
 func (r *FavoriteAddRequest) SetItemNumid(value string) {
 	r.SetValue("item_numid", value)
 }
@@ -50,12 +50,12 @@ type FavoriteSearchRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* ITEM表示宝贝，SHOP表示商铺，collect_type只能为这两者之一 */
+/* ITEM表示宝贝，SHOP表示商铺，collect_type只能为这两者之一<br /> 支持最大长度为：4<br /> 支持的最大列表长度为：4 */
 func (r *FavoriteSearchRequest) SetCollectType(value string) {
 	r.SetValue("collect_type", value)
 }
 
-/* 页码。取值范围:大于零的整数; 默认值:1。一页20条记录。 */
+/* 页码。取值范围:大于零的整数; 默认值:1。一页20条记录。<br /> 支持最大值为：100<br /> 支持最小值为：1<br /> 支持的最大列表长度为：20 */
 func (r *FavoriteSearchRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }

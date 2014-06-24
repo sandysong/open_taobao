@@ -4,7 +4,7 @@
 
 package simba
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 推广组 */
 type ADGroup struct {
@@ -202,6 +202,7 @@ type INCategoryTop struct {
 	CategoryId             int                     `json:"category_id"`
 	CategoryName           string                  `json:"category_name"`
 	CategoryPropertiesList []*INCategoryProperties `json:"category_properties_list"`
+	CategroyWord           string                  `json:"categroy_word"`
 }
 
 /* 类目对象 */
@@ -310,12 +311,16 @@ type Keyword struct {
 
 /* 关键词质量得分 */
 type KeywordQscore struct {
-	AdgroupId  int    `json:"adgroup_id"`
-	CampaignId int    `json:"campaign_id"`
-	KeywordId  int    `json:"keyword_id"`
-	Nick       string `json:"nick"`
-	Qscore     string `json:"qscore"`
-	Word       string `json:"word"`
+	AdgroupId     int    `json:"adgroup_id"`
+	CampaignId    int    `json:"campaign_id"`
+	CreativeScore string `json:"creative_score"`
+	CustScore     string `json:"cust_score"`
+	CvrScore      string `json:"cvr_score"`
+	KeywordId     int    `json:"keyword_id"`
+	Nick          string `json:"nick"`
+	Qscore        string `json:"qscore"`
+	ReleScore     string `json:"rele_score"`
+	Word          string `json:"word"`
 }
 
 /* 一页推荐词列表 */

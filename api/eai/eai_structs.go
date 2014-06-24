@@ -4,7 +4,15 @@
 
 package eai
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
+
+/* 批量同意退款结果对象 */
+type RefundAgreeResult struct {
+	Code      int    `json:"code"`
+	IsSuccess bool   `json:"is_success"`
+	Message   string `json:"message"`
+	RefundId  int    `json:"refund_id"`
+}
 
 /* 退款单 */
 type RefundBill struct {
@@ -16,6 +24,7 @@ type RefundBill struct {
 	Created             string        `json:"created"`
 	CsStatus            string        `json:"cs_status"`
 	CurrentPhaseTimeout string        `json:"current_phase_timeout"`
+	Desc                string        `json:"desc"`
 	ItemList            []*RefundItem `json:"item_list"`
 	Modified            string        `json:"modified"`
 	Oid                 int           `json:"oid"`
@@ -54,6 +63,7 @@ type ReturnBill struct {
 	BillType      string        `json:"bill_type"`
 	CompanyName   string        `json:"company_name"`
 	Created       string        `json:"created"`
+	Desc          string        `json:"desc"`
 	ItemList      []*RefundItem `json:"item_list"`
 	Modified      string        `json:"modified"`
 	Oid           int           `json:"oid"`
@@ -72,6 +82,7 @@ type ReturnBill struct {
 type TmallRefundMessage struct {
 	Created        string `json:"created"`
 	MessageContent string `json:"message_content"`
+	MessageId      int    `json:"message_id"`
 	RefundId       int    `json:"refund_id"`
 	RefundPhase    string `json:"refund_phase"`
 	UserNick       string `json:"user_nick"`

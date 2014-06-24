@@ -4,7 +4,7 @@
 
 package marketing
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 优惠信息对象 */
 type PromotionDisplayTop struct {
@@ -48,14 +48,6 @@ type Promotion struct {
 	TagId          int    `json:"tag_id"`
 }
 
-/* 人群标签 */
-type UserTag struct {
-	CreateDate  string `json:"create_date"`
-	Description string `json:"description"`
-	TagId       int    `json:"tag_id"`
-	TagName     string `json:"tag_name"`
-}
-
 /* 活动数据结构 */
 type Activity struct {
 	ActivityId       int    `json:"activity_id"`
@@ -78,14 +70,6 @@ type CouponResult struct {
 type ErrorMessage struct {
 	BuyerNick string `json:"buyer_nick"`
 	Reason    string `json:"reason"`
-}
-
-/* 优惠券详细信息 */
-type CouponDetail struct {
-	BuyerNick    string `json:"buyer_nick"`
-	Channel      string `json:"channel"`
-	CouponNumber int    `json:"coupon_number"`
-	State        string `json:"state"`
 }
 
 /* 优惠券数据结构 */

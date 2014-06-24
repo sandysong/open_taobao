@@ -4,7 +4,7 @@
 
 package product
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 卖家设置售后服务对象 */
 type AfterSale struct {
@@ -19,6 +19,7 @@ type Item struct {
 	ApproveStatus              string          `json:"approve_status"`
 	AuctionPoint               int             `json:"auction_point"`
 	AutoFill                   string          `json:"auto_fill"`
+	Barcode                    string          `json:"barcode"`
 	ChangeProp                 string          `json:"change_prop"`
 	Cid                        int             `json:"cid"`
 	CodPostageId               int             `json:"cod_postage_id"`
@@ -35,6 +36,7 @@ type Item struct {
 	Features                   string          `json:"features"`
 	FoodSecurity               *FoodSecurity   `json:"food_security"`
 	FreightPayer               string          `json:"freight_payer"`
+	GlobalStockCountry         string          `json:"global_stock_country"`
 	GlobalStockType            string          `json:"global_stock_type"`
 	HasDiscount                bool            `json:"has_discount"`
 	HasInvoice                 bool            `json:"has_invoice"`
@@ -45,9 +47,11 @@ type Item struct {
 	InputPids                  string          `json:"input_pids"`
 	InputStr                   string          `json:"input_str"`
 	Is3D                       bool            `json:"is_3D"`
+	IsCspu                     bool            `json:"is_cspu"`
 	IsEx                       bool            `json:"is_ex"`
 	IsFenxiao                  int             `json:"is_fenxiao"`
 	IsLightningConsignment     bool            `json:"is_lightning_consignment"`
+	IsOffline                  string          `json:"is_offline"`
 	IsPrepay                   bool            `json:"is_prepay"`
 	IsTaobao                   bool            `json:"is_taobao"`
 	IsTiming                   bool            `json:"is_timing"`
@@ -60,6 +64,8 @@ type Item struct {
 	LocalityLife               *LocalityLife   `json:"locality_life"`
 	Location                   *Location       `json:"location"`
 	Modified                   string          `json:"modified"`
+	MpicVideo                  *MpicVideo      `json:"mpic_video"`
+	Newprepay                  string          `json:"newprepay"`
 	Nick                       string          `json:"nick"`
 	Num                        int             `json:"num"`
 	NumIid                     int             `json:"num_iid"`
@@ -85,14 +91,17 @@ type Item struct {
 	Skus                       []*Sku          `json:"skus"`
 	StuffStatus                string          `json:"stuff_status"`
 	SubStock                   int             `json:"sub_stock"`
+	SubTitle                   string          `json:"sub_title"`
 	TemplateId                 string          `json:"template_id"`
 	Title                      string          `json:"title"`
 	Type                       string          `json:"type"`
 	ValidThru                  int             `json:"valid_thru"`
+	VideoId                    int             `json:"video_id"`
 	Videos                     []*Video        `json:"videos"`
 	Violation                  bool            `json:"violation"`
 	WapDesc                    string          `json:"wap_desc"`
 	WapDetailUrl               string          `json:"wap_detail_url"`
+	WirelessDesc               string          `json:"wireless_desc"`
 	WithHoldQuantity           int             `json:"with_hold_quantity"`
 	WwStatus                   bool            `json:"ww_status"`
 }
@@ -141,11 +150,13 @@ type ItemImg struct {
 /* 本地生活垂直市场数据结构，修改宝贝时在参数empty_fields里设置locality_life可删除所有电子凭证信息 */
 type LocalityLife struct {
 	ChooseLogis           string `json:"choose_logis"`
+	Eticket               string `json:"eticket"`
 	Expirydate            string `json:"expirydate"`
 	Merchant              string `json:"merchant"`
 	NetworkId             string `json:"network_id"`
 	OnsaleAutoRefundRatio int    `json:"onsale_auto_refund_ratio"`
 	RefundRatio           int    `json:"refund_ratio"`
+	Refundmafee           string `json:"refundmafee"`
 	Verification          string `json:"verification"`
 }
 
@@ -157,6 +168,15 @@ type Location struct {
 	District string `json:"district"`
 	State    string `json:"state"`
 	Zip      string `json:"zip"`
+}
+
+/* 宝贝主图视频数据结构 */
+type MpicVideo struct {
+	NumIid         int    `json:"num_iid"`
+	VideoDuaration int    `json:"video_duaration"`
+	VideoId        int    `json:"video_id"`
+	VideoPic       string `json:"video_pic"`
+	VideoStatus    int    `json:"video_status"`
 }
 
 /* 拍卖商品相关信息 */
@@ -180,6 +200,7 @@ type PropImg struct {
 
 /* Sku结构 */
 type Sku struct {
+	Barcode          string `json:"barcode"`
 	ChangeProp       string `json:"change_prop"`
 	Created          string `json:"created"`
 	Iid              string `json:"iid"`
@@ -229,10 +250,12 @@ type Product struct {
 	CatName           string              `json:"cat_name"`
 	Cid               int                 `json:"cid"`
 	CollectNum        int                 `json:"collect_num"`
+	CommodityId       int                 `json:"commodity_id"`
 	Created           string              `json:"created"`
 	CspuFeature       string              `json:"cspu_feature"`
 	CustomerProps     string              `json:"customer_props"`
 	Desc              string              `json:"desc"`
+	IsSuiteEffective  bool                `json:"is_suite_effective"`
 	Level             int                 `json:"level"`
 	Modified          string              `json:"modified"`
 	Name              string              `json:"name"`
@@ -255,6 +278,8 @@ type Product struct {
 	ShopPrice         string              `json:"shop_price"`
 	StandardPrice     string              `json:"standard_price"`
 	Status            int                 `json:"status"`
+	SuiteItemsStr     string              `json:"suite_items_str"`
+	TemplateId        int                 `json:"template_id"`
 	Tsc               string              `json:"tsc"`
 	VerticalMarket    int                 `json:"vertical_market"`
 }
@@ -286,25 +311,6 @@ type ProductPropImg struct {
 	ProductId int    `json:"product_id"`
 	Props     string `json:"props"`
 	Url       string `json:"url"`
-}
-
-/* 批量异步任务结果 */
-type Task struct {
-	CheckCode   string     `json:"check_code"`
-	Created     string     `json:"created"`
-	DownloadUrl string     `json:"download_url"`
-	Method      string     `json:"method"`
-	Schedule    string     `json:"schedule"`
-	Status      string     `json:"status"`
-	Subtasks    []*Subtask `json:"subtasks"`
-	TaskId      int        `json:"task_id"`
-}
-
-/* 批量异步任务的子任务结果 */
-type Subtask struct {
-	IsSuccess      bool   `json:"is_success"`
-	SubTaskRequest string `json:"sub_task_request"`
-	SubTaskResult  string `json:"sub_task_result"`
 }
 
 /* 优惠信息对象 */
@@ -348,6 +354,22 @@ type BrandCatControl struct {
 	CertifiedData string `json:"certified_data"`
 }
 
+/* 类目、品牌下的达尔文元数据 */
+type BrandCatMetaData struct {
+	BrandId       int    `json:"brand_id"`
+	CatId         int    `json:"cat_id"`
+	CertifiedData string `json:"certified_data"`
+	IsDarwin      bool   `json:"is_darwin"`
+}
+
+/* 属性输入特征DO */
+type PropertyInputDO struct {
+	IsAllowInput     bool `json:"is_allow_input"`
+	IsRootAllowInput bool `json:"is_root_allow_input"`
+	IsSubProperty    bool `json:"is_sub_property"`
+	PropertyId       int  `json:"property_id"`
+}
+
 /* 被管控的品牌和类目的所对应的销售属性 */
 type CatBrandSaleProp struct {
 	BrandId            int  `json:"brand_id"`
@@ -355,6 +377,15 @@ type CatBrandSaleProp struct {
 	DefMarketPropValue int  `json:"def_market_prop_value"`
 	IsNotSpec          bool `json:"is_not_spec"`
 	PropertyId         int  `json:"property_id"`
+}
+
+/* 套装配置 */
+type SuiteConfDO struct {
+	Inputs         []int `json:"inputs"`
+	MaxSize        int   `json:"max_size"`
+	MaxTotalNumber int   `json:"max_total_number"`
+	RootCatId      int   `json:"root_cat_id"`
+	SuiteCatId     int   `json:"suite_cat_id"`
 }
 
 /* 图书类目导入返回结果 */
@@ -377,6 +408,7 @@ type ProductSpec struct {
 	CustomePropsName string         `json:"custome_props_name"`
 	LabelPrice       int            `json:"label_price"`
 	MarketTime       string         `json:"market_time"`
+	Number           int            `json:"number"`
 	PicUrl           string         `json:"pic_url"`
 	ProductCode      string         `json:"product_code"`
 	ProductId        int            `json:"product_id"`
@@ -396,4 +428,28 @@ type CertPicInfo struct {
 type CertTxtInfo struct {
 	CertType int    `json:"cert_type"`
 	Text     string `json:"text"`
+}
+
+/* 产品规格审核信息 */
+type Ticket struct {
+	AuditSellerId int    `json:"audit_seller_id"`
+	CreateUserId  int    `json:"create_user_id"`
+	GmtCreate     string `json:"gmt_create"`
+	GmtModified   string `json:"gmt_modified"`
+	Memo          string `json:"memo"`
+	Reason        string `json:"reason"`
+	SpecId        int    `json:"spec_id"`
+	Status        int    `json:"status"`
+}
+
+/* SPU发布模板，定义了产品发布需要那些关键属性，绑定属性。 */
+type SpuTemplateDO struct {
+	AffectProperties []int  `json:"affect_properties"`
+	CategoryId       int    `json:"category_id"`
+	CommodityId      int    `json:"commodity_id"`
+	FilterProperties []int  `json:"filter_properties"`
+	KeyProperties    []int  `json:"key_properties"`
+	PropFeatures     string `json:"prop_features"`
+	PropNameStr      string `json:"prop_name_str"`
+	TemplateId       int    `json:"template_id"`
 }

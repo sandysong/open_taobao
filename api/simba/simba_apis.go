@@ -45,7 +45,7 @@ func (r *SimbaAdgroupAddRequest) SetCampaignId(value string) {
 	r.SetValue("campaign_id", value)
 }
 
-/* 推广组默认出价，单位为分，不能小于5 不能大于日最高限额 */
+/* 推广组默认出价，单位为分，不能小于5 不能大于日最高限额<br /> 支持最小值为：5 */
 func (r *SimbaAdgroupAddRequest) SetDefaultPrice(value string) {
 	r.SetValue("default_price", value)
 }
@@ -65,7 +65,7 @@ func (r *SimbaAdgroupAddRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 创意标题，最多20个汉字 */
+/* 创意标题，最多20个汉字<br /> 支持最大长度为：40<br /> 支持的最大列表长度为：40 */
 func (r *SimbaAdgroupAddRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -139,7 +139,7 @@ func (r *SimbaAdgroupCampcatmatchsGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 页尺寸，最大200 */
+/* 页尺寸，最大200<br /> 支持的最大列表长度为：200 */
 func (r *SimbaAdgroupCampcatmatchsGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -208,7 +208,7 @@ func (r *SimbaAdgroupCatmatchUpdateRequest) SetCatmatchId(value string) {
 	r.SetValue("catmatch_id", value)
 }
 
-/* 类目出价，单位为分，不能小于5。如果use_default_price字段为使用默认出价，则此max_price字段所传入的值不起作用。商品将会使用默认出价。 */
+/* 类目出价，单位为分，不能小于5。如果use_default_price字段为使用默认出价，则此max_price字段所传入的值不起作用。商品将会使用默认出价。<br /> 支持最小值为：5 */
 func (r *SimbaAdgroupCatmatchUpdateRequest) SetMaxPrice(value string) {
 	r.SetValue("max_price", value)
 }
@@ -297,7 +297,7 @@ func (r *SimbaAdgroupChangedcatmatchsGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持的最大列表长度为：1000 */
 func (r *SimbaAdgroupChangedcatmatchsGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -354,48 +354,6 @@ type SimbaAdgroupDeleteResponse struct {
 
 type SimbaAdgroupDeleteResponseResult struct {
 	Response *SimbaAdgroupDeleteResponse `json:"simba_adgroup_delete_response"`
-}
-
-/* 获取删除的类目出价列表（只存类目出价ID和推广组ID） */
-type SimbaAdgroupDeletedcatmatchsGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 主人昵称 */
-func (r *SimbaAdgroupDeletedcatmatchsGetRequest) SetNick(value string) {
-	r.SetValue("nick", value)
-}
-
-/* 返回的第几页数据，默认为1 */
-func (r *SimbaAdgroupDeletedcatmatchsGetRequest) SetPageNo(value string) {
-	r.SetValue("page_no", value)
-}
-
-/* 返回的每页数据量大小,默认200最大1000 */
-func (r *SimbaAdgroupDeletedcatmatchsGetRequest) SetPageSize(value string) {
-	r.SetValue("page_size", value)
-}
-
-/* 得到此时间点之后的数据，不能大于一个月 */
-func (r *SimbaAdgroupDeletedcatmatchsGetRequest) SetStartTime(value string) {
-	r.SetValue("start_time", value)
-}
-
-func (r *SimbaAdgroupDeletedcatmatchsGetRequest) GetResponse(accessToken string) (*SimbaAdgroupDeletedcatmatchsGetResponse, []byte, error) {
-	var resp SimbaAdgroupDeletedcatmatchsGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.simba.adgroup.deletedcatmatchs.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type SimbaAdgroupDeletedcatmatchsGetResponse struct {
-	DeletedCatmatchs *ADGroupCatMatchPage `json:"deleted_catmatchs"`
-}
-
-type SimbaAdgroupDeletedcatmatchsGetResponseResult struct {
-	Response *SimbaAdgroupDeletedcatmatchsGetResponse `json:"simba_adgroup_deletedcatmatchs_get_response"`
 }
 
 /* 修改通投出价 */
@@ -494,12 +452,12 @@ func (r *SimbaAdgroupOnlineitemsvonGetRequest) SetOrderField(value string) {
 	r.SetValue("order_field", value)
 }
 
-/* 页码，从1开始,最大50。最大只能获取1W个宝贝 */
+/* 页码，从1开始,最大50。最大只能获取1W个宝贝<br /> 支持最大值为：50 */
 func (r *SimbaAdgroupOnlineitemsvonGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 页尺寸，最大200 */
+/* 页尺寸，最大200<br /> 支持最大值为：200 */
 func (r *SimbaAdgroupOnlineitemsvonGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -531,7 +489,7 @@ func (r *SimbaAdgroupUpdateRequest) SetAdgroupId(value string) {
 	r.SetValue("adgroup_id", value)
 }
 
-/* 默认出价，单位是分，不能小于5 */
+/* 默认出价，单位是分，不能小于5<br /> 支持最小值为：5 */
 func (r *SimbaAdgroupUpdateRequest) SetDefaultPrice(value string) {
 	r.SetValue("default_price", value)
 }
@@ -541,7 +499,7 @@ func (r *SimbaAdgroupUpdateRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 非搜索出价，单位是分，不能小于5，如果use_nonseatch_default_price为使用默认出价，则此nonsearch_max_price字段传入的数据不起作用，商品将使用默认非搜索出价 */
+/* 非搜索出价，单位是分，不能小于5，如果use_nonseatch_default_price为使用默认出价，则此nonsearch_max_price字段传入的数据不起作用，商品将使用默认非搜索出价<br /> 支持最小值为：5 */
 func (r *SimbaAdgroupUpdateRequest) SetNonsearchMaxPrice(value string) {
 	r.SetValue("nonsearch_max_price", value)
 }
@@ -583,12 +541,12 @@ func (r *SimbaAdgroupidsChangedGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupidsChangedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupidsChangedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -625,12 +583,12 @@ func (r *SimbaAdgroupidsDeletedGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupidsDeletedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupidsDeletedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -667,12 +625,12 @@ func (r *SimbaAdgroupsChangedGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupsChangedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupsChangedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -751,12 +709,12 @@ func (r *SimbaAdgroupsbyadgroupidsGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码，从1开始 */
+/* 页码，从1开始<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupsbyadgroupidsGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 页尺寸，最大200，如果入参adgroup_ids有传入值，则page_size和page_no值不起作用。如果adgrpup_ids为空而campaign_id有值，此时page_size和page_no值才是返回的页数据大小和页码 */
+/* 页尺寸，最大200，如果入参adgroup_ids有传入值，则page_size和page_no值不起作用。如果adgrpup_ids为空而campaign_id有值，此时page_size和page_no值才是返回的页数据大小和页码<br /> 支持最大值为：200<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupsbyadgroupidsGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -793,12 +751,12 @@ func (r *SimbaAdgroupsbycampaignidGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码，从1开始 */
+/* 页码，从1开始<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupsbycampaignidGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 页尺寸，最大200，如果入参adgroup_ids有传入值，则page_size和page_no值不起作用。如果adgrpup_ids为空而campaign_id有值，此时page_size和page_no值才是返回的页数据大小和页码 */
+/* 页尺寸，最大200，如果入参adgroup_ids有传入值，则page_size和page_no值不起作用。如果adgrpup_ids为空而campaign_id有值，此时page_size和page_no值才是返回的页数据大小和页码<br /> 支持最大值为：200<br /> 支持最小值为：1 */
 func (r *SimbaAdgroupsbycampaignidGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -830,7 +788,7 @@ func (r *SimbaCampaignAddRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 推广计划名称，不能多余20个汉字，不能和客户其他推广计划同名。 */
+/* 推广计划名称，不能多余20个汉字，不能和客户其他推广计划同名。<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *SimbaCampaignAddRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -980,7 +938,7 @@ type SimbaCampaignBudgetUpdateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 如果为空则取消限额；否则必须为整数，单位是元，不得小于30； */
+/* 如果为空则取消限额；否则必须为整数，单位是元，不得小于30；<br /> 支持最大值为：99999<br /> 支持最小值为：30 */
 func (r *SimbaCampaignBudgetUpdateRequest) SetBudget(value string) {
 	r.SetValue("budget", value)
 }
@@ -1086,17 +1044,17 @@ func (r *SimbaCampaignPlatformUpdateRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 非搜索投放频道代码数组，频道代码必须是直通车非搜索类频道列表中的值。 */
+/* 非搜索投放频道代码数组，频道代码必须是直通车非搜索类频道列表中的值。<br /> 支持最大值为：128<br /> 支持最小值为：0 */
 func (r *SimbaCampaignPlatformUpdateRequest) SetNonsearchChannels(value string) {
 	r.SetValue("nonsearch_channels", value)
 }
 
-/* 溢价的百分比，必须是大于等于 1小于等于200的整数 */
+/* 溢价的百分比，必须是大于等于 1小于等于200的整数<br /> 支持最大值为：200<br /> 支持最小值为：1 */
 func (r *SimbaCampaignPlatformUpdateRequest) SetOutsideDiscount(value string) {
 	r.SetValue("outside_discount", value)
 }
 
-/* 搜索投放频道代码数组，频道代码必须是直通车搜索类频道列表中的值，必须包含淘宝内网。 */
+/* 搜索投放频道代码数组，频道代码必须是直通车搜索类频道列表中的值，必须包含淘宝内网。<br /> 支持最大值为：128<br /> 支持最小值为：0 */
 func (r *SimbaCampaignPlatformUpdateRequest) SetSearchChannels(value string) {
 	r.SetValue("search_channels", value)
 }
@@ -1207,7 +1165,7 @@ func (r *SimbaCampaignUpdateRequest) SetOnlineStatus(value string) {
 	r.SetValue("online_status", value)
 }
 
-/* 推广计划名称，不能多余20个字符，不能和客户其他推广计划同名。 */
+/* 推广计划名称，不能多余40个字符，不能和客户其他推广计划同名。<br /> 支持最大长度为：40<br /> 支持的最大列表长度为：40 */
 func (r *SimbaCampaignUpdateRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -1360,7 +1318,7 @@ func (r *SimbaCreativeAddRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 创意标题，最多20个汉字 */
+/* 创意标题，最多20个汉字<br /> 支持最大长度为：40<br /> 支持的最大列表长度为：40 */
 func (r *SimbaCreativeAddRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -1439,7 +1397,7 @@ func (r *SimbaCreativeUpdateRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 创意标题，最多20个汉字 */
+/* 创意标题，最多20个汉字<br /> 支持最大长度为：40<br /> 支持的最大列表长度为：40 */
 func (r *SimbaCreativeUpdateRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -1476,7 +1434,7 @@ func (r *SimbaCreativeidsChangedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaCreativeidsChangedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -1513,12 +1471,12 @@ func (r *SimbaCreativeidsDeletedGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaCreativeidsDeletedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaCreativeidsDeletedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -1560,7 +1518,7 @@ func (r *SimbaCreativesChangedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaCreativesChangedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -1836,7 +1794,7 @@ func (r *SimbaInsightCatsrelatedwordGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 最大返回数量(1-10) */
+/* 最大返回数量(1-10)<br /> 支持最大值为：10<br /> 支持最小值为：1 */
 func (r *SimbaInsightCatsrelatedwordGetRequest) SetResultNum(value string) {
 	r.SetValue("result_num", value)
 }
@@ -1878,7 +1836,7 @@ func (r *SimbaInsightCatstopwordGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 最大返回数量(1-100) */
+/* 最大返回数量(1-100)<br /> 支持最大值为：100<br /> 支持最小值为：1 */
 func (r *SimbaInsightCatstopwordGetRequest) SetResultNum(value string) {
 	r.SetValue("result_num", value)
 }
@@ -2095,12 +2053,12 @@ func (r *SimbaKeywordidsChangedGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaKeywordidsChangedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaKeywordidsChangedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -2137,12 +2095,12 @@ func (r *SimbaKeywordidsDeletedGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaKeywordidsDeletedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaKeywordidsDeletedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -2179,12 +2137,12 @@ func (r *SimbaKeywordsChangedGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaKeywordsChangedGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,默认200最大1000 */
+/* 返回的每页数据量大小,默认200最大1000<br /> 支持最大值为：1000<br /> 支持最小值为：1 */
 func (r *SimbaKeywordsChangedGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -2337,12 +2295,12 @@ func (r *SimbaKeywordsRecommendGetRequest) SetOrderBy(value string) {
 	r.SetValue("order_by", value)
 }
 
-/* 返回的第几页数据，默认为1 */
+/* 返回的第几页数据，默认为1<br /> 支持最小值为：1 */
 func (r *SimbaKeywordsRecommendGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 返回的每页数据量大小,最大200 */
+/* 返回的每页数据量大小,最大200<br /> 支持最大值为：200<br /> 支持最小值为：1 */
 func (r *SimbaKeywordsRecommendGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -2822,12 +2780,12 @@ func (r *SimbaRptAdgroupbaseGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupbaseGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupbaseGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -2895,12 +2853,12 @@ func (r *SimbaRptAdgroupcreativebaseGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupcreativebaseGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupcreativebaseGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -2967,12 +2925,12 @@ func (r *SimbaRptAdgroupcreativeeffectGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupcreativeeffectGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupcreativeeffectGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3039,12 +2997,12 @@ func (r *SimbaRptAdgroupeffectGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupeffectGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupeffectGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3112,12 +3070,12 @@ func (r *SimbaRptAdgroupkeywordbaseGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupkeywordbaseGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupkeywordbaseGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3184,12 +3142,12 @@ func (r *SimbaRptAdgroupkeywordeffectGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupkeywordeffectGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptAdgroupkeywordeffectGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3375,12 +3333,12 @@ func (r *SimbaRptCampadgroupbaseGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptCampadgroupbaseGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptCampadgroupbaseGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3442,12 +3400,12 @@ func (r *SimbaRptCampadgroupeffectGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptCampadgroupeffectGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptCampadgroupeffectGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3509,12 +3467,12 @@ func (r *SimbaRptCampaignbaseGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptCampaignbaseGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptCampaignbaseGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3576,12 +3534,12 @@ func (r *SimbaRptCampaigneffectGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptCampaigneffectGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptCampaigneffectGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3639,12 +3597,12 @@ func (r *SimbaRptCustbaseGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptCustbaseGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptCustbaseGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -3696,12 +3654,12 @@ func (r *SimbaRptCusteffectGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
 
-/* 页码 */
+/* 页码<br /> 支持最小值为：1 */
 func (r *SimbaRptCusteffectGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页大小 */
+/* 每页大小<br /> 支持最小值为：1 */
 func (r *SimbaRptCusteffectGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }

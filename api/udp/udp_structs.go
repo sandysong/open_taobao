@@ -4,12 +4,4 @@
 
 package udp
 
-const VersionNo = "20130808"
-
-/* TargetSearchTopResult */
-type TargetSearchTopResult struct {
-	Field      string `json:"field"`
-	PageSize   int    `json:"page_size"`
-	ResultData string `json:"result_data"`
-	TotalCount int    `json:"total_count"`
-}
+const VersionNo = "20140607"

@@ -4,7 +4,7 @@
 
 package hotel
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* Hotel（酒店）结构。各字段详细说明可参考接口定义，如：酒店发布接口。 */
 type Hotel struct {
@@ -63,6 +63,7 @@ type HotelOrder struct {
 	BuyerNick       string        `json:"buyer_nick"`
 	CheckinDate     string        `json:"checkin_date"`
 	CheckoutDate    string        `json:"checkout_date"`
+	Comment         string        `json:"comment"`
 	ContactName     string        `json:"contact_name"`
 	ContactPhone    string        `json:"contact_phone"`
 	ContactPhoneBak string        `json:"contact_phone_bak"`
@@ -79,6 +80,7 @@ type HotelOrder struct {
 	OutOid          string        `json:"out_oid"`
 	PayTime         string        `json:"pay_time"`
 	Payment         int           `json:"payment"`
+	Prices          []int         `json:"prices"`
 	RefundStatus    string        `json:"refund_status"`
 	Rid             int           `json:"rid"`
 	RoomNumber      int           `json:"room_number"`

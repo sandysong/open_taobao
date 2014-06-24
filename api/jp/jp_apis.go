@@ -92,7 +92,7 @@ func (r *TmallItemsDiscountSearchRequest) SetSort(value string) {
 	r.SetValue("sort", value)
 }
 
-/* 可以用该字段来实现分页功能。表示查询起始位置，默认从第0条开始，start=10,表示从第10条数据开始查询，start不得大于1000。 */
+/* 可以用该字段来实现分页功能。表示查询起始位置，默认从第0条开始，start=10,表示从第10条数据开始查询，start不得大于1000。<br /> 支持最大值为：1000 */
 func (r *TmallItemsDiscountSearchRequest) SetStart(value string) {
 	r.SetValue("start", value)
 }
@@ -126,33 +126,6 @@ type TmallItemsDiscountSearchResponse struct {
 
 type TmallItemsDiscountSearchResponseResult struct {
 	Response *TmallItemsDiscountSearchResponse `json:"tmall_items_discount_search_response"`
-}
-
-/* 获取天猫各类目下精选商品列表。在得到商品ID列表后，再调用taobao.item.get获取商品详情，再调用taobao.taobaoke.items.convert 获取有佣金的淘客推广链接 */
-type TmallSelectedItemsSearchRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 后台类目ID，支持父类目或叶子类目，可以通过taobao.itemcats.get 获取到后台类目ID列表 */
-func (r *TmallSelectedItemsSearchRequest) SetCid(value string) {
-	r.SetValue("cid", value)
-}
-
-func (r *TmallSelectedItemsSearchRequest) GetResponse(accessToken string) (*TmallSelectedItemsSearchResponse, []byte, error) {
-	var resp TmallSelectedItemsSearchResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "tmall.selected.items.search", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type TmallSelectedItemsSearchResponse struct {
-	ItemList []*SelectedItem `json:"item_list"`
-}
-
-type TmallSelectedItemsSearchResponseResult struct {
-	Response *TmallSelectedItemsSearchResponse `json:"tmall_selected_items_search_response"`
 }
 
 /* 根据品牌特卖（temai.tmall.com）类目返回品牌特卖商品列表。在得到商品ID列表后，再调用taobao.item.get获取商品详情，再调用taobao.taobaoke.items.convert 获取有佣金的淘客推广链接 */

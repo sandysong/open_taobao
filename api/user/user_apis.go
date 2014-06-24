@@ -13,7 +13,7 @@ type UserBuyerGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 只返回user_id,nick,sex,buyer_credit,avatar,has_shop,vip_info参数 */
+/* 只返回nick, avatar参数 */
 func (r *UserBuyerGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
@@ -95,36 +95,4 @@ type UserSellerGetResponse struct {
 
 type UserSellerGetResponseResult struct {
 	Response *UserSellerGetResponse `json:"user_seller_get_response"`
-}
-
-/* 传入多个淘宝会员帐号返回多个用户公开信息 */
-type UsersGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 查询字段：User数据结构的公开信息字段列表，以半角逗号(,)分隔 */
-func (r *UsersGetRequest) SetFields(value string) {
-	r.SetValue("fields", value)
-}
-
-/* 用户昵称，多个以半角逗号(,)分隔，最多40个 */
-func (r *UsersGetRequest) SetNicks(value string) {
-	r.SetValue("nicks", value)
-}
-
-func (r *UsersGetRequest) GetResponse(accessToken string) (*UsersGetResponse, []byte, error) {
-	var resp UsersGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.users.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type UsersGetResponse struct {
-	Users []*User `json:"users"`
-}
-
-type UsersGetResponseResult struct {
-	Response *UsersGetResponse `json:"users_get_response"`
 }

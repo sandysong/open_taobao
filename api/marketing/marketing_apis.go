@@ -8,7 +8,7 @@ import (
 	"github.com/changkong/open_taobao"
 )
 
-/* 商品优惠详情查询，可查询商品设置的详细优惠。包括限时折扣，满就送等官方优惠以及第三方优惠。此接口有调用频率限制请酌情使用，建议使用淘客API获取商品折扣价格。 */
+/* 商品优惠详情查询，可查询商品设置的详细优惠。包括限时折扣，满就送等官方优惠以及第三方优惠。 */
 type UmpPromotionGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -115,131 +115,6 @@ type MarketingPromotionsGetResponseResult struct {
 	Response *MarketingPromotionsGetResponse `json:"marketing_promotions_get_response"`
 }
 
-/* 查询人群标签，返回卖家创建的全部人群标签（有效的） */
-type MarketingTagsGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 需要的返回字段，可选值为UserTag中所有字段 */
-func (r *MarketingTagsGetRequest) SetFields(value string) {
-	r.SetValue("fields", value)
-}
-
-func (r *MarketingTagsGetRequest) GetResponse(accessToken string) (*MarketingTagsGetResponse, []byte, error) {
-	var resp MarketingTagsGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.marketing.tags.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type MarketingTagsGetResponse struct {
-	UserTags []*UserTag `json:"user_tags"`
-}
-
-type MarketingTagsGetResponseResult struct {
-	Response *MarketingTagsGetResponse `json:"marketing_tags_get_response"`
-}
-
-/* 创建某个卖家的店铺优惠券领取活动。返回，优惠券领取活动ID，优惠券领取链接。 */
-type PromotionActivityAddRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 优惠券总领用数量 */
-func (r *PromotionActivityAddRequest) SetCouponCount(value string) {
-	r.SetValue("coupon_count", value)
-}
-
-/* 优惠券的id，唯一标识这个优惠券 */
-func (r *PromotionActivityAddRequest) SetCouponId(value string) {
-	r.SetValue("coupon_id", value)
-}
-
-/* 每个人最多领用数量，0代表不限 */
-func (r *PromotionActivityAddRequest) SetPersonLimitCount(value string) {
-	r.SetValue("person_limit_count", value)
-}
-
-/* 是否将该活动优惠券同步到淘券市场
-1（不同步）
-2（同步） */
-func (r *PromotionActivityAddRequest) SetUploadToTaoquan(value string) {
-	r.SetValue("upload_to_taoquan", value)
-}
-
-func (r *PromotionActivityAddRequest) GetResponse(accessToken string) (*PromotionActivityAddResponse, []byte, error) {
-	var resp PromotionActivityAddResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.promotion.activity.add", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type PromotionActivityAddResponse struct {
-	Activity *Activity `json:"activity"`
-}
-
-type PromotionActivityAddResponseResult struct {
-	Response *PromotionActivityAddResponse `json:"promotion_activity_add_response"`
-}
-
-/* 取消正在开始的店铺优惠券活动 */
-type PromotionActivityCancelRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 活动id */
-func (r *PromotionActivityCancelRequest) SetActivityId(value string) {
-	r.SetValue("activity_id", value)
-}
-
-func (r *PromotionActivityCancelRequest) GetResponse(accessToken string) (*PromotionActivityCancelResponse, []byte, error) {
-	var resp PromotionActivityCancelResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.promotion.activity.cancel", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type PromotionActivityCancelResponse struct {
-	IsSuccess bool `json:"is_success"`
-}
-
-type PromotionActivityCancelResponseResult struct {
-	Response *PromotionActivityCancelResponse `json:"promotion_activity_cancel_response"`
-}
-
-/* 删除卖家创建的店铺优惠券活动 */
-type PromotionActivityDeleteRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 优惠券的id */
-func (r *PromotionActivityDeleteRequest) SetActivityId(value string) {
-	r.SetValue("activity_id", value)
-}
-
-func (r *PromotionActivityDeleteRequest) GetResponse(accessToken string) (*PromotionActivityDeleteResponse, []byte, error) {
-	var resp PromotionActivityDeleteResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.promotion.activity.delete", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type PromotionActivityDeleteResponse struct {
-	IsSuccess bool `json:"is_success"`
-}
-
-type PromotionActivityDeleteResponseResult struct {
-	Response *PromotionActivityDeleteResponse `json:"promotion_activity_delete_response"`
-}
-
 /* 查询某个卖家的店铺优惠券领取活动
 返回，优惠券领取活动ID，优惠券ID，总领用量，每人限领量，已领取数量
 领取活动状态，优惠券领取链接
@@ -270,7 +145,7 @@ type PromotionActivityGetResponseResult struct {
 	Response *PromotionActivityGetResponse `json:"promotion_activity_get_response"`
 }
 
-/* 创建店铺优惠券。有效期内的店铺优惠券总数量不超过200张 */
+/* 创建店铺优惠券。有效期内的店铺优惠券总数量不超过50张 */
 type PromotionCouponAddRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -280,7 +155,7 @@ func (r *PromotionCouponAddRequest) SetCondition(value string) {
 	r.SetValue("condition", value)
 }
 
-/* 优惠券的面额，必须是3，5，10，20，50，100 */
+/* 优惠券的面额，必须是3，5，10，20，50，100<br /> 支持最大值为：100<br /> 支持最小值为：3 */
 func (r *PromotionCouponAddRequest) SetDenominations(value string) {
 	r.SetValue("denominations", value)
 }
@@ -346,97 +221,38 @@ type PromotionCouponSendResponseResult struct {
 	Response *PromotionCouponSendResponse `json:"promotion_coupon_send_response"`
 }
 
-/* 买家可以将自己“未使用”状态下的优惠券转发给任意淘宝用户。
-只能转发“未使用”状态下的优惠券 */
-type PromotionCouponTransferRequest struct {
+/* 通过接口批量发放店铺优惠券（每次只能发送100张，只能发给当前授权卖家店铺的微淘粉丝），发送成功则返回为空，发送失败则返回失败的买家列表和发送成功的买家和优惠券的number。注：如果所有买家都发放失败的话，is_success也为true，建议调用者根据返回的集合判断是否送入的买家都发放成功了 */
+type PromotionCouponSnsSendRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 优惠券编号 */
-func (r *PromotionCouponTransferRequest) SetCouponNumber(value string) {
-	r.SetValue("coupon_number", value)
-}
-
-/* 要赠送的淘宝昵称 */
-func (r *PromotionCouponTransferRequest) SetReceiveingBuyerName(value string) {
-	r.SetValue("receiveing_buyer_name", value)
-}
-
-func (r *PromotionCouponTransferRequest) GetResponse(accessToken string) (*PromotionCouponTransferResponse, []byte, error) {
-	var resp PromotionCouponTransferResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.promotion.coupon.transfer", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type PromotionCouponTransferResponse struct {
-	IsSuccess bool `json:"is_success"`
-}
-
-type PromotionCouponTransferResponseResult struct {
-	Response *PromotionCouponTransferResponse `json:"promotion_coupon_transfer_response"`
-}
-
-/* 通过接口可以查询某个店铺优惠券的买家详细信息返回的信息，买家昵称， 使用渠道，使用状态，总数量 */
-type PromotionCoupondetailGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 买家昵称 */
-func (r *PromotionCoupondetailGetRequest) SetBuyerNick(value string) {
+/* 买家昵称用半角','号分割 */
+func (r *PromotionCouponSnsSendRequest) SetBuyerNick(value string) {
 	r.SetValue("buyer_nick", value)
 }
 
 /* 优惠券的id */
-func (r *PromotionCoupondetailGetRequest) SetCouponId(value string) {
+func (r *PromotionCouponSnsSendRequest) SetCouponId(value string) {
 	r.SetValue("coupon_id", value)
 }
 
-/* 传入优惠券截止时间，即失效时间。查询输入日期向前15天的数据；不传则查询当前日期向前15天的数据。比如查询明天才失效的优惠卷，要传入明天之后15天内的日期，才能查询到该优惠卷。 */
-func (r *PromotionCoupondetailGetRequest) SetEndTime(value string) {
-	r.SetValue("end_time", value)
-}
-
-/* 这是一个扩展字段 供版本升级用
-当前如果新版本的话 可以传入new字符串 */
-func (r *PromotionCoupondetailGetRequest) SetExtendParams(value string) {
-	r.SetValue("extend_params", value)
-}
-
-/* 查询的页号，结果集是分页返回的，每页20条 */
-func (r *PromotionCoupondetailGetRequest) SetPageNo(value string) {
-	r.SetValue("page_no", value)
-}
-
-/* 每页行数 */
-func (r *PromotionCoupondetailGetRequest) SetPageSize(value string) {
-	r.SetValue("page_size", value)
-}
-
-/* 优惠券使用情况unused：代表未使用using：代表使用中used：代表已使用。必须是unused，using，used */
-func (r *PromotionCoupondetailGetRequest) SetState(value string) {
-	r.SetValue("state", value)
-}
-
-func (r *PromotionCoupondetailGetRequest) GetResponse(accessToken string) (*PromotionCoupondetailGetResponse, []byte, error) {
-	var resp PromotionCoupondetailGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.promotion.coupondetail.get", &resp)
+func (r *PromotionCouponSnsSendRequest) GetResponse(accessToken string) (*PromotionCouponSnsSendResponse, []byte, error) {
+	var resp PromotionCouponSnsSendResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.promotion.coupon.sns.send", &resp)
 	if err != nil {
 		return nil, data, err
 	}
 	return resp.Response, data, err
 }
 
-type PromotionCoupondetailGetResponse struct {
-	CouponDetails  []*CouponDetail `json:"coupon_details"`
-	IsHaveNextPage bool            `json:"is_have_next_page"`
-	TotalResults   int             `json:"total_results"`
+type PromotionCouponSnsSendResponse struct {
+	CouponResults []*CouponResult `json:"coupon_results"`
+	FailureBuyers []*ErrorMessage `json:"failure_buyers"`
+	IsSuccess     bool            `json:"is_success"`
 }
 
-type PromotionCoupondetailGetResponseResult struct {
-	Response *PromotionCoupondetailGetResponse `json:"promotion_coupondetail_get_response"`
+type PromotionCouponSnsSendResponseResult struct {
+	Response *PromotionCouponSnsSendResponse `json:"promotion_coupon_sns_send_response"`
 }
 
 /* 查询卖家已经创建的优惠券，接口返回信息：优惠券ID，面值，创建时间，有效期，使用条件，使用渠道，创建渠道，优惠券总数量 */
@@ -449,7 +265,7 @@ func (r *PromotionCouponsGetRequest) SetCouponId(value string) {
 	r.SetValue("coupon_id", value)
 }
 
-/* 优惠券的面额，必须是3，5，10，20，50,100 */
+/* 优惠券的面额，必须是3，5，10，20，50,100<br /> 支持最大值为：100<br /> 支持最小值为：3 */
 func (r *PromotionCouponsGetRequest) SetDenominations(value string) {
 	r.SetValue("denominations", value)
 }
@@ -459,12 +275,12 @@ func (r *PromotionCouponsGetRequest) SetEndTime(value string) {
 	r.SetValue("end_time", value)
 }
 
-/* 查询的页号，结果集是分页返回的，每页20条 */
+/* 查询的页号，结果集是分页返回的，每页20条<br /> 支持最小值为：1 */
 func (r *PromotionCouponsGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数 */
+/* 每页条数<br /> 支持的最大列表长度为：20 */
 func (r *PromotionCouponsGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -599,12 +415,12 @@ type UmpActivitiesGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 分页的页码 */
+/* 分页的页码<br /> 支持最小值为：0 */
 func (r *UmpActivitiesGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页的最大条数 */
+/* 每页的最大条数<br /> 支持最大值为：50<br /> 支持最小值为：1 */
 func (r *UmpActivitiesGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -937,12 +753,12 @@ func (r *UmpDetailsGetRequest) SetActId(value string) {
 	r.SetValue("act_id", value)
 }
 
-/* 分页的页码 */
+/* 分页的页码<br /> 支持最小值为：0 */
 func (r *UmpDetailsGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页的最大条数 */
+/* 每页的最大条数<br /> 支持最大值为：50<br /> 支持最小值为：1 */
 func (r *UmpDetailsGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }

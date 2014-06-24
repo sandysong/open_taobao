@@ -13,12 +13,12 @@ type RdsDbCreateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 数据库名 */
+/* 数据库名<br /> 支持最大长度为：64<br /> 支持的最大列表长度为：64 */
 func (r *RdsDbCreateRequest) SetDbName(value string) {
 	r.SetValue("db_name", value)
 }
 
-/* rds的实例名 */
+/* rds的实例名<br /> 支持最大长度为：30<br /> 支持的最大列表长度为：30 */
 func (r *RdsDbCreateRequest) SetInstanceName(value string) {
 	r.SetValue("instance_name", value)
 }
@@ -50,7 +50,7 @@ func (r *RdsDbDeleteRequest) SetDbName(value string) {
 	r.SetValue("db_name", value)
 }
 
-/* rds的实例名 */
+/* rds的实例名<br /> 支持最大长度为：30<br /> 支持的最大列表长度为：30 */
 func (r *RdsDbDeleteRequest) SetInstanceName(value string) {
 	r.SetValue("instance_name", value)
 }
@@ -77,12 +77,12 @@ type RdsDbGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 数据库状态，默认值1 */
+/* 数据库状态，默认值1<br /> 支持最大值为：3<br /> 支持最小值为：0<br /> 支持的最大列表长度为：1 */
 func (r *RdsDbGetRequest) SetDbStatus(value string) {
 	r.SetValue("db_status", value)
 }
 
-/* rds的实例名 */
+/* rds的实例名<br /> 支持最大长度为：30<br /> 支持的最大列表长度为：30 */
 func (r *RdsDbGetRequest) SetInstanceName(value string) {
 	r.SetValue("instance_name", value)
 }

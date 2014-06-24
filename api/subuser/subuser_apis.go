@@ -26,17 +26,17 @@ type SellercenterRoleAddRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 角色描述 */
+/* 角色描述<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *SellercenterRoleAddRequest) SetDescription(value string) {
 	r.SetValue("description", value)
 }
 
-/* 角色名 */
+/* 角色名<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *SellercenterRoleAddRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
 
-/* 表示卖家昵称 */
+/* 表示卖家昵称<br /> 支持最大长度为：500<br /> 支持的最大列表长度为：500 */
 func (r *SellercenterRoleAddRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
@@ -68,7 +68,7 @@ type SellercenterRoleInfoGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 角色id */
+/* 角色id<br /> 支持的最大列表长度为：100 */
 func (r *SellercenterRoleInfoGetRequest) SetRoleId(value string) {
 	r.SetValue("role_id", value)
 }
@@ -95,7 +95,7 @@ type SellercenterRolemembersGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 角色id */
+/* 角色id<br /> 支持的最大列表长度为：100 */
 func (r *SellercenterRolemembersGetRequest) SetRoleId(value string) {
 	r.SetValue("role_id", value)
 }
@@ -122,7 +122,7 @@ type SellercenterRolesGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 卖家昵称(只允许查询自己的信息：当前登陆者) */
+/* 卖家昵称(只允许查询自己的信息：当前登陆者)<br /> 支持最大长度为：500<br /> 支持的最大列表长度为：500 */
 func (r *SellercenterRolesGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }
@@ -149,7 +149,7 @@ type SellercenterSubuserPermissionsRolesGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 子账号昵称(子账号标识) */
+/* 子账号昵称(子账号标识)<br /> 支持最大长度为：100<br /> 支持的最大列表长度为：100 */
 func (r *SellercenterSubuserPermissionsRolesGetRequest) SetNick(value string) {
 	r.SetValue("nick", value)
 }

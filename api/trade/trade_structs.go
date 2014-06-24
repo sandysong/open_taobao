@@ -4,26 +4,7 @@
 
 package trade
 
-const VersionNo = "20130808"
-
-/* 批量异步任务结果 */
-type Task struct {
-	CheckCode   string     `json:"check_code"`
-	Created     string     `json:"created"`
-	DownloadUrl string     `json:"download_url"`
-	Method      string     `json:"method"`
-	Schedule    string     `json:"schedule"`
-	Status      string     `json:"status"`
-	Subtasks    []*Subtask `json:"subtasks"`
-	TaskId      int        `json:"task_id"`
-}
-
-/* 批量异步任务的子任务结果 */
-type Subtask struct {
-	IsSuccess      bool   `json:"is_success"`
-	SubTaskRequest string `json:"sub_task_request"`
-	SubTaskResult  string `json:"sub_task_result"`
-}
+const VersionNo = "20140607"
 
 /* 交易订单的帐务信息详情 */
 type TradeAmount struct {
@@ -49,9 +30,11 @@ type TradeAmount struct {
 type OrderAmount struct {
 	AdjustFee         string `json:"adjust_fee"`
 	DiscountFee       string `json:"discount_fee"`
+	DivideOrderFee    string `json:"divide_order_fee"`
 	Num               int    `json:"num"`
 	NumIid            int    `json:"num_iid"`
 	Oid               int    `json:"oid"`
+	PartMjzDiscount   string `json:"part_mjz_discount"`
 	Payment           string `json:"payment"`
 	Price             string `json:"price"`
 	PromotionName     string `json:"promotion_name"`
@@ -80,6 +63,9 @@ type Trade struct {
 	AlipayUrl           string             `json:"alipay_url"`
 	AlipayWarnMsg       string             `json:"alipay_warn_msg"`
 	AreaId              string             `json:"area_id"`
+	ArriveCutTime       string             `json:"arrive_cut_time"`
+	ArriveInterval      int                `json:"arrive_interval"`
+	AsyncModified       string             `json:"async_modified"`
 	AvailableConfirmFee string             `json:"available_confirm_fee"`
 	BuyerAlipayNo       string             `json:"buyer_alipay_no"`
 	BuyerArea           string             `json:"buyer_area"`
@@ -95,9 +81,11 @@ type Trade struct {
 	CodFee              string             `json:"cod_fee"`
 	CodStatus           string             `json:"cod_status"`
 	CommissionFee       string             `json:"commission_fee"`
+	ConsignInterval     int                `json:"consign_interval"`
 	ConsignTime         string             `json:"consign_time"`
 	Created             string             `json:"created"`
 	CreditCardFee       string             `json:"credit_card_fee"`
+	DiscountFee         string             `json:"discount_fee"`
 	EndTime             string             `json:"end_time"`
 	EticketExt          string             `json:"eticket_ext"`
 	ExpressAgencyFee    string             `json:"express_agency_fee"`
@@ -106,6 +94,7 @@ type Trade struct {
 	HasYfx              bool               `json:"has_yfx"`
 	Iid                 string             `json:"iid"`
 	InvoiceName         string             `json:"invoice_name"`
+	InvoiceType         string             `json:"invoice_type"`
 	Is3D                bool               `json:"is_3D"`
 	IsBrandSale         bool               `json:"is_brand_sale"`
 	IsDaixiao           bool               `json:"is_daixiao"`
@@ -152,6 +141,7 @@ type Trade struct {
 	SellerRate          bool               `json:"seller_rate"`
 	SendTime            string             `json:"send_time"`
 	ServiceOrders       []*ServiceOrder    `json:"service_orders"`
+	ServiceTags         []*LogisticsTag    `json:"service_tags"`
 	ShippingType        string             `json:"shipping_type"`
 	Snapshot            string             `json:"snapshot"`
 	SnapshotUrl         string             `json:"snapshot_url"`
@@ -180,12 +170,14 @@ type Order struct {
 	Cid               int    `json:"cid"`
 	ConsignTime       string `json:"consign_time"`
 	DiscountFee       string `json:"discount_fee"`
+	DivideOrderFee    string `json:"divide_order_fee"`
 	EndTime           string `json:"end_time"`
 	Iid               string `json:"iid"`
 	InvoiceNo         string `json:"invoice_no"`
 	IsDaixiao         bool   `json:"is_daixiao"`
 	IsOversold        bool   `json:"is_oversold"`
 	IsServiceOrder    bool   `json:"is_service_order"`
+	IsWww             bool   `json:"is_www"`
 	ItemMealId        int    `json:"item_meal_id"`
 	ItemMealName      string `json:"item_meal_name"`
 	LogisticsCompany  string `json:"logistics_company"`
@@ -196,6 +188,7 @@ type Order struct {
 	OrderFrom         string `json:"order_from"`
 	OuterIid          string `json:"outer_iid"`
 	OuterSkuId        string `json:"outer_sku_id"`
+	PartMjzDiscount   string `json:"part_mjz_discount"`
 	Payment           string `json:"payment"`
 	PicPath           string `json:"pic_path"`
 	Price             string `json:"price"`
@@ -210,6 +203,9 @@ type Order struct {
 	Snapshot          string `json:"snapshot"`
 	SnapshotUrl       string `json:"snapshot_url"`
 	Status            string `json:"status"`
+	StoreCode         string `json:"store_code"`
+	TicketExpdateKey  string `json:"ticket_expdate_key"`
+	TicketOuterId     string `json:"ticket_outer_id"`
 	TimeoutActionTime string `json:"timeout_action_time"`
 	Title             string `json:"title"`
 	TotalFee          string `json:"total_fee"`
@@ -232,9 +228,76 @@ type ServiceOrder struct {
 	TotalFee         string `json:"total_fee"`
 }
 
+/* 物流的服务标签 */
+type LogisticsTag struct {
+	LogisticServiceTagList []*LogisticServiceTag `json:"logistic_service_tag_list"`
+	OrderId                string                `json:"order_id"`
+}
+
+/* 物流服务标签 */
+type LogisticServiceTag struct {
+	ServiceTag  string `json:"service_tag"`
+	ServiceType string `json:"service_type"`
+}
+
 /* 确认收货费用结构 */
 type TradeConfirmFee struct {
 	ConfirmFee     float64 `json:"confirm_fee"`
 	ConfirmPostFee float64 `json:"confirm_post_fee"`
 	IsLastOrder    bool    `json:"is_last_order"`
+}
+
+/* 外卖订单查询结果 */
+type ListResult struct {
+	ResultList []*TakeoutThirdOrder `json:"result_list"`
+	ResultSize int                  `json:"result_size"`
+	RetCode    string               `json:"ret_code"`
+	TotalCount int                  `json:"total_count"`
+}
+
+/* 外卖订单对象 */
+type TakeoutThirdOrder struct {
+	Address           string            `json:"address"`
+	AlipayStreamId    string            `json:"alipay_stream_id"`
+	CreateTime        string            `json:"create_time"`
+	DeliveryPay       float64           `json:"delivery_pay"`
+	EndDeliverytime   string            `json:"end_deliverytime"`
+	From              int               `json:"from"`
+	GoodsList         []*OrderGoods     `json:"goods_list"`
+	Id                int               `json:"id"`
+	Note              string            `json:"note"`
+	OrderStatus       int               `json:"order_status"`
+	PayAccount        string            `json:"pay_account"`
+	PeopleNumber      int               `json:"people_number"`
+	StartDeliverytime string            `json:"start_deliverytime"`
+	StoreContactphone string            `json:"store_contactphone"`
+	StoreId           int               `json:"store_id"`
+	StoreName         string            `json:"store_name"`
+	TotalPay          float64           `json:"total_pay"`
+	UserAddress       *UserThirdAddress `json:"user_address"`
+	UserId            int               `json:"user_id"`
+}
+
+/* 物流订单商品 */
+type OrderGoods struct {
+	AuctionCode   string `json:"auction_code"`
+	Count         int    `json:"count"`
+	GoodsCode     string `json:"goods_code"`
+	GoodsName     string `json:"goods_name"`
+	GoodsPicId    string `json:"goods_pic_id"`
+	GoodsQuantity int    `json:"goods_quantity"`
+	ItemValue     int    `json:"item_value"`
+	Name          string `json:"name"`
+	OrderGoodsId  int    `json:"order_goods_id"`
+	RealPrice     string `json:"real_price"`
+	SellProperty  string `json:"sell_property"`
+	UserId        int    `json:"user_id"`
+}
+
+/* 送货地址对象 */
+type UserThirdAddress struct {
+	Address string `json:"address"`
+	Mobile  string `json:"mobile"`
+	Name    string `json:"name"`
+	Phone   string `json:"phone"`
 }

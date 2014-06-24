@@ -8,6 +8,43 @@ import (
 	"github.com/changkong/open_taobao"
 )
 
+/* 查询支付宝账单下载地址 */
+type AlipayDataBillDownloadurlGetRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* 支付宝给用户的授权。如果没有top的授权，这个字段是必填项 */
+func (r *AlipayDataBillDownloadurlGetRequest) SetAuthToken(value string) {
+	r.SetValue("auth_token", value)
+}
+
+/* 账单时间：日账单格式为yyyy-MM-dd,月账单格式为yyyy-MM */
+func (r *AlipayDataBillDownloadurlGetRequest) SetBillDate(value string) {
+	r.SetValue("bill_date", value)
+}
+
+/* 账单类型，目前支持的类型有：air */
+func (r *AlipayDataBillDownloadurlGetRequest) SetBillType(value string) {
+	r.SetValue("bill_type", value)
+}
+
+func (r *AlipayDataBillDownloadurlGetRequest) GetResponse(accessToken string) (*AlipayDataBillDownloadurlGetResponse, []byte, error) {
+	var resp AlipayDataBillDownloadurlGetResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alipay.data.bill.downloadurl.get", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type AlipayDataBillDownloadurlGetResponse struct {
+	BillDownloadUrl string `json:"bill_download_url"`
+}
+
+type AlipayDataBillDownloadurlGetResponseResult struct {
+	Response *AlipayDataBillDownloadurlGetResponse `json:"alipay_data_bill_downloadurl_get_response"`
+}
+
 /* 创建生活账单 */
 type AlipayEbppBillAddRequest struct {
 	open_taobao.TaobaoMethodRequest
@@ -23,17 +60,17 @@ func (r *AlipayEbppBillAddRequest) SetBillDate(value string) {
 	r.SetValue("bill_date", value)
 }
 
-/* 账单单据号，例如水费单号，手机号，电费号，信用卡卡号。没有唯一性要求。 */
+/* 账单单据号，例如水费单号，手机号，电费号，信用卡卡号。没有唯一性要求。<br /> 支持最大长度为：50<br /> 支持的最大列表长度为：50 */
 func (r *AlipayEbppBillAddRequest) SetBillKey(value string) {
 	r.SetValue("bill_key", value)
 }
 
-/* 支付宝给每个出账机构指定了一个对应的英文短名称来唯一表示该收费单位。 */
+/* 支付宝给每个出账机构指定了一个对应的英文短名称来唯一表示该收费单位。<br /> 支持最大长度为：80<br /> 支持的最大列表长度为：80 */
 func (r *AlipayEbppBillAddRequest) SetChargeInst(value string) {
 	r.SetValue("charge_inst", value)
 }
 
-/* 输出机构的业务流水号，需要保证唯一性。 */
+/* 输出机构的业务流水号，需要保证唯一性。<br /> 支持最大长度为：32<br /> 支持的最大列表长度为：32 */
 func (r *AlipayEbppBillAddRequest) SetMerchantOrderNo(value string) {
 	r.SetValue("merchant_order_no", value)
 }
@@ -43,12 +80,12 @@ func (r *AlipayEbppBillAddRequest) SetMobile(value string) {
 	r.SetValue("mobile", value)
 }
 
-/* 支付宝订单类型。公共事业缴纳JF,信用卡还款HK */
+/* 支付宝订单类型。公共事业缴纳JF,信用卡还款HK<br /> 支持最大长度为：10<br /> 支持的最大列表长度为：10 */
 func (r *AlipayEbppBillAddRequest) SetOrderType(value string) {
 	r.SetValue("order_type", value)
 }
 
-/* 拥有该账单的用户姓名 */
+/* 拥有该账单的用户姓名<br /> 支持最大长度为：50<br /> 支持的最大列表长度为：50 */
 func (r *AlipayEbppBillAddRequest) SetOwnerName(value string) {
 	r.SetValue("owner_name", value)
 }
@@ -63,7 +100,7 @@ func (r *AlipayEbppBillAddRequest) SetServiceAmount(value string) {
 	r.SetValue("service_amount", value)
 }
 
-/* 子业务类型是业务类型的下一级概念，例如：WATER表示JF下面的水费，ELECTRIC表示JF下面的电费，GAS表示JF下面的燃气费。 */
+/* 子业务类型是业务类型的下一级概念，例如：WATER表示JF下面的水费，ELECTRIC表示JF下面的电费，GAS表示JF下面的燃气费。<br /> 支持最大长度为：10<br /> 支持的最大列表长度为：10 */
 func (r *AlipayEbppBillAddRequest) SetSubOrderType(value string) {
 	r.SetValue("sub_order_type", value)
 }
@@ -105,140 +142,116 @@ type AlipayEbppBillAddResponseResult struct {
 	Response *AlipayEbppBillAddResponse `json:"alipay_ebpp_bill_add_response"`
 }
 
-/* 查询生活账单信息 */
-type AlipayEbppBillGetRequest struct {
+/* 用于发账单业务中，提交下载用户户号请求，文件生成成功之后，会通知下载地址。 */
+type AlipayEbppBillKeySearchRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 支付宝授权凭证，如果有淘宝的session可以不传 */
-func (r *AlipayEbppBillGetRequest) SetAuthToken(value string) {
-	r.SetValue("auth_token", value)
+/* 支付宝给每个出账机构指定了一个对应的英文短名称来唯一表示该收费单位。<br /> 支持最大长度为：80<br /> 支持的最大列表长度为：80 */
+func (r *AlipayEbppBillKeySearchRequest) SetChargeInst(value string) {
+	r.SetValue("charge_inst", value)
 }
 
-/* 输出机构的业务流水号，需要保证唯一性。 */
-func (r *AlipayEbppBillGetRequest) SetMerchantOrderNo(value string) {
-	r.SetValue("merchant_order_no", value)
+/* 结束时间。与开始时间间隔在七天之内 */
+func (r *AlipayEbppBillKeySearchRequest) SetEndTime(value string) {
+	r.SetValue("end_time", value)
 }
 
-/* 支付宝订单类型。公共事业缴纳JF,信用卡还款HK */
-func (r *AlipayEbppBillGetRequest) SetOrderType(value string) {
+/* 需要返回的字段列表。bill_key:户号 */
+func (r *AlipayEbppBillKeySearchRequest) SetFields(value string) {
+	r.SetValue("fields", value)
+}
+
+/* 是否仅包含订阅数据 */
+func (r *AlipayEbppBillKeySearchRequest) SetOnlySubscribed(value string) {
+	r.SetValue("only_subscribed", value)
+}
+
+/* 支付宝订单类型。公共事业缴纳JF,信用卡还款HK<br /> 支持最大长度为：10<br /> 支持的最大列表长度为：10 */
+func (r *AlipayEbppBillKeySearchRequest) SetOrderType(value string) {
 	r.SetValue("order_type", value)
 }
 
-func (r *AlipayEbppBillGetRequest) GetResponse(accessToken string) (*AlipayEbppBillGetResponse, []byte, error) {
-	var resp AlipayEbppBillGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alipay.ebpp.bill.get", &resp)
+/* 开始时间，时间必须是今天范围之内。格式为yyyy-MM-dd HH:mm:ss，精确到天 */
+func (r *AlipayEbppBillKeySearchRequest) SetStartTime(value string) {
+	r.SetValue("start_time", value)
+}
+
+/* 子业务类型是业务类型的下一级概念，例如：WATER表示JF下面的水费，ELECTRIC表示JF下面的电费，GAS表示JF下面的燃气费。<br /> 支持最大长度为：10<br /> 支持的最大列表长度为：10 */
+func (r *AlipayEbppBillKeySearchRequest) SetSubOrderType(value string) {
+	r.SetValue("sub_order_type", value)
+}
+
+func (r *AlipayEbppBillKeySearchRequest) GetResponse(accessToken string) (*AlipayEbppBillKeySearchResponse, []byte, error) {
+	var resp AlipayEbppBillKeySearchResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alipay.ebpp.bill.key.search", &resp)
 	if err != nil {
 		return nil, data, err
 	}
 	return resp.Response, data, err
 }
 
-type AlipayEbppBillGetResponse struct {
-	AlipayOrderNo      string  `json:"alipay_order_no"`
-	BillDate           string  `json:"bill_date"`
-	BillKey            string  `json:"bill_key"`
-	ChargeInst         string  `json:"charge_inst"`
-	ChargeInstName     string  `json:"charge_inst_name"`
-	MerchantOrderNo    string  `json:"merchant_order_no"`
-	OrderStatus        string  `json:"order_status"`
-	OrderType          string  `json:"order_type"`
-	OwnerName          string  `json:"owner_name"`
-	PayAmount          float64 `json:"pay_amount"`
-	ServiceAmount      float64 `json:"service_amount"`
-	SubOrderType       string  `json:"sub_order_type"`
-	TrafficLocation    string  `json:"traffic_location"`
-	TrafficRegulations string  `json:"traffic_regulations"`
+type AlipayEbppBillKeySearchResponse struct {
+	TaskId string `json:"task_id"`
 }
 
-type AlipayEbppBillGetResponseResult struct {
-	Response *AlipayEbppBillGetResponse `json:"alipay_ebpp_bill_get_response"`
+type AlipayEbppBillKeySearchResponseResult struct {
+	Response *AlipayEbppBillKeySearchResponse `json:"alipay_ebpp_bill_key_search_response"`
 }
 
-/* 对生活账单进行支付接口 */
-type AlipayEbppBillPayRequest struct {
+/* 发账单业务，上传用户的欠费信息。 */
+type AlipayEbppOweBillUploadRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 支付宝的业务订单号，具有唯一性。 */
-func (r *AlipayEbppBillPayRequest) SetAlipayOrderNo(value string) {
-	r.SetValue("alipay_order_no", value)
+/* 支付宝给每个出账机构指定了一个对应的英文短名称来唯一表示该收费单位。<br /> 支持最大长度为：80<br /> 支持的最大列表长度为：80 */
+func (r *AlipayEbppOweBillUploadRequest) SetChargeInst(value string) {
+	r.SetValue("charge_inst", value)
 }
 
-/* 如有有淘宝授权的session可以不传这个字段 */
-func (r *AlipayEbppBillPayRequest) SetAuthToken(value string) {
-	r.SetValue("auth_token", value)
+/* 销账机构<br /> 支持最大长度为：30<br /> 支持的最大列表长度为：30 */
+func (r *AlipayEbppOweBillUploadRequest) SetChargeoffInst(value string) {
+	r.SetValue("chargeoff_inst", value)
 }
 
-/* 输出机构的业务流水号，需要保证唯一性。 */
-func (r *AlipayEbppBillPayRequest) SetMerchantOrderNo(value string) {
-	r.SetValue("merchant_order_no", value)
+/* 文件摘要，算法SHA */
+func (r *AlipayEbppOweBillUploadRequest) SetDigestOweBill(value string) {
+	r.SetValue("digest_owe_bill", value)
 }
 
-/* 支付宝订单类型。公共事业缴纳JF,信用卡还款HK */
-func (r *AlipayEbppBillPayRequest) SetOrderType(value string) {
+/* 支付宝订单类型。公共事业缴纳JF,信用卡还款HK<br /> 支持最大长度为：10<br /> 支持的最大列表长度为：10 */
+func (r *AlipayEbppOweBillUploadRequest) SetOrderType(value string) {
 	r.SetValue("order_type", value)
 }
 
-func (r *AlipayEbppBillPayRequest) GetResponse(accessToken string) (*AlipayEbppBillPayResponse, []byte, error) {
-	var resp AlipayEbppBillPayResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alipay.ebpp.bill.pay", &resp)
+/* 文件内容<br /> 支持的文件类型为：zip,rar,csv,doc,docx,xls,xlsx<br /> 支持的最大列表长度为：52428800 */
+func (r *AlipayEbppOweBillUploadRequest) SetOweBill(value string) {
+	r.SetValue("owe_bill", value)
+}
+
+/* 子业务类型是业务类型的下一级概念，例如：WATER表示JF下面的水费，ELECTRIC表示JF下面的电费，GAS表示JF下面的燃气费。<br /> 支持最大长度为：10<br /> 支持的最大列表长度为：10 */
+func (r *AlipayEbppOweBillUploadRequest) SetSubOrderType(value string) {
+	r.SetValue("sub_order_type", value)
+}
+
+func (r *AlipayEbppOweBillUploadRequest) GetResponse(accessToken string) (*AlipayEbppOweBillUploadResponse, []byte, error) {
+	var resp AlipayEbppOweBillUploadResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alipay.ebpp.owe.bill.upload", &resp)
 	if err != nil {
 		return nil, data, err
 	}
 	return resp.Response, data, err
 }
 
-type AlipayEbppBillPayResponse struct {
-	AlipayOrderNo   string `json:"alipay_order_no"`
-	MerchantOrderNo string `json:"merchant_order_no"`
-	OrderType       string `json:"order_type"`
+type AlipayEbppOweBillUploadResponse struct {
+	ChargeInst    string `json:"charge_inst"`
+	ChargeoffInst string `json:"chargeoff_inst"`
+	OrderType     string `json:"order_type"`
+	SubOrderType  string `json:"sub_order_type"`
 }
 
-type AlipayEbppBillPayResponseResult struct {
-	Response *AlipayEbppBillPayResponse `json:"alipay_ebpp_bill_pay_response"`
-}
-
-/* 创建账单之后，调用此API返回一个用户自己去收银台付款的URL，用户去收银台页面完成付款操作。 */
-type AlipayEbppBillPayurlGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 支付宝的业务订单号，具有唯一性。 */
-func (r *AlipayEbppBillPayurlGetRequest) SetAlipayOrderNo(value string) {
-	r.SetValue("alipay_order_no", value)
-}
-
-/* 如有有淘宝授权的session可以不传这个字段 */
-func (r *AlipayEbppBillPayurlGetRequest) SetAuthToken(value string) {
-	r.SetValue("auth_token", value)
-}
-
-/* 输出机构的业务流水号，需要保证唯一性。 */
-func (r *AlipayEbppBillPayurlGetRequest) SetMerchantOrderNo(value string) {
-	r.SetValue("merchant_order_no", value)
-}
-
-/* 支付宝订单类型。公共事业缴纳JF,信用卡还款HK。 */
-func (r *AlipayEbppBillPayurlGetRequest) SetOrderType(value string) {
-	r.SetValue("order_type", value)
-}
-
-func (r *AlipayEbppBillPayurlGetRequest) GetResponse(accessToken string) (*AlipayEbppBillPayurlGetResponse, []byte, error) {
-	var resp AlipayEbppBillPayurlGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alipay.ebpp.bill.payurl.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type AlipayEbppBillPayurlGetResponse struct {
-	PayUrl string `json:"pay_url"`
-}
-
-type AlipayEbppBillPayurlGetResponseResult struct {
-	Response *AlipayEbppBillPayurlGetResponse `json:"alipay_ebpp_bill_payurl_get_response"`
+type AlipayEbppOweBillUploadResponseResult struct {
+	Response *AlipayEbppOweBillUploadResponse `json:"alipay_ebpp_owe_bill_upload_response"`
 }
 
 /* 创建并支付冻结单之后，使用此接口获取有密支付的url
@@ -655,17 +668,17 @@ type AlipaySystemOauthTokenRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 授权码，用户对应用授权后得到。 */
+/* 授权码，用户对应用授权后得到。<br /> 支持最大长度为：40<br /> 支持的最大列表长度为：40 */
 func (r *AlipaySystemOauthTokenRequest) SetCode(value string) {
 	r.SetValue("code", value)
 }
 
-/* 获取访问令牌的类型，authorization_code表示用授权码换，refresh_token表示用刷新令牌来换。 */
+/* 获取访问令牌的类型，authorization_code表示用授权码换，refresh_token表示用刷新令牌来换。<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *AlipaySystemOauthTokenRequest) SetGrantType(value string) {
 	r.SetValue("grant_type", value)
 }
 
-/* 刷新令牌，上次换取访问令牌是得到。 */
+/* 刷新令牌，上次换取访问令牌是得到。<br /> 支持最大长度为：40<br /> 支持的最大列表长度为：40 */
 func (r *AlipaySystemOauthTokenRequest) SetRefreshToken(value string) {
 	r.SetValue("refresh_token", value)
 }

@@ -8,469 +8,6 @@ import (
 	"github.com/changkong/open_taobao"
 )
 
-/* 运单发货后，客户或者系统需要撤销运单时，调用撤销接口。 */
-type AlibabaLogisticsOrderCancelRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 物流订单id */
-func (r *AlibabaLogisticsOrderCancelRequest) SetOrderId(value string) {
-	r.SetValue("order_id", value)
-}
-
-/* 撤销原因说明。 */
-func (r *AlibabaLogisticsOrderCancelRequest) SetReason(value string) {
-	r.SetValue("reason", value)
-}
-
-func (r *AlibabaLogisticsOrderCancelRequest) GetResponse(accessToken string) (*AlibabaLogisticsOrderCancelResponse, []byte, error) {
-	var resp AlibabaLogisticsOrderCancelResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alibaba.logistics.order.cancel", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type AlibabaLogisticsOrderCancelResponse struct {
-	CancelOrderResult *CancelOrderResult `json:"cancel_order_result"`
-}
-
-type AlibabaLogisticsOrderCancelResponseResult struct {
-	Response *AlibabaLogisticsOrderCancelResponse `json:"alibaba_logistics_order_cancel_response"`
-}
-
-/* 订单价格计算 */
-type AlibabaLogisticsOrderChargeRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 货物描述 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetCargoDescription(value string) {
-	r.SetValue("cargo_description", value)
-}
-
-/* 货物名称 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetCargoName(value string) {
-	r.SetValue("cargo_name", value)
-}
-
-/* 付款方式。0：发货人支付；1：收货人支付；2：双方支付 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetPayType(value string) {
-	r.SetValue("pay_type", value)
-}
-
-/* 线路标志 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetRouteCode(value string) {
-	r.SetValue("route_code", value)
-}
-
-/* 货物件数 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetTotalNumber(value string) {
-	r.SetValue("total_number", value)
-}
-
-/* 货物体积 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetTotalVolume(value string) {
-	r.SetValue("total_volume", value)
-}
-
-/* 货物重量 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetTotalWeight(value string) {
-	r.SetValue("total_weight", value)
-}
-
-/* 下单选中的增值服务 */
-func (r *AlibabaLogisticsOrderChargeRequest) SetVasList(value string) {
-	r.SetValue("vas_list", value)
-}
-
-func (r *AlibabaLogisticsOrderChargeRequest) GetResponse(accessToken string) (*AlibabaLogisticsOrderChargeResponse, []byte, error) {
-	var resp AlibabaLogisticsOrderChargeResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alibaba.logistics.order.charge", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type AlibabaLogisticsOrderChargeResponse struct {
-	OrderCharge *OrderCharge `json:"order_charge"`
-}
-
-type AlibabaLogisticsOrderChargeResponseResult struct {
-	Response *AlibabaLogisticsOrderChargeResponse `json:"alibaba_logistics_order_charge_response"`
-}
-
-/* 货运发货接口。通过该接口可以在通过淘宝对物流公司下单，并且可以享有部分折扣优惠。 */
-type AlibabaLogisticsOrderConsignRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 货物描述 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetCargoDescription(value string) {
-	r.SetValue("cargo_description", value)
-}
-
-/* 货物名称 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetCargoName(value string) {
-	r.SetValue("cargo_name", value)
-}
-
-/* 物流订单id */
-func (r *AlibabaLogisticsOrderConsignRequest) SetOrderId(value string) {
-	r.SetValue("order_id", value)
-}
-
-/* 付款方式。0：发货人支付；1：收货人支付；2：双方支付 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetPayType(value string) {
-	r.SetValue("pay_type", value)
-}
-
-/* 收件人地址 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverAddress(value string) {
-	r.SetValue("receiver_address", value)
-}
-
-/* 收件人地区编码 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverAreaId(value string) {
-	r.SetValue("receiver_area_id", value)
-}
-
-/* 收件人城市名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverCityName(value string) {
-	r.SetValue("receiver_city_name", value)
-}
-
-/* 收件人公司名称 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverCorpName(value string) {
-	r.SetValue("receiver_corp_name", value)
-}
-
-/* 收件人区名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverCountyName(value string) {
-	r.SetValue("receiver_county_name", value)
-}
-
-/* 收件人手机号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverMobile(value string) {
-	r.SetValue("receiver_mobile", value)
-}
-
-/* 收件人名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverName(value string) {
-	r.SetValue("receiver_name", value)
-}
-
-/* 收件人电话区号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverPhoneAreaCode(value string) {
-	r.SetValue("receiver_phone_area_code", value)
-}
-
-/* 收件人电话号码 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverPhoneTel(value string) {
-	r.SetValue("receiver_phone_tel", value)
-}
-
-/* 收件人电话分机号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverPhoneTelExt(value string) {
-	r.SetValue("receiver_phone_tel_ext", value)
-}
-
-/* 收件人邮编 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverPostcode(value string) {
-	r.SetValue("receiver_postcode", value)
-}
-
-/* 收件人省名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverProvinceName(value string) {
-	r.SetValue("receiver_province_name", value)
-}
-
-/* 收件人旺旺号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetReceiverWangwangNo(value string) {
-	r.SetValue("receiver_wangwang_no", value)
-}
-
-/* 退货接收人地址 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderAddress(value string) {
-	r.SetValue("refunder_address", value)
-}
-
-/* 退货接收人地区id */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderAreaId(value string) {
-	r.SetValue("refunder_area_id", value)
-}
-
-/* 退货接收人城市名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderCityName(value string) {
-	r.SetValue("refunder_city_name", value)
-}
-
-/* 退货接收人公司名称 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderCorpName(value string) {
-	r.SetValue("refunder_corp_name", value)
-}
-
-/* 退货接收人区名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderCountyName(value string) {
-	r.SetValue("refunder_county_name", value)
-}
-
-/* 退货接收人手机号码 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderMobile(value string) {
-	r.SetValue("refunder_mobile", value)
-}
-
-/* 退货接收人姓名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderName(value string) {
-	r.SetValue("refunder_name", value)
-}
-
-/* 退货接收人电话区号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderPhoneAreaCode(value string) {
-	r.SetValue("refunder_phone_area_code", value)
-}
-
-/* 退货接收人电话号码 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderPhoneTel(value string) {
-	r.SetValue("refunder_phone_tel", value)
-}
-
-/* 退货接收人电话分机号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderPhoneTelExt(value string) {
-	r.SetValue("refunder_phone_tel_ext", value)
-}
-
-/* 退货接收人邮编 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderPostcode(value string) {
-	r.SetValue("refunder_postcode", value)
-}
-
-/* 退货接收人省名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderProvinceName(value string) {
-	r.SetValue("refunder_province_name", value)
-}
-
-/* 退货接收人旺旺id */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRefunderWangwangNo(value string) {
-	r.SetValue("refunder_wangwang_no", value)
-}
-
-/* 发货备注 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRemark(value string) {
-	r.SetValue("remark", value)
-}
-
-/* 线路code，线路的业务标识。 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetRouteCode(value string) {
-	r.SetValue("route_code", value)
-}
-
-/* 发货人地址 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderAddress(value string) {
-	r.SetValue("sender_address", value)
-}
-
-/* 发货地区编码 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderAreaId(value string) {
-	r.SetValue("sender_area_id", value)
-}
-
-/* 发货人城市名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderCityName(value string) {
-	r.SetValue("sender_city_name", value)
-}
-
-/* 发货人公司名称 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderCorpName(value string) {
-	r.SetValue("sender_corp_name", value)
-}
-
-/* 发货人区名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderCountyName(value string) {
-	r.SetValue("sender_county_name", value)
-}
-
-/* 发货人手机号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderMobile(value string) {
-	r.SetValue("sender_mobile", value)
-}
-
-/* 发货人姓名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderName(value string) {
-	r.SetValue("sender_name", value)
-}
-
-/* 发货人电话区号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderPhoneAreaCode(value string) {
-	r.SetValue("sender_phone_area_code", value)
-}
-
-/* 发货人电话 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderPhoneTel(value string) {
-	r.SetValue("sender_phone_tel", value)
-}
-
-/* 发货人电话分机号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderPhoneTelExt(value string) {
-	r.SetValue("sender_phone_tel_ext", value)
-}
-
-/* 发货人地区邮编 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderPostcode(value string) {
-	r.SetValue("sender_postcode", value)
-}
-
-/* 发货人省名 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderProvinceName(value string) {
-	r.SetValue("sender_province_name", value)
-}
-
-/* 发货人旺旺号 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSenderWangwangNo(value string) {
-	r.SetValue("sender_wangwang_no", value)
-}
-
-/* top开放的来源。默认都使用：TAOBAO_TOP。 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetSource(value string) {
-	r.SetValue("source", value)
-}
-
-/* 货物件数 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetTotalNumber(value string) {
-	r.SetValue("total_number", value)
-}
-
-/* 货物体积 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetTotalVolume(value string) {
-	r.SetValue("total_volume", value)
-}
-
-/* 货物重量 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetTotalWeight(value string) {
-	r.SetValue("total_weight", value)
-}
-
-/* 下单选中的增值服务 */
-func (r *AlibabaLogisticsOrderConsignRequest) SetVasList(value string) {
-	r.SetValue("vas_list", value)
-}
-
-func (r *AlibabaLogisticsOrderConsignRequest) GetResponse(accessToken string) (*AlibabaLogisticsOrderConsignResponse, []byte, error) {
-	var resp AlibabaLogisticsOrderConsignResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alibaba.logistics.order.consign", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type AlibabaLogisticsOrderConsignResponse struct {
-	ConsignResult *ConsignResult `json:"consign_result"`
-}
-
-type AlibabaLogisticsOrderConsignResponseResult struct {
-	Response *AlibabaLogisticsOrderConsignResponse `json:"alibaba_logistics_order_consign_response"`
-}
-
-/* 根据始发地，目的地等条件查询线路的分页列表 */
-type AlibabaLogisticsRouteQueryRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 是否是空运的条件 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetAirTransport(value string) {
-	r.SetValue("air_transport", value)
-}
-
-/* 过滤线路的公司塞选条件 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetCorpList(value string) {
-	r.SetValue("corp_list", value)
-}
-
-/* 目的地id，可以是市和区 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetEndAreaId(value string) {
-	r.SetValue("end_area_id", value)
-}
-
-/* 是否合并线路 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetMergeRoute(value string) {
-	r.SetValue("merge_route", value)
-}
-
-/* 当前第几页 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetPageIndex(value string) {
-	r.SetValue("page_index", value)
-}
-
-/* 每页显示的线路数 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetPageSize(value string) {
-	r.SetValue("page_size", value)
-}
-
-/* 线路是否具有代收货款服务 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetShowCods(value string) {
-	r.SetValue("show_cods", value)
-}
-
-/* 线路是否显示保障服务 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetShowSpecials(value string) {
-	r.SetValue("show_specials", value)
-}
-
-/* 是否在线路中显示评价和网点信息 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetShowStatisticsInfo(value string) {
-	r.SetValue("show_statistics_info", value)
-}
-
-/* 线路排序方式。具体值如下,precise：精确匹配，corp：公司,wpa：重物价格升序,wpd：重物价格降序,vpa：体积价格升序,vpd：体积价格降序,trtid：运输时效降序,trtia：运输时效升序,corpLevel：公司级别，品牌>集市,evalScore：评价分数,routeTop：线路是否置顶,orderCount：下单量多少排序,special：保障服务优先排序。 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetSortType(value string) {
-	r.SetValue("sort_type", value)
-}
-
-/* 数据来源，默认开放部分物流公司。 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetSource(value string) {
-	r.SetValue("source", value)
-}
-
-/* 起始地id，可以是市和区 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetStartAreaId(value string) {
-	r.SetValue("start_area_id", value)
-}
-
-/* 是否查询总的查询条件的公司数目 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetSummaryTotalCorps(value string) {
-	r.SetValue("summary_total_corps", value)
-}
-
-/* 是否统计对应公司的线路数 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetSummeryByCorp(value string) {
-	r.SetValue("summery_by_corp", value)
-}
-
-/* 如果查找不到指定地区的线路，是否对地址进行上翻。如杭州市滨江区的地址呗翻转为杭州市。 */
-func (r *AlibabaLogisticsRouteQueryRequest) SetTurnLevel(value string) {
-	r.SetValue("turn_level", value)
-}
-
-func (r *AlibabaLogisticsRouteQueryRequest) GetResponse(accessToken string) (*AlibabaLogisticsRouteQueryResponse, []byte, error) {
-	var resp AlibabaLogisticsRouteQueryResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "alibaba.logistics.route.query", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type AlibabaLogisticsRouteQueryResponse struct {
-	QueryRouteResult *QueryRouteResult `json:"query_route_result"`
-}
-
-type AlibabaLogisticsRouteQueryResponseResult struct {
-	Response *AlibabaLogisticsRouteQueryResponse `json:"alibaba_logistics_route_query_response"`
-}
-
 /* 查询标准地址区域代码信息 参考：http://www.stats.gov.cn/tjbz/xzqhdm/t20100623_402652267.htm */
 type AreasGetRequest struct {
 	open_taobao.TaobaoMethodRequest
@@ -517,7 +54,7 @@ func (r *DeliveryTemplateAddRequest) SetConsignAreaId(value string) {
 	r.SetValue("consign_area_id", value)
 }
 
-/* 运费模板的名称，长度不能超过50个字节 */
+/* 运费模板的名称，长度不能超过50个字节<br /> 支持最大长度为：50<br /> 支持的最大列表长度为：50 */
 func (r *DeliveryTemplateAddRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
@@ -891,7 +428,7 @@ func (r *LogisticsAddressAddRequest) SetGetDef(value string) {
 	r.SetValue("get_def", value)
 }
 
-/* 备注,<br><font color='red'>备注不能超过256字节</font> */
+/* 备注,<br><font color='red'>备注不能超过256字节</font><br /> 支持最大长度为：256<br /> 支持的最大列表长度为：256 */
 func (r *LogisticsAddressAddRequest) SetMemo(value string) {
 	r.SetValue("memo", value)
 }
@@ -912,7 +449,7 @@ func (r *LogisticsAddressAddRequest) SetProvince(value string) {
 	r.SetValue("province", value)
 }
 
-/* 公司名称,<br><font color="red">公司名称长能不能超过20字节</font> */
+/* 公司名称,<br><font color="red">公司名称长能不能超过20字节</font><br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsAddressAddRequest) SetSellerCompany(value string) {
 	r.SetValue("seller_company", value)
 }
@@ -1150,8 +687,7 @@ func (r *LogisticsConsignOrderCreateandsendRequest) SetItemJsonString(value stri
 	r.SetValue("item_json_string", value)
 }
 
-/* 物流订单物流类型LogisType
-LogisticsOrderConstant.LOGIS_TYPE_RECOMMENDED */
+/* 物流订单物流类型，值固定选择：2 */
 func (r *LogisticsConsignOrderCreateandsendRequest) SetLogisType(value string) {
 	r.SetValue("logis_type", value)
 }
@@ -1161,14 +697,12 @@ func (r *LogisticsConsignOrderCreateandsendRequest) SetMailNo(value string) {
 	r.SetValue("mail_no", value)
 }
 
-/* 订单来源，参考：
-LogisticsOrderConstant.ORDER_SOURCE_* */
+/* 订单来源，值选择：30 */
 func (r *LogisticsConsignOrderCreateandsendRequest) SetOrderSource(value string) {
 	r.SetValue("order_source", value)
 }
 
-/* 订单类型，参考：
-LogisticsOrderConstant.ORDER_TYPE_ */
+/* 订单类型，值固定选择：30 */
 func (r *LogisticsConsignOrderCreateandsendRequest) SetOrderType(value string) {
 	r.SetValue("order_type", value)
 }
@@ -1268,7 +802,7 @@ func (r *LogisticsConsignOrderCreateandsendRequest) SetShipping(value string) {
 	r.SetValue("shipping", value)
 }
 
-/* 交易流水号 */
+/* 交易流水号，淘外订单号或者商家内部交易流水号 */
 func (r *LogisticsConsignOrderCreateandsendRequest) SetTradeId(value string) {
 	r.SetValue("trade_id", value)
 }
@@ -1297,10 +831,9 @@ type LogisticsConsignOrderCreateandsendResponseResult struct {
 	Response *LogisticsConsignOrderCreateandsendResponse `json:"logistics_consign_order_createandsend_response"`
 }
 
-/* 支持卖家发货后修改物流公司和运单号。支持订单类型支持在线下单和自己联系。
-自己联系只能切换为自己联系的公司，在线下单也只能切换为在线下单的物流公司。
-
-调用时订单状态是卖家已发货，自己联系在发货后24小时内在线下单未揽收成功才可使用 */
+/* 支持卖家发货后修改物流公司和运单号;支持在线下单和自己联系两种发货方式;使用条件：<br>
+1、必须是已发货订单，自己联系发货的必须24小时内才可修改；在线下单的，必须下单后物流公司未揽收成功前才可修改；
+2、自己联系只能切换为自己联系的公司，在线下单也只能切换为在线下单的物流公司。 */
 type LogisticsConsignResendRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -1348,7 +881,7 @@ func (r *LogisticsConsignResendRequest) SetSubTid(value string) {
 	r.SetValue("sub_tid", value)
 }
 
-/* 淘宝交易ID */
+/* 淘宝交易ID<br /> 支持最小值为：1000 */
 func (r *LogisticsConsignResendRequest) SetTid(value string) {
 	r.SetValue("tid", value)
 }
@@ -1478,7 +1011,7 @@ func (r *LogisticsOfflineSendRequest) SetSubTid(value string) {
 	r.SetValue("sub_tid", value)
 }
 
-/* 淘宝交易ID */
+/* 淘宝交易ID<br /> 支持最小值为：1000 */
 func (r *LogisticsOfflineSendRequest) SetTid(value string) {
 	r.SetValue("tid", value)
 }
@@ -1554,7 +1087,7 @@ func (r *LogisticsOnlineConfirmRequest) SetSubTid(value string) {
 	r.SetValue("sub_tid", value)
 }
 
-/* 淘宝交易ID */
+/* 淘宝交易ID<br /> 支持最小值为：1000 */
 func (r *LogisticsOnlineConfirmRequest) SetTid(value string) {
 	r.SetValue("tid", value)
 }
@@ -1637,7 +1170,7 @@ func (r *LogisticsOnlineSendRequest) SetSubTid(value string) {
 	r.SetValue("sub_tid", value)
 }
 
-/* 淘宝交易ID */
+/* 淘宝交易ID<br /> 支持最小值为：1000 */
 func (r *LogisticsOnlineSendRequest) SetTid(value string) {
 	r.SetValue("tid", value)
 }
@@ -1657,6 +1190,75 @@ type LogisticsOnlineSendResponse struct {
 
 type LogisticsOnlineSendResponseResult struct {
 	Response *LogisticsOnlineSendResponse `json:"logistics_online_send_response"`
+}
+
+/* 优鲜送，生鲜业务使用该接口发货，交易订单状态会直接变成卖家已发货。不支持货到付款、在线下单类型的订单。 */
+type LogisticsOrderShengxianConfirmRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* 卖家联系人地址库ID，可以通过taobao.logistics.address.search接口查询到地址库ID。<br><font color='red'>如果为空，取的卖家的默认退货地址</font><br> */
+func (r *LogisticsOrderShengxianConfirmRequest) SetCancelId(value string) {
+	r.SetValue("cancel_id", value)
+}
+
+/* 1：冷链。0：常温 */
+func (r *LogisticsOrderShengxianConfirmRequest) SetDeliveryType(value string) {
+	r.SetValue("delivery_type", value)
+}
+
+/* 物流订单ID 。同淘宝交易订单互斥，淘宝交易号存在，，以淘宝交易号为准<br /> 支持最小值为：1000 */
+func (r *LogisticsOrderShengxianConfirmRequest) SetLogisId(value string) {
+	r.SetValue("logis_id", value)
+}
+
+/* 运单号.具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入； */
+func (r *LogisticsOrderShengxianConfirmRequest) SetOutSid(value string) {
+	r.SetValue("out_sid", value)
+}
+
+/* 商家的IP地址 */
+func (r *LogisticsOrderShengxianConfirmRequest) SetSellerIp(value string) {
+	r.SetValue("seller_ip", value)
+}
+
+/* 卖家联系人地址库ID，可以通过taobao.logistics.address.search接口查询到地址库ID。<font color='red'>如果为空，取的卖家的默认取货地址</font>
+
+如果service_code不为空，默认使用service_code
+如果service_code为空，sender_id不为空，使用sender_id对应的地址发货
+如果service_code与sender_id都为空，使用默认地址发货 */
+func (r *LogisticsOrderShengxianConfirmRequest) SetSenderId(value string) {
+	r.SetValue("sender_id", value)
+}
+
+/* 仓库的服务代码标示，代码一个仓库的实体。(可以通过taobao.wlb.stores.baseinfo.get接口查询)
+
+如果service_code为空，默认通过sender_id来发货 */
+func (r *LogisticsOrderShengxianConfirmRequest) SetServiceCode(value string) {
+	r.SetValue("service_code", value)
+}
+
+/* 淘宝交易ID<br /> 支持最小值为：1000 */
+func (r *LogisticsOrderShengxianConfirmRequest) SetTid(value string) {
+	r.SetValue("tid", value)
+}
+
+func (r *LogisticsOrderShengxianConfirmRequest) GetResponse(accessToken string) (*LogisticsOrderShengxianConfirmResponse, []byte, error) {
+	var resp LogisticsOrderShengxianConfirmResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.logistics.order.shengxian.confirm", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type LogisticsOrderShengxianConfirmResponse struct {
+	IsSuccess bool       `json:"is_success"`
+	ShipFresh *ShipFresh `json:"ship_fresh"`
+}
+
+type LogisticsOrderShengxianConfirmResponseResult struct {
+	Response *LogisticsOrderShengxianConfirmResponse `json:"logistics_order_shengxian_confirm_response"`
 }
 
 /* 查询物流订单的详细信息，涉及用户隐私字段。（注：该API主要是提供给卖家查询物流订单使用，买家查询物流订单，建议使用taobao.logistics.trace.search） */
@@ -1689,7 +1291,7 @@ func (r *LogisticsOrdersDetailGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数.该字段没传 或 值<1 ，则默认page_size为40 */
+/* 每页条数.该字段没传 或 值<1 ，则默认page_size为40<br /> 支持最大值为：100 */
 func (r *LogisticsOrdersDetailGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -1773,7 +1375,7 @@ func (r *LogisticsOrdersGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数.该字段没传 或 值<1 ,则默认page_size为40 */
+/* 每页条数.该字段没传 或 值<1 ,则默认page_size为40<br /> 支持最大值为：100 */
 func (r *LogisticsOrdersGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -1841,17 +1443,17 @@ func (r *LogisticsOrderstorePushRequest) SetOccureTime(value string) {
 	r.SetValue("occure_time", value)
 }
 
-/* 仓内操作描述 */
+/* 仓内操作描述<br /> 支持最大长度为：200<br /> 支持的最大列表长度为：200 */
 func (r *LogisticsOrderstorePushRequest) SetOperateDetail(value string) {
 	r.SetValue("operate_detail", value)
 }
 
-/* 快递业务员联系方式 */
+/* 快递业务员联系方式<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrderstorePushRequest) SetOperatorContact(value string) {
 	r.SetValue("operator_contact", value)
 }
 
-/* 快递业务员名称 */
+/* 快递业务员名称<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrderstorePushRequest) SetOperatorName(value string) {
 	r.SetValue("operator_name", value)
 }
@@ -1888,17 +1490,17 @@ type LogisticsOrdertracePushRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 物流公司名称 */
+/* 物流公司名称<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrdertracePushRequest) SetCompanyName(value string) {
 	r.SetValue("company_name", value)
 }
 
-/* 流转节点的当前城市 */
+/* 流转节点的当前城市<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrdertracePushRequest) SetCurrentCity(value string) {
 	r.SetValue("current_city", value)
 }
 
-/* 网点名称 */
+/* 网点名称<br /> 支持最大长度为：100<br /> 支持的最大列表长度为：100 */
 func (r *LogisticsOrdertracePushRequest) SetFacilityName(value string) {
 	r.SetValue("facility_name", value)
 }
@@ -1908,12 +1510,12 @@ func (r *LogisticsOrdertracePushRequest) SetMailNo(value string) {
 	r.SetValue("mail_no", value)
 }
 
-/* 流转节点的下一个城市 */
+/* 流转节点的下一个城市<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrdertracePushRequest) SetNextCity(value string) {
 	r.SetValue("next_city", value)
 }
 
-/* 描述当前节点的操作，操作是“揽收”、“派送”或“签收”。 */
+/* 描述当前节点的操作，操作是“揽收”、“派送”或“签收”。<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrdertracePushRequest) SetNodeDescription(value string) {
 	r.SetValue("node_description", value)
 }
@@ -1923,17 +1525,17 @@ func (r *LogisticsOrdertracePushRequest) SetOccureTime(value string) {
 	r.SetValue("occure_time", value)
 }
 
-/* 流转节点的详细地址及操作描述 */
+/* 流转节点的详细地址及操作描述<br /> 支持最大长度为：200<br /> 支持的最大列表长度为：200 */
 func (r *LogisticsOrdertracePushRequest) SetOperateDetail(value string) {
 	r.SetValue("operate_detail", value)
 }
 
-/* 快递业务员联系方式，手机号码或电话。 */
+/* 快递业务员联系方式，手机号码或电话。<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrdertracePushRequest) SetOperatorContact(value string) {
 	r.SetValue("operator_contact", value)
 }
 
-/* 快递业务员名称 */
+/* 快递业务员名称<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *LogisticsOrdertracePushRequest) SetOperatorName(value string) {
 	r.SetValue("operator_name", value)
 }
@@ -2049,88 +1651,49 @@ type LogisticsTraceSearchResponseResult struct {
 	Response *LogisticsTraceSearchResponse `json:"logistics_trace_search_response"`
 }
 
-/* 提供异步批量物流发货功能。<br/>
-对买家已付款状态的交易进行发货操作。(注：该API不支持货到付款订单发货)<br/>
-异步API使用方法，请查看：<a href="http://open.taobao.com/doc/detail.htm?id=30">异步API使用说明</a><br/>
-1. 一次最多发货40个订单<br/>
-2. 提交任务后，通过taobao.topats.result.get来查看任务执行状态，如果任务已完成，则返回结果<br/>
-3. 如果订阅了主动通知服务，任务完成后TOP会通过HTTP长连接推送消息，通知的消息格式请参考异步API使用文档<br/>
-4. 此任务的有效期为2天，超过2天后任务会被删除 */
-type TopatsDeliverySendRequest struct {
+/* 根据输入的目标地址，判断服务是否可达 */
+type LogisticsAddressReachableRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 每个tid所对应的物流公司代码。可以不传，表示所有的物流公司都为"其他"，但是只要有一个订单需要指定物流公司，所有的订单都需要指定物流公司,每个类型之间用";"连接。排列要和tid顺序一致，不需要指定物流公司的订单，该位置上放上一个空字符串""。可以不传，传了长度和位置要和tid保持一致。
-
-每个company_code表示物流公司代码.如"POST"就代表中国邮政,"ZJS"就代表宅急送.调用 taobao.logisticcompanies.get 获取。如传入的代码非淘宝官方物流合作公司，默认是“其他”物流的方式，在淘宝不显示物流具体进度，故传入需谨慎。如果orderType为delivery_needed，则必传 */
-func (r *TopatsDeliverySendRequest) SetCompanyCodes(value string) {
-	r.SetValue("company_codes", value)
+/* 详细地址 */
+func (r *LogisticsAddressReachableRequest) SetAddress(value string) {
+	r.SetValue("address", value)
 }
 
-/* 每个tid所对应的卖家备注。可以不传，表示所有的发货订单都不需要卖家备注，但是只要有一个订单需要指定卖家备注，所有的订单都需要指定卖家备注,每个卖家备注之间用";"连接。排列要和tid顺序一致，不需要指定卖家备注的订单，该位置上放上一个空字符串""。可以不传，传了长度和位置要和tid保持一致。卖家备注.最大长度为250个字符。如果orderType为delivery_needed，则必传 */
-func (r *TopatsDeliverySendRequest) SetMemos(value string) {
-	r.SetValue("memos", value)
+/* 标准区域编码(三级行政区编码或是四级行政区)，可以通过taobao.areas.get获取，如北京市朝阳区为110105 */
+func (r *LogisticsAddressReachableRequest) SetAreaCode(value string) {
+	r.SetValue("area_code", value)
 }
 
-/* 每个tid所对应的物流发货类型。可以不传，表示所有的发货类型都为"delivery_needed"，但是只要有一个订单需要指定发货类型，所有的订单都需要指定发货类型,每个类型之间用";"连接。排列要和tid顺序一致，不需要指定发货类型的订单，该位置上放上一个空字符串""。可以不传，传了长度和位置要和tid保持一致。 每个类型可选( delivery_needed(物流订单发货),virtual_goods(虚拟物品发货). ) 注:选择virtual_goods类型进行发货的话下面的参数可以不需填写。如果选择delivery_needed 则下面的参数必须要填写 */
-func (r *TopatsDeliverySendRequest) SetOrderTypes(value string) {
-	r.SetValue("order_types", value)
+/* 物流公司编码ID，可以从这个接口获取所有物流公司的标准编码taobao.logistics.companies.get，可以传入多个值，以英文逗号分隔，如“1000000952,1000000953” */
+func (r *LogisticsAddressReachableRequest) SetPartnerIds(value string) {
+	r.SetValue("partner_ids", value)
 }
 
-/* 每个tid所对应的物流公司运单号。可以不传，表示所有的物流订单都没有订单号，但是只要有一个订单需要有订单号，所有的订单都需要指定订单号,每个订单号之间用";"连接。排列要和tid顺序一致，不需要指定订单号的订单，该位置上放上一个空字符串""。可以不传，传了长度和位置要和tid保持一致。
-具体一个物流公司的真实运单号码。淘宝官方物流会校验，请谨慎传入；若company_codes中传入的代码非淘宝官方物流合作公司，此处运单号不校验。如果orderType为delivery_needed，则必传 */
-func (r *TopatsDeliverySendRequest) SetOutSids(value string) {
-	r.SetValue("out_sids", value)
+/* 服务对应的数字编码，如揽派范围对应88 */
+func (r *LogisticsAddressReachableRequest) SetServiceType(value string) {
+	r.SetValue("service_type", value)
 }
 
-/* 卖家地址(详细地址).如:XXX街道XXX门牌,省市区不需要提供。如果orderType为delivery_needed，则必传 */
-func (r *TopatsDeliverySendRequest) SetSellerAddress(value string) {
-	r.SetValue("seller_address", value)
+/* 发货地，标准区域编码(四级行政)，可以通过taobao.areas.get获取，如浙江省杭州市余杭区闲林街道为 330110011 */
+func (r *LogisticsAddressReachableRequest) SetSourceAreaCode(value string) {
+	r.SetValue("source_area_code", value)
 }
 
-/* 卖家所在地国家公布的标准地区码.参考:http://www.stats.gov.cn/tjbz/xzqhdm/t20080215_402462675.htm 或者调用 taobao.areas.get 获取。如果orderType为delivery_needed，则必传 */
-func (r *TopatsDeliverySendRequest) SetSellerAreaId(value string) {
-	r.SetValue("seller_area_id", value)
-}
-
-/* 卖家手机号码 */
-func (r *TopatsDeliverySendRequest) SetSellerMobile(value string) {
-	r.SetValue("seller_mobile", value)
-}
-
-/* 卖家姓名。如果orderType为delivery_needed，则必传 */
-func (r *TopatsDeliverySendRequest) SetSellerName(value string) {
-	r.SetValue("seller_name", value)
-}
-
-/* 卖家固定电话.包含区号,电话,分机号,中间用 " – "; 卖家固定电话和卖家手机号码,必须填写一个. */
-func (r *TopatsDeliverySendRequest) SetSellerPhone(value string) {
-	r.SetValue("seller_phone", value)
-}
-
-/* 卖家邮编。如果orderType为delivery_needed，则必传 */
-func (r *TopatsDeliverySendRequest) SetSellerZip(value string) {
-	r.SetValue("seller_zip", value)
-}
-
-/* 批量发货的订单id列表，每个订单id必需是合法的数字类型的tid，每个tid之间以";"分隔，至少要指定一个tid，最多不超过40个tid */
-func (r *TopatsDeliverySendRequest) SetTids(value string) {
-	r.SetValue("tids", value)
-}
-
-func (r *TopatsDeliverySendRequest) GetResponse(accessToken string) (*TopatsDeliverySendResponse, []byte, error) {
-	var resp TopatsDeliverySendResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.topats.delivery.send", &resp)
+func (r *LogisticsAddressReachableRequest) GetResponse(accessToken string) (*LogisticsAddressReachableResponse, []byte, error) {
+	var resp LogisticsAddressReachableResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.logistics.address.reachable", &resp)
 	if err != nil {
 		return nil, data, err
 	}
 	return resp.Response, data, err
 }
 
-type TopatsDeliverySendResponse struct {
-	Task *Task `json:"task"`
+type LogisticsAddressReachableResponse struct {
+	ReachableResultList []*AddressReachableResult `json:"reachable_result_list"`
 }
 
-type TopatsDeliverySendResponseResult struct {
-	Response *TopatsDeliverySendResponse `json:"topats_delivery_send_response"`
+type LogisticsAddressReachableResponseResult struct {
+	Response *LogisticsAddressReachableResponse `json:"logistics_address_reachable_response"`
 }

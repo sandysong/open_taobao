@@ -14,12 +14,12 @@ type HotelAddRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 酒店地址。长度不能超过120 */
+/* 酒店地址。长度不能超过120<br /> 支持最大长度为：120<br /> 支持的最大列表长度为：120 */
 func (r *HotelAddRequest) SetAddress(value string) {
 	r.SetValue("address", value)
 }
 
-/* 城市编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时，输入对应国家的海外城市编码，可调用海外城市查询接口获取 */
+/* 城市编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时，输入对应国家的海外城市编码，可调用海外城市查询接口获取<br /> 支持最大值为：999999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：6 */
 func (r *HotelAddRequest) SetCity(value string) {
 	r.SetValue("city", value)
 }
@@ -30,17 +30,17 @@ func (r *HotelAddRequest) SetCountry(value string) {
 	r.SetValue("country", value)
 }
 
-/* 装修年份。长度不能超过4。 */
+/* 装修年份。长度不能超过4。<br /> 支持最大长度为：4<br /> 支持的最大列表长度为：4 */
 func (r *HotelAddRequest) SetDecorateTime(value string) {
 	r.SetValue("decorate_time", value)
 }
 
-/* 酒店介绍。不超过25000个汉字 */
+/* 酒店介绍。不超过25000个汉字<br /> 支持最大长度为：50000<br /> 支持的最大列表长度为：50000 */
 func (r *HotelAddRequest) SetDesc(value string) {
 	r.SetValue("desc", value)
 }
 
-/* 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html */
+/* 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html<br /> 支持最大值为：999999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：6 */
 func (r *HotelAddRequest) SetDistrict(value string) {
 	r.SetValue("district", value)
 }
@@ -50,37 +50,37 @@ func (r *HotelAddRequest) SetDomestic(value string) {
 	r.SetValue("domestic", value)
 }
 
-/* 酒店级别。可选值：A,B,C,D,E,F。代表客栈公寓、经济连锁、二星级/以下、三星级/舒适、四星级/高档、五星级/豪华 */
+/* 酒店级别。可选值：A,B,C,D,E,F。代表客栈公寓、经济连锁、二星级/以下、三星级/舒适、四星级/高档、五星级/豪华<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelAddRequest) SetLevel(value string) {
 	r.SetValue("level", value)
 }
 
-/* 酒店名称。不能超过60 */
+/* 酒店名称。不能超过60<br /> 支持最大长度为：60<br /> 支持的最大列表长度为：60 */
 func (r *HotelAddRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
 
-/* 开业年份。长度不能超过4。 */
+/* 开业年份。长度不能超过4。<br /> 支持最大长度为：4<br /> 支持的最大列表长度为：4 */
 func (r *HotelAddRequest) SetOpeningTime(value string) {
 	r.SetValue("opening_time", value)
 }
 
-/* 酒店定位。可选值：T,B。代表旅游度假、商务出行 */
+/* 酒店定位。可选值：T,B。代表旅游度假、商务出行<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelAddRequest) SetOrientation(value string) {
 	r.SetValue("orientation", value)
 }
 
-/* 酒店图片。最大长度:500K。支持的文件类型：gif,jpg,png */
+/* 酒店图片。最大长度:500K。支持的文件类型：gif,jpg,png<br /> 支持的文件类型为：jpg,png,gif<br /> 支持的最大列表长度为：512000 */
 func (r *HotelAddRequest) SetPic(value string) {
 	r.SetValue("pic", value)
 }
 
-/* 省份编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时默认为0 */
+/* 省份编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时默认为0<br /> 支持最大值为：999999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：6 */
 func (r *HotelAddRequest) SetProvince(value string) {
 	r.SetValue("province", value)
 }
 
-/* 房间数。长度不能超过4。 */
+/* 房间数。长度不能超过4。<br /> 支持最大值为：9999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：4 */
 func (r *HotelAddRequest) SetRooms(value string) {
 	r.SetValue("rooms", value)
 }
@@ -92,17 +92,17 @@ func (r *HotelAddRequest) SetService(value string) {
 	r.SetValue("service", value)
 }
 
-/* 接入卖家数据主键 */
+/* 接入卖家数据主键<br /> 支持最大长度为：100<br /> 支持的最大列表长度为：100 */
 func (r *HotelAddRequest) SetSiteParam(value string) {
 	r.SetValue("site_param", value)
 }
 
-/* 楼层数。长度不能超过4。 */
+/* 楼层数。长度不能超过4。<br /> 支持最大值为：9999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：4 */
 func (r *HotelAddRequest) SetStoreys(value string) {
 	r.SetValue("storeys", value)
 }
 
-/* 酒店电话。格式：国家代码（最长6位）#区号（最长4位）#电话（最长20位）。国家代码提示：中国大陆0086、香港00852、澳门00853、台湾00886 */
+/* 酒店电话。格式：国家代码（最长6位）#区号（最长4位）#电话（最长20位）。国家代码提示：中国大陆0086、香港00852、澳门00853、台湾00886<br /> 支持最大长度为：32<br /> 支持的最大列表长度为：32 */
 func (r *HotelAddRequest) SetTel(value string) {
 	r.SetValue("tel", value)
 }
@@ -193,12 +193,12 @@ type HotelImageUploadRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 酒店id */
+/* 酒店id<br /> 支持的最大列表长度为：20 */
 func (r *HotelImageUploadRequest) SetHid(value string) {
 	r.SetValue("hid", value)
 }
 
-/* 上传的图片 */
+/* 上传的图片<br /> 支持的文件类型为：jpg,png,gif<br /> 支持的最大列表长度为：512000 */
 func (r *HotelImageUploadRequest) SetPic(value string) {
 	r.SetValue("pic", value)
 }
@@ -220,22 +220,22 @@ type HotelImageUploadResponseResult struct {
 	Response *HotelImageUploadResponse `json:"hotel_image_upload_response"`
 }
 
-/* 用于回传hotel匹配结果 */
+/* 用于回传hotel匹配结果(该接口即将废除请勿使用) */
 type HotelMatchFeedbackRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 需进行匹配的酒店id */
+/* 需进行匹配的酒店id<br /> 支持最小值为：1 */
 func (r *HotelMatchFeedbackRequest) SetHaid(value string) {
 	r.SetValue("haid", value)
 }
 
-/* 匹配命中的酒店id */
+/* 匹配命中的酒店id<br /> 支持最小值为：0 */
 func (r *HotelMatchFeedbackRequest) SetHid(value string) {
 	r.SetValue("hid", value)
 }
 
-/* 匹配结果 0:未匹配，1:匹配 */
+/* 匹配结果 0:未匹配，1:匹配<br /> 支持最大值为：1<br /> 支持最小值为：0 */
 func (r *HotelMatchFeedbackRequest) SetMatchResult(value string) {
 	r.SetValue("match_result", value)
 }
@@ -263,7 +263,7 @@ type HotelNameGetRequest struct {
 }
 
 /* 城市编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0 */
+domestic为true时，province,city,district不能同时为空或为0<br /> 支持的最大列表长度为：6 */
 func (r *HotelNameGetRequest) SetCity(value string) {
 	r.SetValue("city", value)
 }
@@ -275,7 +275,7 @@ func (r *HotelNameGetRequest) SetCountry(value string) {
 }
 
 /* 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0 */
+domestic为true时，province,city,district不能同时为空或为0<br /> 支持的最大列表长度为：6 */
 func (r *HotelNameGetRequest) SetDistrict(value string) {
 	r.SetValue("district", value)
 }
@@ -285,13 +285,13 @@ func (r *HotelNameGetRequest) SetDomestic(value string) {
 	r.SetValue("domestic", value)
 }
 
-/* 酒店全部名称/别名。不能超过60字节 */
+/* 酒店全部名称/别名。不能超过60字节<br /> 支持最大长度为：60<br /> 支持的最大列表长度为：60 */
 func (r *HotelNameGetRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
 
 /* 省份编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0 */
+domestic为true时，province,city,district不能同时为空或为0<br /> 支持的最大列表长度为：6 */
 func (r *HotelNameGetRequest) SetProvince(value string) {
 	r.SetValue("province", value)
 }
@@ -311,65 +311,6 @@ type HotelNameGetResponse struct {
 
 type HotelNameGetResponseResult struct {
 	Response *HotelNameGetResponse `json:"hotel_name_get_response"`
-}
-
-/* 下单结果回传 */
-type HotelOrderBookingFeedbackRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 失败原因,当result为failed时,此项为必填，最长200个字符 */
-func (r *HotelOrderBookingFeedbackRequest) SetFailedReason(value string) {
-	r.SetValue("failed_reason", value)
-}
-
-/* 指令消息中的messageid,最长128字符 */
-func (r *HotelOrderBookingFeedbackRequest) SetMessageId(value string) {
-	r.SetValue("message_id", value)
-}
-
-/* 酒店订单id */
-func (r *HotelOrderBookingFeedbackRequest) SetOid(value string) {
-	r.SetValue("oid", value)
-}
-
-/* 合作方订单号,最长250个字符 */
-func (r *HotelOrderBookingFeedbackRequest) SetOutOid(value string) {
-	r.SetValue("out_oid", value)
-}
-
-/* 在合作方退订时可能要用到的标识码，最长250个字符 */
-func (r *HotelOrderBookingFeedbackRequest) SetRefundCode(value string) {
-	r.SetValue("refund_code", value)
-}
-
-/* 预订结果
-S:成功
-F:失败 */
-func (r *HotelOrderBookingFeedbackRequest) SetResult(value string) {
-	r.SetValue("result", value)
-}
-
-/* 指令消息中的session_id */
-func (r *HotelOrderBookingFeedbackRequest) SetSessionId(value string) {
-	r.SetValue("session_id", value)
-}
-
-func (r *HotelOrderBookingFeedbackRequest) GetResponse(accessToken string) (*HotelOrderBookingFeedbackResponse, []byte, error) {
-	var resp HotelOrderBookingFeedbackResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.hotel.order.booking.feedback", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type HotelOrderBookingFeedbackResponse struct {
-	IsSuccess bool `json:"is_success"`
-}
-
-type HotelOrderBookingFeedbackResponseResult struct {
-	Response *HotelOrderBookingFeedbackResponse `json:"hotel_order_booking_feedback_response"`
 }
 
 /* 此接口用户到店支付（前台面付）卖家处理订单的入住情况，包括核实买家已入住和核实买家未入住 */
@@ -424,18 +365,18 @@ func (r *HotelOrderFaceDealRequest) SetOid(value string) {
 	r.SetValue("oid", value)
 }
 
-/* 操作类型，1：确认预订，2：取消订单 */
+/* 操作类型，1：确认预订，2：取消订单<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelOrderFaceDealRequest) SetOperType(value string) {
 	r.SetValue("oper_type", value)
 }
 
-/* 取消订单时的取消原因备注信息 */
+/* 取消订单时的取消原因备注信息<br /> 支持最大长度为：500<br /> 支持的最大列表长度为：500 */
 func (r *HotelOrderFaceDealRequest) SetReasonText(value string) {
 	r.SetValue("reason_text", value)
 }
 
 /* 取消订单时的取消原因，可选值：1,2,3,4；
-1：无房，2：价格变动，3：买家原因，4：其它原因 */
+1：无房，2：价格变动，3：买家原因，4：其它原因<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelOrderFaceDealRequest) SetReasonType(value string) {
 	r.SetValue("reason_type", value)
 }
@@ -497,114 +438,6 @@ type HotelOrderGetResponse struct {
 
 type HotelOrderGetResponseResult struct {
 	Response *HotelOrderGetResponse `json:"hotel_order_get_response"`
-}
-
-/* 支付确认结果回传 */
-type HotelOrderPayFeedbackRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 失败原因,当result为failed时,此项为必填，最长200个字符 */
-func (r *HotelOrderPayFeedbackRequest) SetFailedReason(value string) {
-	r.SetValue("failed_reason", value)
-}
-
-/* 指令消息中的messageid,最长128字符 */
-func (r *HotelOrderPayFeedbackRequest) SetMessageId(value string) {
-	r.SetValue("message_id", value)
-}
-
-/* 酒店订单id */
-func (r *HotelOrderPayFeedbackRequest) SetOid(value string) {
-	r.SetValue("oid", value)
-}
-
-/* 合作方订单号,最长250个字符 */
-func (r *HotelOrderPayFeedbackRequest) SetOutOid(value string) {
-	r.SetValue("out_oid", value)
-}
-
-/* 预订结果
-S:成功
-F:失败 */
-func (r *HotelOrderPayFeedbackRequest) SetResult(value string) {
-	r.SetValue("result", value)
-}
-
-/* 指令消息中的session_id */
-func (r *HotelOrderPayFeedbackRequest) SetSessionId(value string) {
-	r.SetValue("session_id", value)
-}
-
-func (r *HotelOrderPayFeedbackRequest) GetResponse(accessToken string) (*HotelOrderPayFeedbackResponse, []byte, error) {
-	var resp HotelOrderPayFeedbackResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.hotel.order.pay.feedback", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type HotelOrderPayFeedbackResponse struct {
-	IsSuccess bool `json:"is_success"`
-}
-
-type HotelOrderPayFeedbackResponseResult struct {
-	Response *HotelOrderPayFeedbackResponse `json:"hotel_order_pay_feedback_response"`
-}
-
-/* 退订处理结果回传 */
-type HotelOrderRefundFeedbackRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 失败原因,当result为F时,此项为必填,最长200个字符 */
-func (r *HotelOrderRefundFeedbackRequest) SetFailedReason(value string) {
-	r.SetValue("failed_reason", value)
-}
-
-/* 指令消息中的messageid,最长128字符 */
-func (r *HotelOrderRefundFeedbackRequest) SetMessageId(value string) {
-	r.SetValue("message_id", value)
-}
-
-/* 合作方订单号,最长250个字符 */
-func (r *HotelOrderRefundFeedbackRequest) SetOid(value string) {
-	r.SetValue("oid", value)
-}
-
-/* 合作方订单号,最长250个字符 */
-func (r *HotelOrderRefundFeedbackRequest) SetOutOid(value string) {
-	r.SetValue("out_oid", value)
-}
-
-/* 预订结果
-S:成功
-F:失败 */
-func (r *HotelOrderRefundFeedbackRequest) SetResult(value string) {
-	r.SetValue("result", value)
-}
-
-/* 指令消息中的session_id */
-func (r *HotelOrderRefundFeedbackRequest) SetSessionId(value string) {
-	r.SetValue("session_id", value)
-}
-
-func (r *HotelOrderRefundFeedbackRequest) GetResponse(accessToken string) (*HotelOrderRefundFeedbackResponse, []byte, error) {
-	var resp HotelOrderRefundFeedbackResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.hotel.order.refund.feedback", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type HotelOrderRefundFeedbackResponse struct {
-	IsSuccess bool `json:"is_success"`
-}
-
-type HotelOrderRefundFeedbackResponseResult struct {
-	Response *HotelOrderRefundFeedbackResponse `json:"hotel_order_refund_feedback_response"`
 }
 
 /* 此接口用于查询多个酒店订单，根据传入的查询条件查询订单信息。 */
@@ -678,7 +511,7 @@ func (r *HotelOrdersSearchRequest) SetRids(value string) {
 	r.SetValue("rids", value)
 }
 
-/* 订单状态。A：等待买家付款。B：买家已付款待卖家发货。C：卖家已发货待买家确认。D：交易成功。E：交易关闭 */
+/* 订单状态。A：等待买家付款。B：买家已付款待卖家发货。C：卖家已发货待买家确认。D：交易成功。E：交易关闭<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelOrdersSearchRequest) SetStatus(value string) {
 	r.SetValue("status", value)
 }
@@ -712,44 +545,44 @@ type HotelRoomAddRequest struct {
 }
 
 /* 面积。可选值：A,B,C,D。分别代表：
-A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上 */
+A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomAddRequest) SetArea(value string) {
 	r.SetValue("area", value)
 }
 
 /* 宽带服务。A,B,C,D。分别代表：
-A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带 */
+A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomAddRequest) SetBbn(value string) {
 	r.SetValue("bbn", value)
 }
 
-/* 床型。可选值：A,B,C,D,E,F,G,H,I。分别代表：A：单人床，B：大床，C：双床，D：双床/大床，E：子母床，F：上下床，G：圆形床，H：多床，I：其他床型 */
+/* 床型。可选值：A,B,C,D,E,F,G,H,I。分别代表：A：单人床，B：大床，C：双床，D：双床/大床，E：子母床，F：上下床，G：圆形床，H：多床，I：其他床型<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomAddRequest) SetBedType(value string) {
 	r.SetValue("bed_type", value)
 }
 
 /* 早餐。A,B,C,D,E。分别代表：
-A：无早，B：单早，C：双早，D：三早，E：多早 */
+A：无早，B：单早，C：双早，D：三早，E：多早<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomAddRequest) SetBreakfast(value string) {
 	r.SetValue("breakfast", value)
 }
 
-/* 订金。0～99999900的正整数。在payment_type为订金时必须输入，存储的单位是分。不能带角分。 */
+/* 订金。0～99999900的正整数。在payment_type为订金时必须输入，存储的单位是分。不能带角分。<br /> 支持最大值为：99999900<br /> 支持最小值为：0 */
 func (r *HotelRoomAddRequest) SetDeposit(value string) {
 	r.SetValue("deposit", value)
 }
 
-/* 商品描述。不能超过25000个汉字（50000个字符）。 */
+/* 商品描述。不能超过25000个汉字（50000个字符）。<br /> 支持最大长度为：50000<br /> 支持的最大列表长度为：50000 */
 func (r *HotelRoomAddRequest) SetDesc(value string) {
 	r.SetValue("desc", value)
 }
 
-/* 手续费。0～99999900的正整数。在payment_type为手续费或手续费/间夜时必须输入，存储的单位是分。不能带角分。 */
+/* 手续费。0～99999900的正整数。在payment_type为手续费或手续费/间夜时必须输入，存储的单位是分。不能带角分。<br /> 支持最大值为：99999900<br /> 支持最小值为：0 */
 func (r *HotelRoomAddRequest) SetFee(value string) {
 	r.SetValue("fee", value)
 }
 
-/* 购买须知。不能超过300个字。 */
+/* 购买须知。不能超过300个字。<br /> 支持最大长度为：300<br /> 支持的最大列表长度为：300 */
 func (r *HotelRoomAddRequest) SetGuide(value string) {
 	r.SetValue("guide", value)
 }
@@ -770,12 +603,12 @@ func (r *HotelRoomAddRequest) SetMultiRoomQuotas(value string) {
 }
 
 /* 支付类型。可选值：A,B,C,D,E。分别代表：
-A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付 */
+A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomAddRequest) SetPaymentType(value string) {
 	r.SetValue("payment_type", value)
 }
 
-/* 酒店商品图片。类型:JPG,GIF;最大长度:500K。支持的文件类型：gif,jpg,jpeg,png。发布的时候只能发布一张图片。如需再发图片，需要调用商品图片上传接口，1个商品最多5张图片。 */
+/* 酒店商品图片。类型:JPG,GIF;最大长度:500K。支持的文件类型：gif,jpg,jpeg,png。发布的时候只能发布一张图片。如需再发图片，需要调用商品图片上传接口，1个商品最多5张图片。<br /> 支持的文件类型为：jpg,png,gif<br /> 支持的最大列表长度为：512000 */
 func (r *HotelRoomAddRequest) SetPic(value string) {
 	r.SetValue("pic", value)
 }
@@ -785,7 +618,7 @@ func (r *HotelRoomAddRequest) SetPicPath(value string) {
 	r.SetValue("pic_path", value)
 }
 
-/* 价格类型。可选值：A,B。分别代表：A：参考预订价，B实时预订价 。未选该参数默认为参考预订价。选择实时预订价的情况下，支付类型必须选择为A(全额支付) */
+/* 价格类型。可选值：A,B。分别代表：A：参考预订价，B实时预订价 。未选该参数默认为参考预订价。选择实时预订价的情况下，支付类型必须选择为A(全额支付)<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomAddRequest) SetPriceType(value string) {
 	r.SetValue("price_type", value)
 }
@@ -836,22 +669,22 @@ func (r *HotelRoomAddRequest) SetService(value string) {
 	r.SetValue("service", value)
 }
 
-/* 接入卖家数据主键 */
+/* 接入卖家数据主键<br /> 支持最大长度为：100<br /> 支持的最大列表长度为：100 */
 func (r *HotelRoomAddRequest) SetSiteParam(value string) {
 	r.SetValue("site_param", value)
 }
 
-/* 床宽。可选值：A,B,C,D,E,F,G,H。分别代表：A：1米及以下，B：1.1米，C：1.2米，D：1.35米，E：1.5米，F：1.8米，G：2米，H：2.2米及以上 */
+/* 床宽。可选值：A,B,C,D,E,F,G,H。分别代表：A：1米及以下，B：1.1米，C：1.2米，D：1.35米，E：1.5米，F：1.8米，G：2米，H：2.2米及以上<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomAddRequest) SetSize(value string) {
 	r.SetValue("size", value)
 }
 
-/* 楼层。长度不超过8 */
+/* 楼层。长度不超过8<br /> 支持最大长度为：8<br /> 支持的最大列表长度为：8 */
 func (r *HotelRoomAddRequest) SetStorey(value string) {
 	r.SetValue("storey", value)
 }
 
-/* 酒店商品名称。不能超过60字节 */
+/* 酒店商品名称。不能超过60字节<br /> 支持最大长度为：90<br /> 支持的最大列表长度为：90 */
 func (r *HotelRoomAddRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -937,7 +770,7 @@ func (r *HotelRoomImgDeleteRequest) SetGid(value string) {
 
 /* 图片序号，可选值：1，2，3，4，5。
 如果原图片个数小于等于1，则报错，不能删除图片。
-如果原图片个数小于待删除的图片序号，则报错，图片序号错误。 */
+如果原图片个数小于待删除的图片序号，则报错，图片序号错误。<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomImgDeleteRequest) SetPosition(value string) {
 	r.SetValue("position", value)
 }
@@ -971,12 +804,12 @@ func (r *HotelRoomImgUploadRequest) SetGid(value string) {
 
 /* 酒店商品图片。类型:JPG,GIF;最大长度:500K。支持的文件类型：gif,jpg,jpeg,png。
 如果原图片少于5张，若没传序号或序号大于原图片个数，则在原图片最后添加，否则按序号插入到原图片中去，自动后移。
-如果原图片大于5张，若没传序号，则替换最后一张图片，否则在序号位置插入，图片向后移，最后一张被删除。 */
+如果原图片大于5张，若没传序号，则替换最后一张图片，否则在序号位置插入，图片向后移，最后一张被删除。<br /> 支持的文件类型为：jpg,png,gif<br /> 支持的最大列表长度为：512000 */
 func (r *HotelRoomImgUploadRequest) SetPic(value string) {
 	r.SetValue("pic", value)
 }
 
-/* 图片序号，可选值：1，2，3，4，5 */
+/* 图片序号，可选值：1，2，3，4，5<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomImgUploadRequest) SetPosition(value string) {
 	r.SetValue("position", value)
 }
@@ -998,109 +831,45 @@ type HotelRoomImgUploadResponseResult struct {
 	Response *HotelRoomImgUploadResponse `json:"hotel_room_img_upload_response"`
 }
 
-/* 接入方房态查询结果返回 */
-type HotelRoomQuotasQueryFeedbackRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 选中日期范围内的最大可用房量 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetAvaliableRoomCount(value string) {
-	r.SetValue("avaliable_room_count", value)
-}
-
-/* 入住酒店的日期 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetCheckinDate(value string) {
-	r.SetValue("checkin_date", value)
-}
-
-/* 离开酒店的日期 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetCheckoutDate(value string) {
-	r.SetValue("checkout_date", value)
-}
-
-/* 失败原因,当result为F时,此项为必填,最长200个字符 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetFailedReason(value string) {
-	r.SetValue("failed_reason", value)
-}
-
-/* 指令消息中的messageid,最长128字符 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetMessageId(value string) {
-	r.SetValue("message_id", value)
-}
-
-/* 预订结果
-S:成功
-F:失败 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetResult(value string) {
-	r.SetValue("result", value)
-}
-
-/* 从入住时期到离店日期的每日一间房价与预定房量,JSON格式传递。 date：代表房态日期，格式为YYYY-MM-DD， price：代表当天房价，0～99999900，存储的单位是分，货币单位为人民币，num：代表当天剩余房量，0～999，所有日期的预订间数应该一致。 如： [{"date":2011-01-28,"price":10000, "num":10},{"date":2011-01-29,"price":12000,"num":10}],最长1500个字符 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetRoomQuotas(value string) {
-	r.SetValue("room_quotas", value)
-}
-
-/* 订单总价。0～99999999的正整数。货币单位为人民币。 */
-func (r *HotelRoomQuotasQueryFeedbackRequest) SetTotalRoomPrice(value string) {
-	r.SetValue("total_room_price", value)
-}
-
-func (r *HotelRoomQuotasQueryFeedbackRequest) GetResponse(accessToken string) (*HotelRoomQuotasQueryFeedbackResponse, []byte, error) {
-	var resp HotelRoomQuotasQueryFeedbackResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.hotel.room.quotas.query.feedback", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type HotelRoomQuotasQueryFeedbackResponse struct {
-	IsSuccess bool `json:"is_success"`
-}
-
-type HotelRoomQuotasQueryFeedbackResponseResult struct {
-	Response *HotelRoomQuotasQueryFeedbackResponse `json:"hotel_room_quotas_query_feedback_response"`
-}
-
 /* 此接口用于更新一个集市酒店商品，根据传入的gid更新商品信息，该商品必须为对应的发布者才能执行更新操作。如果对应的商品在淘宝集市酒店系统中不存在，则会返回错误提示。 */
 type HotelRoomUpdateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
 /* 面积。可选值：A,B,C,D。分别代表：
-A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上 */
+A：15平米以下，B：16－30平米，C：31－50平米，D：50平米以上<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetArea(value string) {
 	r.SetValue("area", value)
 }
 
 /* 宽带服务。A,B,C,D。分别代表：
-A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带 */
+A：无宽带，B：免费宽带，C：收费宽带，D：部分收费宽带<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetBbn(value string) {
 	r.SetValue("bbn", value)
 }
 
-/* 床型。可选值：A,B,C,D,E,F,G,H,I。分别代表：A：单人床，B：大床，C：双床，D：双床/大床，E：子母床，F：上下床，G：圆形床，H：多床，I：其他床型 */
+/* 床型。可选值：A,B,C,D,E,F,G,H,I。分别代表：A：单人床，B：大床，C：双床，D：双床/大床，E：子母床，F：上下床，G：圆形床，H：多床，I：其他床型<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetBedType(value string) {
 	r.SetValue("bed_type", value)
 }
 
 /* 早餐。A,B,C,D,E。分别代表：
-A：无早，B：单早，C：双早，D：三早，E：多早 */
+A：无早，B：单早，C：双早，D：三早，E：多早<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetBreakfast(value string) {
 	r.SetValue("breakfast", value)
 }
 
-/* 订金。0～99999900的正整数。在payment_type为订金时必须输入，存储的单位是分。不能带角分。 */
+/* 订金。0～99999900的正整数。在payment_type为订金时必须输入，存储的单位是分。不能带角分。<br /> 支持最大值为：99999900<br /> 支持最小值为：0 */
 func (r *HotelRoomUpdateRequest) SetDeposit(value string) {
 	r.SetValue("deposit", value)
 }
 
-/* 商品描述。不能超过25000个汉字（50000个字符）。 */
+/* 商品描述。不能超过25000个汉字（50000个字符）。<br /> 支持最大长度为：50000<br /> 支持的最大列表长度为：50000 */
 func (r *HotelRoomUpdateRequest) SetDesc(value string) {
 	r.SetValue("desc", value)
 }
 
-/* 手续费。0～99999900的正整数。在payment_type为手续费或手续费/间夜时必须输入，存储的单位是分。不能带角分。 */
+/* 手续费。0～99999900的正整数。在payment_type为手续费或手续费/间夜时必须输入，存储的单位是分。不能带角分。<br /> 支持最大值为：99999900<br /> 支持最小值为：0 */
 func (r *HotelRoomUpdateRequest) SetFee(value string) {
 	r.SetValue("fee", value)
 }
@@ -1110,7 +879,7 @@ func (r *HotelRoomUpdateRequest) SetGid(value string) {
 	r.SetValue("gid", value)
 }
 
-/* 购买须知。不能超过300个字。 */
+/* 购买须知。不能超过300个字。<br /> 支持最大长度为：300<br /> 支持的最大列表长度为：300 */
 func (r *HotelRoomUpdateRequest) SetGuide(value string) {
 	r.SetValue("guide", value)
 }
@@ -1126,13 +895,13 @@ func (r *HotelRoomUpdateRequest) SetMultiRoomQuotas(value string) {
 }
 
 /* 支付类型。可选值：A,B,C,D,E。分别代表：
-A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付 */
+A：全额支付，B：手续费，C：订金，D：手续费/间夜，E：前台面付<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetPaymentType(value string) {
 	r.SetValue("payment_type", value)
 }
 
 /* 酒店商品图片。类型:JPG,GIF;最大长度:500K。支持的文件类型：gif,jpg,jpeg,png。更新的时候只能更新一张图片，此图片覆盖原有所有图片。如果不传则使用原有所有图片。
-如需再发图片，需要调用商品图片上传接口，1个商品最多5张图片。 */
+如需再发图片，需要调用商品图片上传接口，1个商品最多5张图片。<br /> 支持的文件类型为：jpg,png,gif<br /> 支持的最大列表长度为：512000 */
 func (r *HotelRoomUpdateRequest) SetPic(value string) {
 	r.SetValue("pic", value)
 }
@@ -1142,7 +911,7 @@ func (r *HotelRoomUpdateRequest) SetPicPath(value string) {
 	r.SetValue("pic_path", value)
 }
 
-/* 价格类型。可选值：A,B。分别代表：A：参考预订价，B实时预订价 。未选该参数默认为参考预订价。选择实时预订价的情况下，支付类型必须选择为A(全额支付) */
+/* 价格类型。可选值：A,B。分别代表：A：参考预订价，B实时预订价 。未选该参数默认为参考预订价。选择实时预订价的情况下，支付类型必须选择为A(全额支付)<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetPriceType(value string) {
 	r.SetValue("price_type", value)
 }
@@ -1191,22 +960,22 @@ func (r *HotelRoomUpdateRequest) SetSiteParam(value string) {
 	r.SetValue("site_param", value)
 }
 
-/* 床宽。可选值：A,B,C,D,E,F,G,H。分别代表：A：1米及以下，B：1.1米，C：1.2米，D：1.35米，E：1.5米，F：1.8米，G：2米，H：2.2米及以上 */
+/* 床宽。可选值：A,B,C,D,E,F,G,H。分别代表：A：1米及以下，B：1.1米，C：1.2米，D：1.35米，E：1.5米，F：1.8米，G：2米，H：2.2米及以上<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetSize(value string) {
 	r.SetValue("size", value)
 }
 
-/* 状态。可选值1，2，3。1：上架。2：下架。3：删除。传入相应状态代表去执行相应的操作。 */
+/* 状态。可选值1，2，3。1：上架。2：下架。3：删除。传入相应状态代表去执行相应的操作。<br /> 支持的最大列表长度为：1 */
 func (r *HotelRoomUpdateRequest) SetStatus(value string) {
 	r.SetValue("status", value)
 }
 
-/* 楼层。长度不超过8 */
+/* 楼层。长度不超过8<br /> 支持最大长度为：8<br /> 支持的最大列表长度为：8 */
 func (r *HotelRoomUpdateRequest) SetStorey(value string) {
 	r.SetValue("storey", value)
 }
 
-/* 酒店商品名称。不能超过60字节 */
+/* 酒店商品名称。不能超过60字节<br /> 支持最大长度为：90<br /> 支持的最大列表长度为：90 */
 func (r *HotelRoomUpdateRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -1418,7 +1187,7 @@ func (r *HotelSoldOrdersIncrementGetRequest) SetStartModified(value string) {
 	r.SetValue("start_modified", value)
 }
 
-/* 交易状态，默认查询所有交易状态的数据，除了默认值外每次只能查询一种状态。可选值：A：等待买家付款。B：买家已付款待卖家发货。C：卖家已发货待买家确认。D：交易成功。E：交易关闭 */
+/* 交易状态，默认查询所有交易状态的数据，除了默认值外每次只能查询一种状态。可选值：A：等待买家付款。B：买家已付款待卖家发货。C：卖家已发货待买家确认。D：交易成功。E：交易关闭<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelSoldOrdersIncrementGetRequest) SetStatus(value string) {
 	r.SetValue("status", value)
 }
@@ -1504,17 +1273,17 @@ type HotelTypeAddRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 酒店id。必须为数字 */
+/* 酒店id。必须为数字<br /> 支持最小值为：0 */
 func (r *HotelTypeAddRequest) SetHid(value string) {
 	r.SetValue("hid", value)
 }
 
-/* 房型名称。长度不能超过30 */
+/* 房型名称。长度不能超过30<br /> 支持最大长度为：30<br /> 支持的最大列表长度为：30 */
 func (r *HotelTypeAddRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
 
-/* 接入卖家数据主键,格式为“接入方酒店id-接入方房型id” */
+/* 接入卖家数据主键,格式为“接入方酒店id-接入方房型id”<br /> 支持最大长度为：100<br /> 支持的最大列表长度为：100 */
 func (r *HotelTypeAddRequest) SetSiteParam(value string) {
 	r.SetValue("site_param", value)
 }
@@ -1546,7 +1315,7 @@ func (r *HotelTypeNameGetRequest) SetHid(value string) {
 	r.SetValue("hid", value)
 }
 
-/* 房型全部名称/别名。不能超过60字节 */
+/* 房型全部名称/别名。不能超过60字节<br /> 支持最大长度为：60<br /> 支持的最大列表长度为：60 */
 func (r *HotelTypeNameGetRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
@@ -1574,12 +1343,12 @@ type HotelUpdateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 酒店地址。长度不能超过120 */
+/* 酒店地址。长度不能超过120<br /> 支持最大长度为：120<br /> 支持的最大列表长度为：120 */
 func (r *HotelUpdateRequest) SetAddress(value string) {
 	r.SetValue("address", value)
 }
 
-/* 城市编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时，输入对应国家的海外城市编码，可调用海外城市查询接口获取 */
+/* 城市编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时，输入对应国家的海外城市编码，可调用海外城市查询接口获取<br /> 支持最大值为：999999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：6 */
 func (r *HotelUpdateRequest) SetCity(value string) {
 	r.SetValue("city", value)
 }
@@ -1590,17 +1359,17 @@ func (r *HotelUpdateRequest) SetCountry(value string) {
 	r.SetValue("country", value)
 }
 
-/* 装修时间。长度不能超过4。 */
+/* 装修时间。长度不能超过4。<br /> 支持最大长度为：4<br /> 支持的最大列表长度为：4 */
 func (r *HotelUpdateRequest) SetDecorateTime(value string) {
 	r.SetValue("decorate_time", value)
 }
 
-/* 酒店介绍。不超过25000个汉字 */
+/* 酒店介绍。不超过25000个汉字<br /> 支持最大长度为：50000<br /> 支持的最大列表长度为：50000 */
 func (r *HotelUpdateRequest) SetDesc(value string) {
 	r.SetValue("desc", value)
 }
 
-/* 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html */
+/* 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html<br /> 支持最大值为：999999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：6 */
 func (r *HotelUpdateRequest) SetDistrict(value string) {
 	r.SetValue("district", value)
 }
@@ -1615,38 +1384,38 @@ func (r *HotelUpdateRequest) SetHid(value string) {
 	r.SetValue("hid", value)
 }
 
-/* 酒店级别。可选值：A,B,C,D,E,F。代表客栈公寓、经济连锁、二星级/以下、三星级/舒适、四星级/高档、五星级/豪华 */
+/* 酒店级别。可选值：A,B,C,D,E,F。代表客栈公寓、经济连锁、二星级/以下、三星级/舒适、四星级/高档、五星级/豪华<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelUpdateRequest) SetLevel(value string) {
 	r.SetValue("level", value)
 }
 
-/* 酒店名称。不能超过60字节 */
+/* 酒店名称。不能超过60字节<br /> 支持最大长度为：60<br /> 支持的最大列表长度为：60 */
 func (r *HotelUpdateRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
 
-/* 开业时间。长度不能超过4。 */
+/* 开业时间。长度不能超过4。<br /> 支持最大长度为：4<br /> 支持的最大列表长度为：4 */
 func (r *HotelUpdateRequest) SetOpeningTime(value string) {
 	r.SetValue("opening_time", value)
 }
 
-/* 酒店定位。可选值：T,B。代表旅游度假、商务出行 */
+/* 酒店定位。可选值：T,B。代表旅游度假、商务出行<br /> 支持最大长度为：1<br /> 支持的最大列表长度为：1 */
 func (r *HotelUpdateRequest) SetOrientation(value string) {
 	r.SetValue("orientation", value)
 }
 
 /* 酒店图片。类型:JPG,GIF;最大长度:500K。支持的文件类型：gif,jpg,jpeg,png。
-图片没有传，则代表不更新图片，使用原来的图片 */
+图片没有传，则代表不更新图片，使用原来的图片<br /> 支持的文件类型为：jpg,png,gif<br /> 支持的最大列表长度为：512000 */
 func (r *HotelUpdateRequest) SetPic(value string) {
 	r.SetValue("pic", value)
 }
 
-/* 省份编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时默认为0 */
+/* 省份编码。参见：http://kezhan.trip.taobao.com/area.html，domestic为false时默认为0<br /> 支持最大值为：999999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：6 */
 func (r *HotelUpdateRequest) SetProvince(value string) {
 	r.SetValue("province", value)
 }
 
-/* 房间数。长度不能超过4。 */
+/* 房间数。长度不能超过4。<br /> 支持最大值为：9999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：4 */
 func (r *HotelUpdateRequest) SetRooms(value string) {
 	r.SetValue("rooms", value)
 }
@@ -1660,12 +1429,12 @@ func (r *HotelUpdateRequest) SetService(value string) {
 	r.SetValue("service", value)
 }
 
-/* 楼层数。长度不能超过4。 */
+/* 楼层数。长度不能超过4。<br /> 支持最大值为：9999<br /> 支持最小值为：0<br /> 支持的最大列表长度为：4 */
 func (r *HotelUpdateRequest) SetStoreys(value string) {
 	r.SetValue("storeys", value)
 }
 
-/* 酒店电话。格式：国家代码（最长6位）#区号（最长4位）#电话（最长20位）。国家代码提示：中国大陆0086、香港00852、澳门00853、台湾00886 */
+/* 酒店电话。格式：国家代码（最长6位）#区号（最长4位）#电话（最长20位）。国家代码提示：中国大陆0086、香港00852、澳门00853、台湾00886<br /> 支持最大长度为：32<br /> 支持的最大列表长度为：32 */
 func (r *HotelUpdateRequest) SetTel(value string) {
 	r.SetValue("tel", value)
 }
@@ -1693,7 +1462,7 @@ type HotelsSearchRequest struct {
 }
 
 /* 城市编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0 */
+domestic为true时，province,city,district不能同时为空或为0<br /> 支持的最大列表长度为：6 */
 func (r *HotelsSearchRequest) SetCity(value string) {
 	r.SetValue("city", value)
 }
@@ -1705,7 +1474,7 @@ func (r *HotelsSearchRequest) SetCountry(value string) {
 }
 
 /* 区域（县级市）编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0 */
+domestic为true时，province,city,district不能同时为空或为0<br /> 支持的最大列表长度为：6 */
 func (r *HotelsSearchRequest) SetDistrict(value string) {
 	r.SetValue("district", value)
 }
@@ -1715,7 +1484,7 @@ func (r *HotelsSearchRequest) SetDomestic(value string) {
 	r.SetValue("domestic", value)
 }
 
-/* 酒店名称。不能超过60字节 */
+/* 酒店名称。不能超过60字节<br /> 支持最大长度为：60<br /> 支持的最大列表长度为：60 */
 func (r *HotelsSearchRequest) SetName(value string) {
 	r.SetValue("name", value)
 }
@@ -1726,7 +1495,7 @@ func (r *HotelsSearchRequest) SetPageNo(value string) {
 }
 
 /* 省份编码。参见：http://kezhan.trip.taobao.com/area.html。
-domestic为true时，province,city,district不能同时为空或为0 */
+domestic为true时，province,city,district不能同时为空或为0<br /> 支持的最大列表长度为：6 */
 func (r *HotelsSearchRequest) SetProvince(value string) {
 	r.SetValue("province", value)
 }

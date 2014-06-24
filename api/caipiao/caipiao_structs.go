@@ -4,7 +4,7 @@
 
 package caipiao
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 卖家商品信息 */
 type LotteryWangcaiSellerGoodsInfo struct {
@@ -28,7 +28,11 @@ type LotteryWangcaiPresent struct {
 	PresentDate string `json:"present_date"`
 	PresentId   int    `json:"present_id"`
 	StakeCount  int    `json:"stake_count"`
+	Status      int    `json:"status"`
+	StatusDesc  string `json:"status_desc"`
+	SweetyWords string `json:"sweety_words"`
 	UserNick    string `json:"user_nick"`
+	UserNumId   int    `json:"user_num_id"`
 	WinFee      int    `json:"win_fee"`
 }
 

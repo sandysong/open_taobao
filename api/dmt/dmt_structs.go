@@ -4,7 +4,7 @@
 
 package dmt
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 图片分类 */
 type PictureCategory struct {
@@ -19,6 +19,7 @@ type PictureCategory struct {
 
 /* 图片 */
 type Picture struct {
+	ClientType        string `json:"client_type"`
 	Created           string `json:"created"`
 	Deleted           string `json:"deleted"`
 	Md5               string `json:"md5"`

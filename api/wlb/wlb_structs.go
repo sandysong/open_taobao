@@ -4,7 +4,15 @@
 
 package wlb
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
+
+/* 商家的仓库信息详情 */
+type StoreInfo struct {
+	Address     string `json:"address"`
+	Name        string `json:"name"`
+	RealName    string `json:"real_name"`
+	ServiceCode string `json:"service_code"`
+}
 
 /* 库存明细 */
 type IpcInventoryDetailDo struct {
@@ -16,6 +24,34 @@ type IpcInventoryDetailDo struct {
 	ReserveQuantity int    `json:"reserve_quantity"`
 	ScItemId        int    `json:"sc_item_id"`
 	StoreCode       string `json:"store_code"`
+}
+
+/* 物流宝外部订单 */
+type WlbExtOrder struct {
+	BuyerId              int    `json:"buyer_id"`
+	BuyerNick            string `json:"buyer_nick"`
+	ExtOrderSource       string `json:"ext_order_source"`
+	ExtOrderStatus       string `json:"ext_order_status"`
+	ExtOrderStatusReason string `json:"ext_order_status_reason"`
+	Id                   int    `json:"id"`
+	OperateType          string `json:"operate_type"`
+	PrevId               string `json:"prev_id"`
+	ReceiverAddress      string `json:"receiver_address"`
+	ReceiverCountryId    string `json:"receiver_country_id"`
+	ReceiverMail         string `json:"receiver_mail"`
+	ReceiverMobile       string `json:"receiver_mobile"`
+	ReceiverName         string `json:"receiver_name"`
+	ReceiverPhone        string `json:"receiver_phone"`
+	ReceiverWangwang     string `json:"receiver_wangwang"`
+	ReceiverZip          string `json:"receiver_zip"`
+	Remark               string `json:"remark"`
+	SellerId             int    `json:"seller_id"`
+	SellerNick           string `json:"seller_nick"`
+	SendName             string `json:"send_name"`
+	ShippingType         string `json:"shipping_type"`
+	TmsCode              string `json:"tms_code"`
+	TotalPrice           int    `json:"total_price"`
+	WmsCode              string `json:"wms_code"`
 }
 
 /* 库存详情对象。其中包括货主ID，仓库编码，库存，库存类型等属性 */
@@ -219,12 +255,33 @@ type WlbOrder struct {
 	UserNick          string `json:"user_nick"`
 }
 
+/* 物流宝订单，并且包含订单详情 */
+type WlbOrderDetail struct {
+	BuyerNick       string          `json:"buyer_nick"`
+	CreateTime      string          `json:"create_time"`
+	IsCompleted     bool            `json:"is_completed"`
+	ModifyTime      string          `json:"modify_time"`
+	OperateType     string          `json:"operate_type"`
+	OrderCode       string          `json:"order_code"`
+	OrderItemList   []*WlbOrderItem `json:"order_item_list"`
+	OrderSource     string          `json:"order_source"`
+	OrderSourceCode string          `json:"order_source_code"`
+	OrderStatus     string          `json:"order_status"`
+	OrderSubType    string          `json:"order_sub_type"`
+	OrderType       string          `json:"order_type"`
+	Remark          string          `json:"remark"`
+	StoreCode       string          `json:"store_code"`
+	UserId          int             `json:"user_id"`
+	UserNick        string          `json:"user_nick"`
+}
+
 /* 物流宝订单商品 */
 type WlbOrderItem struct {
 	BatchRemark    string `json:"batch_remark"`
 	ConfirmStatus  string `json:"confirm_status"`
 	ExtEntityId    string `json:"ext_entity_id"`
 	ExtEntityType  string `json:"ext_entity_type"`
+	Flag           int    `json:"flag"`
 	Id             int    `json:"id"`
 	InventoryType  string `json:"inventory_type"`
 	ItemCode       string `json:"item_code"`
@@ -331,4 +388,67 @@ type WlbTmsOrder struct {
 	CompanyCode string `json:"company_code"`
 	OrderCode   string `json:"order_code"`
 	UserId      int    `json:"user_id"`
+}
+
+/* 申请面单返回数据 */
+type WaybillApplyNewInfo struct {
+	Feature        string          `json:"feature"`
+	Result         int             `json:"result"`
+	ShortAddress   string          `json:"short_address"`
+	TradeOrderInfo *TradeOrderInfo `json:"trade_order_info"`
+	WaybillCode    string          `json:"waybill_code"`
+}
+
+/* 订单数据 */
+type TradeOrderInfo struct {
+	AliOrder          bool            `json:"ali_order"`
+	ConsigneeAddress  *WaybillAddress `json:"consignee_address"`
+	ConsigneeName     string          `json:"consignee_name"`
+	ConsigneePhone    string          `json:"consignee_phone"`
+	ItemName          string          `json:"item_name"`
+	OrderChannelsType string          `json:"order_channels_type"`
+	ShortAddress      string          `json:"short_address"`
+	TradeOrderList    []string        `json:"trade_order_list"`
+	WaybillCode       string          `json:"waybill_code"`
+}
+
+/* 收\发货 地址 */
+type WaybillAddress struct {
+	AddressDetail string `json:"address_detail"`
+	AddressFormat string `json:"address_format"`
+	Area          string `json:"area"`
+	AreaCode      int    `json:"area_code"`
+	City          string `json:"city"`
+	CityCode      int    `json:"city_code"`
+	DivisionId    int    `json:"division_id"`
+	Province      string `json:"province"`
+	ProvinceCode  int    `json:"province_code"`
+	Town          string `json:"town"`
+	TownCode      int    `json:"town_code"`
+}
+
+/* 商家与CP的订购关系 */
+type WaybillApplySubscriptionInfo struct {
+	BranchAccountCols []*WaybillBranchAccount `json:"branch_account_cols"`
+	CpCode            string                  `json:"cp_code"`
+	CpType            int                     `json:"cp_type"`
+	Result            int                     `json:"result"`
+}
+
+/* CP下的网点信息 */
+type WaybillBranchAccount struct {
+	AllocatedQuantity int               `json:"allocated_quantity"`
+	BranchCode        string            `json:"branch_code"`
+	CpCode            string            `json:"cp_code"`
+	Quantity          int               `json:"quantity"`
+	SellerId          int               `json:"seller_id"`
+	ShippAddressCols  []*WaybillAddress `json:"shipp_address_cols"`
+}
+
+/* 更新面单数据 */
+type WaybillApplyUpdateInfo struct {
+	Desc           string          `json:"desc"`
+	Result         int             `json:"result"`
+	TradeOrderInfo *TradeOrderInfo `json:"trade_order_info"`
+	WaybillCode    string          `json:"waybill_code"`
 }

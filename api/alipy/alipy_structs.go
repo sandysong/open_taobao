@@ -4,7 +4,7 @@
 
 package alipy
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 小额支付单笔支付 */
 type SinglePayDetail struct {

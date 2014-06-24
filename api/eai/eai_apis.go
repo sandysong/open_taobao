@@ -124,6 +124,40 @@ type TmallEaiBaseGatewayRegisterResponseResult struct {
 	Response *TmallEaiBaseGatewayRegisterResponse `json:"tmall_eai_base_gateway_register_response"`
 }
 
+/* 同意退款接口，此接口只能子帐号授权来调用，需要主帐号给子帐号相应的权限。 */
+type TmallEaiOrderRefundAgreeRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* 短信验证码 */
+func (r *TmallEaiOrderRefundAgreeRequest) SetCode(value string) {
+	r.SetValue("code", value)
+}
+
+/* 需要退款的退款ID|其对应的金额|对应版本号列表|退款阶段（onsale\aftersale），其中金额以分为单位，ID与金额以“|”符号分隔，多笔订单以“,”分隔。允许批量操作30笔，最大金额1W。 */
+func (r *TmallEaiOrderRefundAgreeRequest) SetRefundInfos(value string) {
+	r.SetValue("refund_infos", value)
+}
+
+func (r *TmallEaiOrderRefundAgreeRequest) GetResponse(accessToken string) (*TmallEaiOrderRefundAgreeResponse, []byte, error) {
+	var resp TmallEaiOrderRefundAgreeResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "tmall.eai.order.refund.agree", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type TmallEaiOrderRefundAgreeResponse struct {
+	Code       int                  `json:"code"`
+	Message    string               `json:"message"`
+	ResultList []*RefundAgreeResult `json:"result_list"`
+}
+
+type TmallEaiOrderRefundAgreeResponseResult struct {
+	Response *TmallEaiOrderRefundAgreeResponse `json:"tmall_eai_order_refund_agree_response"`
+}
+
 /* 查询退货单 或者 退款单数量 */
 type TmallEaiOrderRefundBillsumGetRequest struct {
 	open_taobao.TaobaoMethodRequest
@@ -445,12 +479,12 @@ func (r *TmallEaiOrderRefundGoodReturnMgetRequest) SetEndTime(value string) {
 	r.SetValue("end_time", value)
 }
 
-/* 页码。取值范围:大于零的整数; 默认值:1 */
+/* 页码。取值范围:大于零的整数; 默认值:1<br /> 支持最小值为：1 */
 func (r *TmallEaiOrderRefundGoodReturnMgetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100 */
+/* 每页条数。取值范围:大于零的整数; 默认值:10;最大值:40<br /> 支持最大值为：40<br /> 支持最小值为：1 */
 func (r *TmallEaiOrderRefundGoodReturnMgetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -542,12 +576,12 @@ type TmallEaiOrderRefundMessageGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 页码。取值范围:大于零的整数; 默认值:1 */
+/* 页码。取值范围:大于零的整数; 默认值:1<br /> 支持最小值为：1 */
 func (r *TmallEaiOrderRefundMessageGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100 */
+/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:40<br /> 支持最大值为：40<br /> 支持最小值为：1 */
 func (r *TmallEaiOrderRefundMessageGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -586,22 +620,22 @@ type TmallEaiOrderRefundMgetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 批量查询结束时间 */
+/* 批量查询结束时间。注：该字段对应为退款单更新时间，非退款单创建时间。 */
 func (r *TmallEaiOrderRefundMgetRequest) SetEndTime(value string) {
 	r.SetValue("end_time", value)
 }
 
-/* 页码。取值范围:大于零的整数; 默认值:1 */
+/* 页码。取值范围:大于零的整数; 默认值:1<br /> 支持最小值为：1 */
 func (r *TmallEaiOrderRefundMgetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100 */
+/* 每页条数。取值范围:大于零的整数; 默认值:10;最大值:40<br /> 支持最大值为：100<br /> 支持最小值为：1 */
 func (r *TmallEaiOrderRefundMgetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
 
-/* 批量查询开始时间 */
+/* 批量查询开始时间。注：该字段对应为退款单更新时间，非退款单创建时间。 */
 func (r *TmallEaiOrderRefundMgetRequest) SetStartTime(value string) {
 	r.SetValue("start_time", value)
 }
@@ -750,7 +784,7 @@ func (r *TmallEaiOrderRegisterRequest) SetAction(value string) {
 /* 1:主订单模式;
 2:子订单模式;
 天猫退款消息订阅默认子订单模式。
-不传入即可。 */
+不传入即可。<br /> 支持的最大列表长度为：50 */
 func (r *TmallEaiOrderRegisterRequest) SetDataMode(value string) {
 	r.SetValue("data_mode", value)
 }
@@ -773,7 +807,7 @@ RcRefundPaymentFinishedEvent;
 RcRefundRefundableMarkedEvent;
 RcReturnBuyerReturnGoodsEvent;
 RcRefundSellerAgreeReturnEvent;
-RcRefundRefundableCanceledEvent; */
+RcRefundRefundableCanceledEvent;<br /> 支持最大长度为：50<br /> 支持的最大列表长度为：50 */
 func (r *TmallEaiOrderRegisterRequest) SetEventName(value string) {
 	r.SetValue("event_name", value)
 }

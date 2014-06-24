@@ -18,7 +18,7 @@ func (r *RefundGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
 
-/* 退款单号 */
+/* 退款单号<br /> 支持最大值为：9223372036854775807<br /> 支持最小值为：1 */
 func (r *RefundGetRequest) SetRefundId(value string) {
 	r.SetValue("refund_id", value)
 }
@@ -87,12 +87,12 @@ func (r *RefundMessagesGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
 
-/* 页码。取值范围:大于零的整数; 默认值:1 */
+/* 页码。取值范围:大于零的整数; 默认值:1<br /> 支持最小值为：1 */
 func (r *RefundMessagesGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100 */
+/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100<br /> 支持最大值为：100<br /> 支持最小值为：1 */
 func (r *RefundMessagesGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -120,7 +120,7 @@ type RefundMessagesGetResponseResult struct {
 	Response *RefundMessagesGetResponse `json:"refund_messages_get_response"`
 }
 
-/* 卖家拒绝单笔退款交易，要求如下：
+/* 卖家拒绝单笔退款（包含退款和退款退货）交易，要求如下：
 1. 传入的refund_id和相应的tid, oid必须匹配
 2. 如果一笔订单只有一笔子订单，则tid必须与oid相同
 3. 只有卖家才能执行拒绝退款操作
@@ -139,12 +139,12 @@ func (r *RefundRefuseRequest) SetRefundId(value string) {
 	r.SetValue("refund_id", value)
 }
 
-/* 拒绝退款时的说明信息，长度2-200 */
+/* 拒绝退款时的说明信息，长度2-200<br /> 支持最大长度为：200<br /> 支持的最大列表长度为：200 */
 func (r *RefundRefuseRequest) SetRefuseMessage(value string) {
 	r.SetValue("refuse_message", value)
 }
 
-/* 拒绝退款时的退款凭证，一般是卖家拒绝退款时使用的发货凭证，最大长度130000字节，支持的图片格式：GIF, JPG, PNG */
+/* 拒绝退款时的退款凭证，一般是卖家拒绝退款时使用的发货凭证，最大长度130000字节，支持的图片格式：GIF, JPG, PNG<br /> 支持的文件类型为：gif,jpg,png<br /> 支持的最大列表长度为：130000 */
 func (r *RefundRefuseRequest) SetRefuseProof(value string) {
 	r.SetValue("refuse_proof", value)
 }
@@ -181,12 +181,12 @@ func (r *RefundsApplyGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
 
-/* 页码。传入值为 1 代表第一页，传入值为 2 代表第二页，依此类推。默认返回的数据是从第一页开始 */
+/* 页码。传入值为 1 代表第一页，传入值为 2 代表第二页，依此类推。默认返回的数据是从第一页开始<br /> 支持最小值为：1 */
 func (r *RefundsApplyGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100 */
+/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100<br /> 支持最大值为：100<br /> 支持最小值为：1 */
 func (r *RefundsApplyGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -263,12 +263,12 @@ func (r *RefundsReceiveGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
 
-/* 页码。取值范围:大于零的整数; 默认值:1 */
+/* 页码。取值范围:大于零的整数; 默认值:1<br /> 支持最小值为：1 */
 func (r *RefundsReceiveGetRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100 */
+/* 每页条数。取值范围:大于零的整数; 默认值:40;最大值:100<br /> 支持最大值为：100<br /> 支持最小值为：1 */
 func (r *RefundsReceiveGetRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -329,41 +329,4 @@ type RefundsReceiveGetResponse struct {
 
 type RefundsReceiveGetResponseResult struct {
 	Response *RefundsReceiveGetResponse `json:"refunds_receive_get_response"`
-}
-
-/* 提供异步获取三个月内买家收到的退款详情信息接口。 */
-type TopatsRefundsReceiveGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 退款修改结束时间，格式yyyyMMdd，取值范围：前90天内~昨天，其中start_time<=end_time，如20120531相当于取退款修改时间到2012-05-31 23:59:59为止的退款。注：如果start_time和end_time相同，表示取一天的退款数据。<span style="color:red">强烈建议直充类卖家把三个月退款拆分成3次来获取，否则单个任务会消耗很长时间。<span> */
-func (r *TopatsRefundsReceiveGetRequest) SetEndTime(value string) {
-	r.SetValue("end_time", value)
-}
-
-/* Refund结构体中的所有字段。<span style="color:red">请尽量按需获取，如果只取refund_id和modified字段，获取退款数据速度会超快。</span> */
-func (r *TopatsRefundsReceiveGetRequest) SetFields(value string) {
-	r.SetValue("fields", value)
-}
-
-/* 退款修改开始时间，格式yyyyMMdd，取值范围：前90天内~昨天。如：20120501相当于取退款修改时间从2012-05-01 00:00:00开始的退款。 */
-func (r *TopatsRefundsReceiveGetRequest) SetStartTime(value string) {
-	r.SetValue("start_time", value)
-}
-
-func (r *TopatsRefundsReceiveGetRequest) GetResponse(accessToken string) (*TopatsRefundsReceiveGetResponse, []byte, error) {
-	var resp TopatsRefundsReceiveGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.topats.refunds.receive.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type TopatsRefundsReceiveGetResponse struct {
-	Task *Task `json:"task"`
-}
-
-type TopatsRefundsReceiveGetResponseResult struct {
-	Response *TopatsRefundsReceiveGetResponse `json:"topats_refunds_receive_get_response"`
 }

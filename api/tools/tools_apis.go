@@ -130,8 +130,7 @@ type TimeGetResponseResult struct {
 <br/>异步API使用方法，请查看：<a href="http://open.taobao.com/doc/detail.htm?id=30">异步API使用说明</a>
 <br/>1. 只能获取AppKey自身创建的异步任务结果
 <br/>2. 如果任务状态为done，则返回任务结果（如taobao.topats.trades.fullinfo.get）或下载地址（如taobao.topats.trades.sold.get）
-<br/>3. 任务结果下载地址只能使用一次，需要重复下载可重新调用此接口获取下载地址
-<br/>4. 任务结果中的check_code字段为待下载文件的md5 sum，可通过此校验码验证文件下载的完整性 */
+<br/>3. 任务结果下载地址只能使用一次，需要重复下载可重新调用此接口获取下载地址 */
 type TopatsResultGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -158,9 +157,10 @@ type TopatsResultGetResponseResult struct {
 	Response *TopatsResultGetResponse `json:"topats_result_get_response"`
 }
 
-/* 可用于取消已经创建的ATS任务。</br>
-条件限制：1)一次只可以取消一个任务</br>
-         2）只能取消自己创建的任务</br> */
+/* 可用于取消已经创建的异步任务。</br>
+条件限制：</br>
+1)一次只可以取消一个任务</br>
+2）只能取消自己创建的任务 */
 type TopatsTaskDeleteRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -185,39 +185,4 @@ type TopatsTaskDeleteResponse struct {
 
 type TopatsTaskDeleteResponseResult struct {
 	Response *TopatsTaskDeleteResponse `json:"topats_task_delete_response"`
-}
-
-/* 用于获取指定时间段内的定时API任务信息。</br>
-条件：1）必须是本APPKEY创建的任务。</br>
-     2)起始时间不能早于3天前的当前时刻。</br>
-     3）结束时间不能晚于一天以后的当前时刻。</br> */
-type TopatsTasksGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 要查询的已经创建的定时任务的结束时间(这里的时间是指执行时间)。 */
-func (r *TopatsTasksGetRequest) SetEndTime(value string) {
-	r.SetValue("end_time", value)
-}
-
-/* 要查询的已创建过的定时任务的开始时间(这里的时间是指执行时间)。 */
-func (r *TopatsTasksGetRequest) SetStartTime(value string) {
-	r.SetValue("start_time", value)
-}
-
-func (r *TopatsTasksGetRequest) GetResponse(accessToken string) (*TopatsTasksGetResponse, []byte, error) {
-	var resp TopatsTasksGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.topats.tasks.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type TopatsTasksGetResponse struct {
-	Tasks []*Task `json:"tasks"`
-}
-
-type TopatsTasksGetResponseResult struct {
-	Response *TopatsTasksGetResponse `json:"topats_tasks_get_response"`
 }

@@ -4,7 +4,7 @@
 
 package refund
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 退款结构 */
 type Refund struct {
@@ -65,23 +65,4 @@ type RefundMessage struct {
 /* 图片链接 */
 type PicUrl struct {
 	Url string `json:"url"`
-}
-
-/* 批量异步任务结果 */
-type Task struct {
-	CheckCode   string     `json:"check_code"`
-	Created     string     `json:"created"`
-	DownloadUrl string     `json:"download_url"`
-	Method      string     `json:"method"`
-	Schedule    string     `json:"schedule"`
-	Status      string     `json:"status"`
-	Subtasks    []*Subtask `json:"subtasks"`
-	TaskId      int        `json:"task_id"`
-}
-
-/* 批量异步任务的子任务结果 */
-type Subtask struct {
-	IsSuccess      bool   `json:"is_success"`
-	SubTaskRequest string `json:"sub_task_request"`
-	SubTaskResult  string `json:"sub_task_result"`
 }

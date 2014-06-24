@@ -18,7 +18,7 @@ func (r *PictureCategoryAddRequest) SetParentId(value string) {
 	r.SetValue("parent_id", value)
 }
 
-/* 图片分类名称，最大长度20字符，中英文都算一字符，不能为空 */
+/* 图片分类名称，最大长度20字符，中文字符算2个字符，不能为空 */
 func (r *PictureCategoryAddRequest) SetPictureCategoryName(value string) {
 	r.SetValue("picture_category_name", value)
 }
@@ -99,7 +99,7 @@ func (r *PictureCategoryUpdateRequest) SetCategoryId(value string) {
 	r.SetValue("category_id", value)
 }
 
-/* 图片分类的新名字，最大长度20字符，不能为空 */
+/* 图片分类的新名字，最大长度20字符，不能为空<br /> 支持最大长度为：20<br /> 支持的最大列表长度为：20 */
 func (r *PictureCategoryUpdateRequest) SetCategoryName(value string) {
 	r.SetValue("category_name", value)
 }
@@ -131,7 +131,7 @@ type PictureDeleteRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 图片ID字符串,可以一个也可以一组,用英文逗号间隔,如450,120,155 */
+/* 图片ID字符串,可以一个也可以一组,用英文逗号间隔,如450,120,155.限制数量是100 */
 func (r *PictureDeleteRequest) SetPictureIds(value string) {
 	r.SetValue("picture_ids", value)
 }
@@ -156,6 +156,12 @@ type PictureDeleteResponseResult struct {
 /* 获取图片信息 */
 type PictureGetRequest struct {
 	open_taobao.TaobaoMethodRequest
+}
+
+/* 图片使用，如果是pc宝贝detail使用，设置为client:computer，查询出来的图片是符合pc的宝贝detail显示的
+如果是手机宝贝detail使用，设置为client:phone，查询出来的图片是符合手机的宝贝detail显示的,默认值是全部 */
+func (r *PictureGetRequest) SetClientType(value string) {
+	r.SetValue("client_type", value)
 }
 
 /* 是否删除,unfroze代表没有删除 */
@@ -206,6 +212,11 @@ func (r *PictureGetRequest) SetStartDate(value string) {
 /* 图片标题,最大长度50字符,中英文都算一字符 */
 func (r *PictureGetRequest) SetTitle(value string) {
 	r.SetValue("title", value)
+}
+
+/* 图片url查询接口 */
+func (r *PictureGetRequest) SetUrls(value string) {
+	r.SetValue("urls", value)
 }
 
 func (r *PictureGetRequest) GetResponse(accessToken string) (*PictureGetResponse, []byte, error) {
@@ -290,7 +301,7 @@ type PictureUpdateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 新的图片名，最大长度50字符，不能为空 */
+/* 新的图片名，最大长度50字符，不能为空<br /> 支持最大长度为：50<br /> 支持的最大列表长度为：50 */
 func (r *PictureUpdateRequest) SetNewName(value string) {
 	r.SetValue("new_name", value)
 }
@@ -322,17 +333,24 @@ type PictureUploadRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
+/* 图片上传的来源，有电脑版本宝贝发布，手机版本宝贝发布
+client:computer电脑版本宝贝使用
+client:phone手机版本宝贝使用 */
+func (r *PictureUploadRequest) SetClientType(value string) {
+	r.SetValue("client_type", value)
+}
+
 /* 包括后缀名的图片标题,不能为空，如Bule.jpg,有些卖家希望图片上传后取图片文件的默认名 */
 func (r *PictureUploadRequest) SetImageInputTitle(value string) {
 	r.SetValue("image_input_title", value)
 }
 
-/* 图片二进制文件流,不能为空,允许png、jpg、gif图片格式,2M以内。 */
+/* 图片二进制文件流,不能为空,允许png、jpg、gif图片格式,3M以内。 */
 func (r *PictureUploadRequest) SetImg(value string) {
 	r.SetValue("img", value)
 }
 
-/* 图片分类ID，设置具体某个分类ID或设置0上传到默认分类，只能传入一个分类 */
+/* 图片分类ID，设置具体某个分类ID或设置0上传到默认分类，只能传入一个分类<br /> 支持最大值为：9223372036854775807<br /> 支持最小值为：0 */
 func (r *PictureUploadRequest) SetPictureCategoryId(value string) {
 	r.SetValue("picture_category_id", value)
 }
@@ -386,22 +404,22 @@ type VideoAddRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 视频封面url,不能为空且不能超过512个英文字母 */
+/* 视频封面url,不能为空且不能超过512个英文字母<br /> 支持最大长度为：512<br /> 支持的最大列表长度为：512 */
 func (r *VideoAddRequest) SetCoverUrl(value string) {
 	r.SetValue("cover_url", value)
 }
 
-/* 视频描述信息，不能为空且不能超过256个汉字 */
+/* 视频描述信息，不能为空且不能超过256个汉字<br /> 支持最大长度为：512<br /> 支持的最大列表长度为：512 */
 func (r *VideoAddRequest) SetDescription(value string) {
 	r.SetValue("description", value)
 }
 
-/* 视频标签，以','隔开，不能为空且总长度不超过128个汉字 */
+/* 视频标签，以','隔开，不能为空且总长度不超过128个汉字<br /> 支持最大长度为：256<br /> 支持的最大列表长度为：256 */
 func (r *VideoAddRequest) SetTags(value string) {
 	r.SetValue("tags", value)
 }
 
-/* 视频标题，不能为空且不超过128个汉字 */
+/* 视频标题，不能为空且不超过128个汉字<br /> 支持最大长度为：256<br /> 支持的最大列表长度为：256 */
 func (r *VideoAddRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -443,22 +461,22 @@ type VideoUpdateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 视频封面url,不能超过512个英文字母 */
+/* 视频封面url,不能超过512个英文字母<br /> 支持最大长度为：512<br /> 支持的最大列表长度为：512 */
 func (r *VideoUpdateRequest) SetCoverUrl(value string) {
 	r.SetValue("cover_url", value)
 }
 
-/* 视频描述信息，不能超过256个汉字 */
+/* 视频描述信息，不能超过256个汉字<br /> 支持最大长度为：512<br /> 支持的最大列表长度为：512 */
 func (r *VideoUpdateRequest) SetDescription(value string) {
 	r.SetValue("description", value)
 }
 
-/* 视频标签，以','隔开，且总长度不超过128个汉字 */
+/* 视频标签，以','隔开，且总长度不超过128个汉字<br /> 支持最大长度为：256<br /> 支持的最大列表长度为：256 */
 func (r *VideoUpdateRequest) SetTags(value string) {
 	r.SetValue("tags", value)
 }
 
-/* 视频标题，不超过128个汉字。title, tags,cover_url和description至少必须传一个 */
+/* 视频标题，不超过128个汉字。title, tags,cover_url和description至少必须传一个<br /> 支持最大长度为：256<br /> 支持的最大列表长度为：256 */
 func (r *VideoUpdateRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }
@@ -520,12 +538,12 @@ func (r *VideosSearchRequest) SetStates(value string) {
 	r.SetValue("states", value)
 }
 
-/* 视频标签 */
+/* 视频标签<br /> 支持最大长度为：256<br /> 支持的最大列表长度为：256 */
 func (r *VideosSearchRequest) SetTag(value string) {
 	r.SetValue("tag", value)
 }
 
-/* 视频标题 */
+/* 视频标题<br /> 支持最大长度为：256<br /> 支持的最大列表长度为：256 */
 func (r *VideosSearchRequest) SetTitle(value string) {
 	r.SetValue("title", value)
 }

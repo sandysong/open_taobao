@@ -18,7 +18,7 @@ func (r *WangwangAbstractAddwordRequest) SetCharset(value string) {
 	r.SetValue("charset", value)
 }
 
-/* 关键词，长度大于0 */
+/* 关键词，长度大于0<br /> 支持最大长度为：12<br /> 支持的最大列表长度为：12 */
 func (r *WangwangAbstractAddwordRequest) SetWord(value string) {
 	r.SetValue("word", value)
 }
@@ -51,7 +51,7 @@ func (r *WangwangAbstractDeletewordRequest) SetCharset(value string) {
 	r.SetValue("charset", value)
 }
 
-/* 关键词，长度大于0 */
+/* 关键词，长度大于0<br /> 支持最大长度为：12<br /> 支持的最大列表长度为：12 */
 func (r *WangwangAbstractDeletewordRequest) SetWord(value string) {
 	r.SetValue("word", value)
 }
@@ -131,7 +131,7 @@ type WangwangAbstractInitializeResponseResult struct {
 	Response *WangwangAbstractInitializeResponse `json:"wangwang_abstract_initialize_response"`
 }
 
-/* 模糊聊天记录查询,仅支持json返回 */
+/* 模糊聊天记录查询,仅支持json返回，仅提供近3个月内数据查询，开始和结束时间不能超过7天 */
 type WangwangAbstractLogqueryRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -141,7 +141,7 @@ func (r *WangwangAbstractLogqueryRequest) SetCharset(value string) {
 	r.SetValue("charset", value)
 }
 
-/* 获取记录条数，默认值是1000 */
+/* 获取记录条数，默认值是1000<br /> 支持最小值为：1 */
 func (r *WangwangAbstractLogqueryRequest) SetCount(value string) {
 	r.SetValue("count", value)
 }
@@ -212,7 +212,7 @@ func (r *WangwangEserviceAvgwaittimeGetRequest) SetEndDate(value string) {
 	r.SetValue("end_date", value)
 }
 
-/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest */
+/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest<br /> 支持最大长度为：1900<br /> 支持的最大列表长度为：1900 */
 func (r *WangwangEserviceAvgwaittimeGetRequest) SetServiceStaffId(value string) {
 	r.SetValue("service_staff_id", value)
 }
@@ -345,7 +345,7 @@ func (r *WangwangEserviceEvaluationGetRequest) SetEndDate(value string) {
 	r.SetValue("end_date", value)
 }
 
-/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest */
+/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest<br /> 支持最大长度为：1900<br /> 支持的最大列表长度为：1900 */
 func (r *WangwangEserviceEvaluationGetRequest) SetServiceStaffId(value string) {
 	r.SetValue("service_staff_id", value)
 }
@@ -385,7 +385,7 @@ type WangwangEserviceGroupmemberGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 被查询用户组管理员ID：cntaobao+淘宝nick，例如cntaobaotest */
+/* 主帐号ID：cntaobao+淘宝nick，例如cntaobaotest<br /> 支持最大长度为：128<br /> 支持的最大列表长度为：128 */
 func (r *WangwangEserviceGroupmemberGetRequest) SetManagerId(value string) {
 	r.SetValue("manager_id", value)
 }
@@ -450,6 +450,88 @@ type WangwangEserviceLoginlogsGetResponseResult struct {
 	Response *WangwangEserviceLoginlogsGetResponse `json:"wangwang_eservice_loginlogs_get_response"`
 }
 
+/* 查询评价详细数据 */
+type WangwangEserviceNewevalsGetRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* 查询登录日志的开始日期，必须按示例的格式，否则会返回错误；
+开始时间不能在当前时间30天前，开始时间和结束时间的间隔不能超过7天；
+开始时间不能超过当前系统时间 */
+func (r *WangwangEserviceNewevalsGetRequest) SetBtime(value string) {
+	r.SetValue("btime", value)
+}
+
+/* 查询登录日志的结束时间，必须按示例的格式，否则会返回错误；
+结束时间不能小于开始时间，结束时间和开始时间的间隔不能超过7天 */
+func (r *WangwangEserviceNewevalsGetRequest) SetEtime(value string) {
+	r.SetValue("etime", value)
+}
+
+/* 需要查询登录日志的账号列表，多个id之间用逗号隔开，每次查询的id数不能超过30个 */
+func (r *WangwangEserviceNewevalsGetRequest) SetQueryIds(value string) {
+	r.SetValue("query_ids", value)
+}
+
+func (r *WangwangEserviceNewevalsGetRequest) GetResponse(accessToken string) (*WangwangEserviceNewevalsGetResponse, []byte, error) {
+	var resp WangwangEserviceNewevalsGetResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.wangwang.eservice.newevals.get", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type WangwangEserviceNewevalsGetResponse struct {
+	ResultCode       int           `json:"result_code"`
+	ResultCount      int           `json:"result_count"`
+	StaffEvalDetails []*EvalDetail `json:"staff_eval_details"`
+}
+
+type WangwangEserviceNewevalsGetResponseResult struct {
+	Response *WangwangEserviceNewevalsGetResponse `json:"wangwang_eservice_newevals_get_response"`
+}
+
+/* 查询登陆日志 */
+type WangwangEserviceNewloginlogsGetRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* 查询登录日志的开始日期，必须按示例的格式，否则会返回错误；
+开始时间不能在当前时间30天前，开始时间和结束时间的间隔不能超过7天；
+开始时间不能超过当前系统时间 */
+func (r *WangwangEserviceNewloginlogsGetRequest) SetBtime(value string) {
+	r.SetValue("btime", value)
+}
+
+/* 查询登录日志的结束时间，必须按示例的格式，否则会返回错误；
+结束时间不能小于开始时间，结束时间和开始时间的间隔不能超过7天 */
+func (r *WangwangEserviceNewloginlogsGetRequest) SetEtime(value string) {
+	r.SetValue("etime", value)
+}
+
+/* 需要查询登录日志的账号列表，多个id之间用逗号隔开，每次查询的id数不能超过30个 */
+func (r *WangwangEserviceNewloginlogsGetRequest) SetQueryIds(value string) {
+	r.SetValue("query_ids", value)
+}
+
+func (r *WangwangEserviceNewloginlogsGetRequest) GetResponse(accessToken string) (*WangwangEserviceNewloginlogsGetResponse, []byte, error) {
+	var resp WangwangEserviceNewloginlogsGetResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.wangwang.eservice.newloginlogs.get", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type WangwangEserviceNewloginlogsGetResponse struct {
+	Userloginlogs []*UserLoginlog `json:"userloginlogs"`
+}
+
+type WangwangEserviceNewloginlogsGetResponseResult struct {
+	Response *WangwangEserviceNewloginlogsGetResponse `json:"wangwang_eservice_newloginlogs_get_response"`
+}
+
 /* 根据操作者ID，返回被查者ID指定日期内每个帐号每日的"未回复情况"
 
 备注：1、如果是操作者ID=被查者ID，返回被查者ID的"未回复情况"（未回复人数、未回复的ID）。
@@ -470,7 +552,7 @@ func (r *WangwangEserviceNoreplynumGetRequest) SetEndDate(value string) {
 	r.SetValue("end_date", value)
 }
 
-/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest */
+/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest<br /> 支持最大长度为：1900<br /> 支持的最大列表长度为：1900 */
 func (r *WangwangEserviceNoreplynumGetRequest) SetServiceStaffId(value string) {
 	r.SetValue("service_staff_id", value)
 }
@@ -569,7 +651,7 @@ func (r *WangwangEserviceReceivenumGetRequest) SetEndDate(value string) {
 	r.SetValue("end_date", value)
 }
 
-/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest */
+/* 客服人员id：cntaobao+淘宝nick，例如cntaobaotest<br /> 支持最大长度为：1900<br /> 支持的最大列表长度为：1900 */
 func (r *WangwangEserviceReceivenumGetRequest) SetServiceStaffId(value string) {
 	r.SetValue("service_staff_id", value)
 }

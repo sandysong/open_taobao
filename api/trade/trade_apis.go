@@ -8,94 +8,6 @@ import (
 	"github.com/changkong/open_taobao"
 )
 
-/* 提供异步批量获取订单详情功能<br/>
-异步API使用方法，请查看：<a href="http://open.taobao.com/doc/detail.htm?id=30">异步API使用说明</a><br/>
-1. 一次可以查询的订单数量为1~100笔，强烈建议一次请求尽可能多的订单<br/>
-2. 提交任务后会生成task_id，后继通过此task_id调用taobao.topats.result.get接口获取任务的结果<br/>
-3. 如果订阅了主动通知服务，任务完成后TOP会通过HTTP长连接推送消息，通知的消息格式请参考异步API使用文档<br/>
-4. 这个任务ID有效时间为2天，2天后任务被删除。<br/>
-5. 每个应用每天最多可以调用3万次，超过限制今天无法调用。 */
-type TopatsTradesFullinfoGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 可以返回taobao.trade.fullinfo.get允许的所有字段。 */
-func (r *TopatsTradesFullinfoGetRequest) SetFields(value string) {
-	r.SetValue("fields", value)
-}
-
-/* 交易订单号tid列表，多个tid之间用半角分号分隔。tid个数的取值范围是：1~100个。由于这个接口限制每个应用的调用量是3万次/天，所以强烈建议采用尽可能多的tid，以取到更多的交易数据。 */
-func (r *TopatsTradesFullinfoGetRequest) SetTids(value string) {
-	r.SetValue("tids", value)
-}
-
-func (r *TopatsTradesFullinfoGetRequest) GetResponse(accessToken string) (*TopatsTradesFullinfoGetResponse, []byte, error) {
-	var resp TopatsTradesFullinfoGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.topats.trades.fullinfo.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type TopatsTradesFullinfoGetResponse struct {
-	Task *Task `json:"task"`
-}
-
-type TopatsTradesFullinfoGetResponseResult struct {
-	Response *TopatsTradesFullinfoGetResponse `json:"topats_trades_fullinfo_get_response"`
-}
-
-/* 提供异步下载三个月已卖出的在线订单信息接口。<br/>
-异步API使用方法，请查看：<a href="http://open.taobao.com/doc/detail.htm?id=30">异步API使用说明</a><br/>
-1. 一次最多可以导出三个月内的所有类型和状态的在线交易记录（可查时间段：前90天内~昨天）<br/>
-2. 用户必须拥有店铺才能获取访问在线交易订单数据，否则无法创建任务<br/>
-3. 提交任务后，通过taobao.topats.result.get来查看任务执行状态，如果任务已完成，则返回下载URL<br/>
-4. 如果订阅了主动通知服务，任务完成后TOP会通过HTTP长连接推送消息，通知的消息格式请参考异步API使用文档<br/>
-5. 下载到的结果是zip压缩包，解压后得到一个标准的json格式的文本文件（返回字段与taobao.trade.fullinfo.get一致，每条订单详情以回车符结尾），文件内容的默认编码格式是UTF-8<br/>
-6. 任务的执行时段01:00~23:00，通常情况下每半小时执行一次任务，执行结束时间依据订单条数大小而定，通常在30~60分钟可以完成任务<br/>
-7. 单个应用每天最多只能调用此接口10万次，超过限制后，当天无法再提交任务 */
-type TopatsTradesSoldGetRequest struct {
-	open_taobao.TaobaoMethodRequest
-}
-
-/* 订单创建结束时间，格式yyyyMMdd，取值范围：前90天内~昨天，其中start_time<=end_time，如20120531相当于取订单创建时间到2012-05-31 23:59:59为止的订单。注：如果start_time和end_time相同，表示取一天的订单数据。<span style="color:red">强烈建议超大卖家（直充类，金冠类）把三个月订单拆分成3次来获取，否则单个任务会消耗很长时间。<span> */
-func (r *TopatsTradesSoldGetRequest) SetEndTime(value string) {
-	r.SetValue("end_time", value)
-}
-
-/* Trade和Order结构体中的所有字段。<span style="color:red">请尽量按需获取，如果只取tid字段，获取订单数据速度会超快。</span> */
-func (r *TopatsTradesSoldGetRequest) SetFields(value string) {
-	r.SetValue("fields", value)
-}
-
-/* 默认值为false，表示按正常方式查询订单；如果设置为true则查询到的是模糊后的订单列表，可通过模糊订单列表中的buyer_nick/buyer_id字段与流量数据进行关联。如果没有使用流量数据接口请忽略本字段。 */
-func (r *TopatsTradesSoldGetRequest) SetIsAcookie(value string) {
-	r.SetValue("is_acookie", value)
-}
-
-/* 订单创建开始时间，格式yyyyMMdd，取值范围：前90天内~昨天。如：20120501相当于取订单创建时间从2012-05-01 00:00:00开始的订单。 */
-func (r *TopatsTradesSoldGetRequest) SetStartTime(value string) {
-	r.SetValue("start_time", value)
-}
-
-func (r *TopatsTradesSoldGetRequest) GetResponse(accessToken string) (*TopatsTradesSoldGetResponse, []byte, error) {
-	var resp TopatsTradesSoldGetResponseResult
-	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.topats.trades.sold.get", &resp)
-	if err != nil {
-		return nil, data, err
-	}
-	return resp.Response, data, err
-}
-
-type TopatsTradesSoldGetResponse struct {
-	Task *Task `json:"task"`
-}
-
-type TopatsTradesSoldGetResponseResult struct {
-	Response *TopatsTradesSoldGetResponse `json:"topats_trades_sold_get_response"`
-}
-
 /* 卖家查询该笔交易订单的资金帐务相关的数据；
 1. 只供卖家使用，买家不可使用
 2. 可查询所有的状态的订单，但不同状态时订单的相关数据可能会有不同 */
@@ -114,7 +26,7 @@ func (r *TradeAmountGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
 
-/* 订单交易编号 */
+/* 订单交易编号<br /> 支持最大值为：9223372036854775807<br /> 支持最小值为：-9223372036854775808 */
 func (r *TradeAmountGetRequest) SetTid(value string) {
 	r.SetValue("tid", value)
 }
@@ -212,21 +124,21 @@ type TradeConfirmfeeGetResponseResult struct {
 <br/>1. 只有在交易成功的状态下才能取到交易佣金，其它状态下取到的都是零或空值
 <br/>2. 只有单笔订单的情况下Trade数据结构中才包含商品相关的信息
 <br/>3. 获取到的Order中的payment字段在单笔子订单时包含物流费用，多笔子订单时不包含物流费用
-<br/>4. 请按需获取字段，减少TOP系统的压力
-<br/>5. <span style="color:red">通过异步接口<a href="http://api.taobao.com/apidoc/api.htm?path=cid:5-apiId:10417">taobao.topats.trades.fullinfo.get</a>可以一次性获取多达100笔订单详情</span> */
+<br/>4. 请按需获取字段，减少TOP系统的压力 */
 type TradeFullinfoGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 1.Trade中可以指定返回的fields：seller_nick, buyer_nick, title, type, created, tid, seller_rate,buyer_flag, buyer_rate, status, payment, adjust_fee, post_fee, total_fee, pay_time, end_time, modified, consign_time, buyer_obtain_point_fee, point_fee, real_point_fee, received_payment, commission_fee, buyer_memo, seller_memo, alipay_no,alipay_id,buyer_message, pic_path, num_iid, num, price, buyer_alipay_no, receiver_name, receiver_state, receiver_city, receiver_district, receiver_address, receiver_zip, receiver_mobile, receiver_phone,seller_flag, seller_alipay_no, seller_mobile, seller_phone, seller_name, seller_email, available_confirm_fee, has_post_fee, timeout_action_time, snapshot_url, cod_fee, cod_status, shipping_type, trade_memo, is_3D,buyer_email,buyer_area, trade_from,is_lgtype,is_force_wlb,is_brand_sale,buyer_cod_fee,discount_fee,seller_cod_fee,express_agency_fee,invoice_name,service_orders,credit_cardfee,step_trade_status,step_paid_fee,mark_desc,has_yfx,yfx_fee,yfx_id,yfx_type,trade_source(注：当该授权用户为卖家时不能查看买家buyer_memo,buyer_flag),eticket_ext,send_time, is_daixiao,is_part_consign
-2.Order中可以指定返回fields：orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.snapshot_url, orders.timeout_action_time，orders.sku_properties_name, orders.item_meal_name, orders.item_meal_id，item_memo,orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type, orders.is_oversold,orders.end_time,orders.order_from,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invice_no, orders.is_daixiao
+/* 1.Trade中可以指定返回的fields：seller_nick, buyer_nick, title, type, created, tid, seller_rate,buyer_flag, buyer_rate, status, payment, adjust_fee, post_fee, total_fee, pay_time, end_time, modified, consign_time, buyer_obtain_point_fee, point_fee, real_point_fee, received_payment, commission_fee, buyer_memo, seller_memo, alipay_no,alipay_id,buyer_message, pic_path, num_iid, num, price, buyer_alipay_no, receiver_name, receiver_state, receiver_city, receiver_district, receiver_address, receiver_zip, receiver_mobile, receiver_phone,seller_flag, seller_alipay_no, seller_mobile, seller_phone, seller_name, seller_email, available_confirm_fee, has_post_fee, timeout_action_time, snapshot_url, cod_fee, cod_status, shipping_type, trade_memo, is_3D,buyer_email,buyer_area, trade_from,is_lgtype,is_force_wlb,is_brand_sale,buyer_cod_fee,discount_fee,seller_cod_fee,express_agency_fee,invoice_name,service_orders,credit_cardfee,step_trade_status,step_paid_fee,mark_desc,has_yfx,yfx_fee,yfx_id,yfx_type,trade_source(注：当该授权用户为卖家时不能查看买家buyer_memo,buyer_flag),eticket_ext,send_time, is_daixiao,is_part_consign, arrive_interval, arrive_cut_time, consign_interval
+2.Order中可以指定返回fields：orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.snapshot_url, orders.timeout_action_time，orders.sku_properties_name, orders.item_meal_name, orders.item_meal_id,orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type, orders.is_oversold,orders.end_time,orders.order_from,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invoice_no, orders.is_daixiao
 3.fields：orders（返回Order的所有内容）
-4.flelds：promotion_details(返回promotion_details所有内容，优惠详情),invoice_name(发票抬头) */
+4.flelds：promotion_details(返回promotion_details所有内容，优惠详情),invoice_name(发票抬头),orders.is_www(子订单是否是www订单,orders.store_code(发货的仓库编码)<br>
+5. field:service_tags(返回物流标签) */
 func (r *TradeFullinfoGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
 
-/* 交易编号 */
+/* 交易编号<br /> 支持最大值为：9223372036854775807<br /> 支持最小值为：1 */
 func (r *TradeFullinfoGetRequest) SetTid(value string) {
 	r.SetValue("tid", value)
 }
@@ -255,9 +167,10 @@ type TradeGetRequest struct {
 
 /* 需要返回的字段。目前支持有：<br>
 
-1. Trade中可以指定返回的fields:seller_nick, buyer_nick, title, type, created, tid, seller_rate, buyer_rate, status, payment, discount_fee, adjust_fee, post_fee, total_fee, pay_time, end_time, modified, consign_time, buyer_obtain_point_fee, point_fee, real_point_fee, received_payment, commission_fee, buyer_memo, seller_memo, alipay_no, buyer_message, pic_path, num_iid, num, price, cod_fee, cod_status, shipping_type， is_daixiao <br>
+1. Trade中可以指定返回的fields:seller_nick, buyer_nick, title, type, created, tid, seller_rate, buyer_rate, status, payment, discount_fee, adjust_fee, post_fee, total_fee, pay_time, end_time, modified, consign_time, buyer_obtain_point_fee, point_fee, real_point_fee, received_payment, commission_fee, buyer_memo, seller_memo, alipay_no, buyer_message, pic_path, num_iid, num, price, cod_fee, cod_status, shipping_type， is_daixiao，consign_interval，arrive_interval，arrive_cut_time <br>
 2. Order中可以指定返回fields:orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.sku_properties_name, orders.item_meal_name, orders.outer_sku_id, orders.outer_iid, orders.buyer_rate, orders.seller_rate， orders.is_daixiao <br>
-3. fields：orders（返回Order中的所有允许返回的字段） */
+3. fields：orders（返回Order中的所有允许返回的字段）,orders.is_wwww(是否是www订单),orders.store_code(仓库代码）<br>
+4. field:service_tags(返回物流标签) */
 func (r *TradeGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }
@@ -289,7 +202,7 @@ type TradeMemoAddRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 交易备注旗帜，可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，默认值为0 */
+/* 交易备注旗帜，可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，默认值为0<br /> 支持最大值为：5<br /> 支持最小值为：0 */
 func (r *TradeMemoAddRequest) SetFlag(value string) {
 	r.SetValue("flag", value)
 }
@@ -326,12 +239,12 @@ type TradeMemoUpdateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 交易备注旗帜，可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，默认值为0 */
+/* 卖家交易备注旗帜，可选值为：0(灰色), 1(红色), 2(黄色), 3(绿色), 4(蓝色), 5(粉红色)，默认值为0<br /> 支持最大值为：5<br /> 支持最小值为：0 */
 func (r *TradeMemoUpdateRequest) SetFlag(value string) {
 	r.SetValue("flag", value)
 }
 
-/* 交易备注。最大长度: 1000个字节 */
+/* 卖家交易备注。最大长度: 1000个字节 */
 func (r *TradeMemoUpdateRequest) SetMemo(value string) {
 	r.SetValue("memo", value)
 }
@@ -441,7 +354,7 @@ type TradeReceivetimeDelayRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 延长收货的天数，可选值为：3, 5, 7, 10。 */
+/* 延长收货的天数，可选值为：3, 5, 7, 10。<br /> 支持最大值为：10<br /> 支持最小值为：3 */
 func (r *TradeReceivetimeDelayRequest) SetDays(value string) {
 	r.SetValue("days", value)
 }
@@ -476,42 +389,42 @@ type TradeShippingaddressUpdateRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
 
-/* 收货地址。最大长度为228个字节。 */
+/* 收货地址。最大长度为228个字节。<br /> 支持最大长度为：228<br /> 支持的最大列表长度为：228 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverAddress(value string) {
 	r.SetValue("receiver_address", value)
 }
 
-/* 城市。最大长度为32个字节。如：杭州 */
+/* 城市。最大长度为32个字节。如：杭州<br /> 支持最大长度为：32<br /> 支持的最大列表长度为：32 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverCity(value string) {
 	r.SetValue("receiver_city", value)
 }
 
-/* 区/县。最大长度为32个字节。如：西湖区 */
+/* 区/县。最大长度为32个字节。如：西湖区<br /> 支持最大长度为：32<br /> 支持的最大列表长度为：32 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverDistrict(value string) {
 	r.SetValue("receiver_district", value)
 }
 
-/* 移动电话。最大长度为30个字节。 */
+/* 移动电话。最大长度为30个字节。<br /> 支持最大长度为：30<br /> 支持的最大列表长度为：30 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverMobile(value string) {
 	r.SetValue("receiver_mobile", value)
 }
 
-/* 收货人全名。最大长度为50个字节。 */
+/* 收货人全名。最大长度为50个字节。<br /> 支持最大长度为：50<br /> 支持的最大列表长度为：50 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverName(value string) {
 	r.SetValue("receiver_name", value)
 }
 
-/* 固定电话。最大长度为30个字节。 */
+/* 固定电话。最大长度为30个字节。<br /> 支持最大长度为：30<br /> 支持的最大列表长度为：30 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverPhone(value string) {
 	r.SetValue("receiver_phone", value)
 }
 
-/* 省份。最大长度为32个字节。如：浙江 */
+/* 省份。最大长度为32个字节。如：浙江<br /> 支持最大长度为：32<br /> 支持的最大列表长度为：32 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverState(value string) {
 	r.SetValue("receiver_state", value)
 }
 
-/* 邮政编码。必须由6个数字组成。 */
+/* 邮政编码。必须由6个数字组成。<br /> 支持最大长度为：6<br /> 支持的最大列表长度为：6 */
 func (r *TradeShippingaddressUpdateRequest) SetReceiverZip(value string) {
 	r.SetValue("receiver_zip", value)
 }
@@ -576,7 +489,7 @@ type TradeSnapshotGetResponseResult struct {
 /* 搜索当前会话用户作为卖家已卖出的交易数据（只能获取到三个月以内的交易信息）
 <br/>1. 返回的数据结果是以订单的创建时间倒序排列的。
 <br/>2. 返回的数据结果只包含了订单的部分数据，可通过taobao.trade.fullinfo.get获取订单详情。
-<br/>3. <span style="color:red">通过异步接口<a href="http://api.taobao.com/apidoc/api.htm?path=cid:5-apiId:11117">taobao.topats.trades.sold.get</a>可以一次性获取卖家3个月内的订单详情数据。 */
+<br/> <span style="color:red">注意：type字段的说明，如果该字段不传，接口默认只查4种类型订单，非默认查询的订单是不返回。遇到订单查不到的情况的，通常都是这个原因造成。解决办法就是type加上订单类型就可正常返回了。用taobao.trade.fullinfo.get 查订单fields返回type 很容易的能知道订单的类型（type）</span> */
 type TradesSoldGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -600,16 +513,11 @@ func (r *TradesSoldGetRequest) SetExtType(value string) {
 1. Trade中可以指定返回的fields:<br>
 seller_nick, buyer_nick, title, type, created,  tid, seller_rate,seller_can_rate, buyer_rate,can_rate, status, payment, discount_fee, adjust_fee, post_fee, total_fee, pay_time, end_time, modified, consign_time, buyer_obtain_point_fee, point_fee, real_point_fee, received_payment,  pic_path, num_iid, num, price, cod_fee, cod_status, shipping_type, receiver_name, receiver_state, receiver_city, receiver_district, receiver_address, receiver_zip, receiver_mobile, receiver_phone,seller_flag,alipay_id,alipay_no,is_lgtype,is_force_wlb,is_brand_sale,buyer_area,has_buyer_message, credit_card_fee, lg_aging_type, lg_aging, step_trade_status,step_paid_fee,mark_desc,has_yfx,yfx_fee,yfx_id,yfx_type,trade_source,send_time,is_daixiao,is_wt,is_part_consign
 <br>
-2. Order中可以指定返回fields：orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.sku_properties_name, orders.item_meal_name, orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type, orders.end_time,orders.order_from,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invice_no,orders.is_daixiao<br>
+2. Order中可以指定返回fields：orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.sku_properties_name, orders.item_meal_name, orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type, orders.end_time,orders.order_from,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invoice_no,orders.is_daixiao<br>
 3. fields：orders（返回2中Order的所有内容）
 4.fields:service_orders(返回service_order中所有内容) */
 func (r *TradesSoldGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
-}
-
-/* 默认值为false，表示按正常方式查询订单；如果设置为true则查询到的是模糊后的订单列表，可通过模糊订单列表中的buyer_nick/buyer_id字段与流量数据进行关联。如果没有使用流量数据接口请忽略本字段。 */
-func (r *TradesSoldGetRequest) SetIsAcookie(value string) {
-	r.SetValue("is_acookie", value)
 }
 
 /* 页码。取值范围:大于零的整数; 默认值:1 */
@@ -684,7 +592,7 @@ taohua(淘花网交易类型）
 waimai(外卖交易类型）
 nopaid（即时到帐/趣味猜交易类型）
 step (万人团) eticket(电子凭证)
-tmall_i18n（天猫国际）;
+tmall_i18n（天猫国际）;nopaid （无付款交易）insurance_plus（保险）finance（基金）
 注：guarantee_trade是一个组合查询条件，并不是一种交易类型，获取批量或单个订单中不会返回此种类型的订单。 */
 func (r *TradesSoldGetRequest) SetType(value string) {
 	r.SetValue("type", value)
@@ -718,7 +626,8 @@ type TradesSoldGetResponseResult struct {
 <br/>1. 一次请求只能查询时间跨度为一天的增量交易记录，即end_modified - start_modified <= 1天。
 <br/>2. 返回的数据结果是以订单的修改时间倒序排列的，通过从后往前翻页的方式可以避免漏单问题。
 <br/>3. 返回的数据结果只包含了订单的部分数据，可通过taobao.trade.fullinfo.get获取订单详情。
-<br/>4. <span style="color:red">使用<a href="http://open.taobao.com/doc/category_list.htm?id=87">主动通知</a>监听订单变更事件，可以实时获取订单更新数据。</span> */
+<br/>4. <span style="color:red">使用<a href="http://open.taobao.com/doc/detail.htm?spm=0.0.0.0.F9TTxy&id=101744">消息服务</a>监听订单变更事件，可以实时获取订单更新数据。</span>
+<br/>注意：type字段的说明，如果该字段不传，接口默认只查4种类型订单，非默认查询的订单是不返回。遇到订单查不到的情况的，通常都是这个原因造成。解决办法就是type加上订单类型就可正常返回了。用taobao.trade.fullinfo.get 查订单fields返回type 很容易的能知道订单的类型（type） */
 type TradesSoldIncrementGetRequest struct {
 	open_taobao.TaobaoMethodRequest
 }
@@ -736,16 +645,11 @@ func (r *TradesSoldIncrementGetRequest) SetExtType(value string) {
 /* 需要返回的字段。目前支持有：
 1.Trade中可以指定返回的fields:seller_nick, buyer_nick, title, type, created, tid, seller_rate,seller_can_rate, buyer_rate,can_rate,status, payment, discount_fee, adjust_fee, post_fee, total_fee, pay_time, end_time, modified, consign_time, buyer_obtain_point_fee, point_fee, real_point_fee, received_payment,pic_path, num_iid, num, price, cod_fee, cod_status, shipping_type, receiver_name, receiver_state, receiver_city, receiver_district, receiver_address, receiver_zip, receiver_mobile, receiver_phone,alipay_id,alipay_no,is_lgtype,is_force_wlb,is_brand_sale,has_buyer_message,credit_card_fee,step_trade_status,step_paid_fee,mark_desc,send_time,,has_yfx,yfx_fee,yfx_id,yfx_type,trade_source,seller_flag,is_daixiao,is_part_consign
 2.Order中可以指定返回fields：
-orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.sku_properties_name, orders.item_meal_name, orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type，orders.end_time, orders.order_from,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invice_no,orders.is_daixiao
+orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.sku_properties_name, orders.item_meal_name, orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type，orders.end_time,,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invoice_no,orders.is_daixiao
 3.fields：orders（返回Order的所有内容）
 4.fields:service_orders(返回service_order中所有内容) */
 func (r *TradesSoldIncrementGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
-}
-
-/* 默认值为false，表示按正常方式查询订单；如果设置为true则查询到的是模糊后的订单列表，可通过模糊订单列表中的buyer_nick/buyer_id字段与流量数据进行关联。如果没有使用流量数据接口请忽略本字段。 */
-func (r *TradesSoldIncrementGetRequest) SetIsAcookie(value string) {
-	r.SetValue("is_acookie", value)
 }
 
 /* 页码。取值范围:大于零的整数;默认值:1。<span style="color:red;font-weight: bold;">注：必须采用倒序的分页方式（从最后一页往回取）才能避免漏单问题。</span> */
@@ -799,7 +703,7 @@ taohua(桃花网交易类型）
 waimai(外卖交易类型）
 nopaid（即时到帐/趣味猜交易类型）
  eticket(电子凭证)
-tmall_i18n（天猫国际）;
+tmall_i18n（天猫国际）;nopaid（无付款交易）insurance_plus（保险）finance（基金）
 注：guarantee_trade是一个组合查询条件，并不是一种交易类型，获取批量或单个订单中不会返回此种类型的订单。 */
 func (r *TradesSoldIncrementGetRequest) SetType(value string) {
 	r.SetValue("type", value)
@@ -851,7 +755,7 @@ func (r *TradesSoldIncrementvGetRequest) SetExtType(value string) {
 /* 需要返回的字段。目前支持有：
 1.Trade中可以指定返回的fields:seller_nick, buyer_nick, title, type, created, tid, seller_rate, buyer_rate, status, payment, discount_fee, adjust_fee, post_fee, total_fee, pay_time, end_time, modified, consign_time, buyer_obtain_point_fee, point_fee, real_point_fee, received_payment,pic_path, num_iid, num, price, cod_fee, cod_status, shipping_type, receiver_name, receiver_state, receiver_city, receiver_district, receiver_address, receiver_zip, receiver_mobile, receiver_phone,alipay_id,alipay_no,is_lgtype,is_force_wlb,is_brand_sale,has_buyer_message,credit_card_fee,step_trade_status,step_paid_fee,mark_desc，is_daixiao,is_part_consign
 2.Order中可以指定返回fields：
-orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.sku_properties_name, orders.item_meal_name, orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type，orders.end_time, orders.order_from,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invice_no，orders.is_daixiao
+orders.title, orders.pic_path, orders.price, orders.num, orders.num_iid, orders.sku_id, orders.refund_status, orders.status, orders.oid, orders.total_fee, orders.payment, orders.discount_fee, orders.adjust_fee, orders.sku_properties_name, orders.item_meal_name, orders.buyer_rate, orders.seller_rate, orders.outer_iid, orders.outer_sku_id, orders.refund_id, orders.seller_type，orders.end_time, orders.order_from,orders.consign_time,orders.shipping_type,orders.logistics_company,orders.invoice_no，orders.is_daixiao
 3.fields：orders（返回Order的所有内容）
 4.fields:service_orders(返回service_order中所有内容) */
 func (r *TradesSoldIncrementvGetRequest) SetFields(value string) {
@@ -907,9 +811,9 @@ super_market_trade(商超交易),
 super_market_cod_trade(商超货到付款交易)
 taohua(桃花网交易类型）
 waimai(外卖交易类型）
-nopaid（即时到帐/趣味猜交易类型）
+nopaid（无付款订单）
 eticket(电子凭证)
-tmall_i18n（天猫国际）。
+tmall_i18n（天猫国际）
 注：guarantee_trade是一个组合查询条件，并不是一种交易类型，获取批量或单个订单中不会返回此种类型的订单。 */
 func (r *TradesSoldIncrementvGetRequest) SetType(value string) {
 	r.SetValue("type", value)
@@ -937,4 +841,159 @@ type TradesSoldIncrementvGetResponse struct {
 
 type TradesSoldIncrementvGetResponseResult struct {
 	Response *TradesSoldIncrementvGetResponse `json:"trades_sold_incrementv_get_response"`
+}
+
+/* 商家确认订单，进行发货 */
+type TradeWaimaiConfirmRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* 未确认发货的订单编号 */
+func (r *TradeWaimaiConfirmRequest) SetOrderId(value string) {
+	r.SetValue("order_id", value)
+}
+
+func (r *TradeWaimaiConfirmRequest) GetResponse(accessToken string) (*TradeWaimaiConfirmResponse, []byte, error) {
+	var resp TradeWaimaiConfirmResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.trade.waimai.confirm", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type TradeWaimaiConfirmResponse struct {
+	RetCode string `json:"ret_code"`
+}
+
+type TradeWaimaiConfirmResponseResult struct {
+	Response *TradeWaimaiConfirmResponse `json:"trade_waimai_confirm_response"`
+}
+
+/* 可以按商家或是店铺维度的进行查询买家付款卖家未确认订单，一次返回不大于20条订单 */
+type TradeWaimaiGetRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* true-查询仅按商家维度
+false-查询按商家下所属店铺维度 */
+func (r *TradeWaimaiGetRequest) SetIsAll(value string) {
+	r.SetValue("is_all", value)
+}
+
+/* 返回记录数，超过20按20条返回数据<br /> 支持最大值为：20<br /> 支持最小值为：1 */
+func (r *TradeWaimaiGetRequest) SetMaxSize(value string) {
+	r.SetValue("max_size", value)
+}
+
+/* 外卖分店ID */
+func (r *TradeWaimaiGetRequest) SetStoreId(value string) {
+	r.SetValue("store_id", value)
+}
+
+func (r *TradeWaimaiGetRequest) GetResponse(accessToken string) (*TradeWaimaiGetResponse, []byte, error) {
+	var resp TradeWaimaiGetResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.trade.waimai.get", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type TradeWaimaiGetResponse struct {
+	Result *ListResult `json:"result"`
+}
+
+type TradeWaimaiGetResponseResult struct {
+	Response *TradeWaimaiGetResponse `json:"trade_waimai_get_response"`
+}
+
+/* 获取淘宝外卖全部订单 */
+type TradeWaimaiOrdersGetRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* true 仅有支付宝订单,false 包括所有类型订单(货到付款,支付券等) */
+func (r *TradeWaimaiOrdersGetRequest) SetIsAllOrder(value string) {
+	r.SetValue("is_all_order", value)
+}
+
+/* true-查询仅按商家维度
+false-查询按商家下所属店铺维度 */
+func (r *TradeWaimaiOrdersGetRequest) SetIsAllShop(value string) {
+	r.SetValue("is_all_shop", value)
+}
+
+/* 买家昵称/订单ID 搜索 */
+func (r *TradeWaimaiOrdersGetRequest) SetKeyword(value string) {
+	r.SetValue("keyword", value)
+}
+
+/* 订单状态 待确认订单2 , 退款中订单4 , 已发货12 关闭20 交易成功21 */
+func (r *TradeWaimaiOrdersGetRequest) SetOrderStatus(value string) {
+	r.SetValue("order_status", value)
+}
+
+/* 页码<br /> 支持的最大列表长度为：100 */
+func (r *TradeWaimaiOrdersGetRequest) SetPageNo(value string) {
+	r.SetValue("page_no", value)
+}
+
+/* 返回记录数，超过20按20条返回数据<br /> 支持最大值为：20<br /> 支持最小值为：1 */
+func (r *TradeWaimaiOrdersGetRequest) SetPageSize(value string) {
+	r.SetValue("page_size", value)
+}
+
+/* 外卖分店ID */
+func (r *TradeWaimaiOrdersGetRequest) SetShopId(value string) {
+	r.SetValue("shop_id", value)
+}
+
+func (r *TradeWaimaiOrdersGetRequest) GetResponse(accessToken string) (*TradeWaimaiOrdersGetResponse, []byte, error) {
+	var resp TradeWaimaiOrdersGetResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.trade.waimai.orders.get", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type TradeWaimaiOrdersGetResponse struct {
+	Result *ListResult `json:"result"`
+}
+
+type TradeWaimaiOrdersGetResponseResult struct {
+	Response *TradeWaimaiOrdersGetResponse `json:"trade_waimai_orders_get_response"`
+}
+
+/* 商家拒绝订单，产生退款操作 */
+type TradeWaimaiRefuseRequest struct {
+	open_taobao.TaobaoMethodRequest
+}
+
+/* 买家付款未发货订单号 */
+func (r *TradeWaimaiRefuseRequest) SetOrderId(value string) {
+	r.SetValue("order_id", value)
+}
+
+/* 拒单理由 */
+func (r *TradeWaimaiRefuseRequest) SetReason(value string) {
+	r.SetValue("reason", value)
+}
+
+func (r *TradeWaimaiRefuseRequest) GetResponse(accessToken string) (*TradeWaimaiRefuseResponse, []byte, error) {
+	var resp TradeWaimaiRefuseResponseResult
+	data, err := r.TaobaoMethodRequest.GetResponse(accessToken, "taobao.trade.waimai.refuse", &resp)
+	if err != nil {
+		return nil, data, err
+	}
+	return resp.Response, data, err
+}
+
+type TradeWaimaiRefuseResponse struct {
+	RetCode string `json:"ret_code"`
+}
+
+type TradeWaimaiRefuseResponseResult struct {
+	Response *TradeWaimaiRefuseResponse `json:"trade_waimai_refuse_response"`
 }

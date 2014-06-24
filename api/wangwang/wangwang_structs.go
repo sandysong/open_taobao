@@ -4,7 +4,7 @@
 
 package wangwang
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 关键词列表 */
 type WordList struct {
@@ -89,6 +89,13 @@ type GroupMember struct {
 type LoginLog struct {
 	Time string `json:"time"`
 	Type string `json:"type"`
+}
+
+/* 登陆日志 */
+type UserLoginlog struct {
+	Count     int         `json:"count"`
+	Loginlogs []*LoginLog `json:"loginlogs"`
+	Uid       string      `json:"uid"`
 }
 
 /* 未回复统计列表(按天) */

@@ -189,7 +189,7 @@ func (r *BillBookBillsGetRequest) SetEndTime(value string) {
 	r.SetValue("end_time", value)
 }
 
-/* 需要返回的字段:bid,account_id,journal_type,amount,book_time,description,gmt_create,gmt_modified ,如果不是以上字段将自动忽略 */
+/* 需要返回的字段:bid,account_id,journal_type,amount,book_time,description,gmt_create,gmt_modified ,如果不是以上字段将自动忽略<br /> 支持的最大列表长度为：300 */
 func (r *BillBookBillsGetRequest) SetFields(value string) {
 	r.SetValue("fields", value)
 }

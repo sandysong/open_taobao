@@ -4,7 +4,7 @@
 
 package fenxiao
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 合作分销关系 */
 type Cooperation struct {
@@ -23,8 +23,9 @@ type Cooperation struct {
 	TradeType       string   `json:"trade_type"`
 }
 
-/* 经销采购申请单 */
+/* 采购申请和经销采购单 */
 type DealerOrder struct {
+	AlipayNo               string               `json:"alipay_no"`
 	AppliedTime            string               `json:"applied_time"`
 	ApplierNick            string               `json:"applier_nick"`
 	AuditTimeApplier       string               `json:"audit_time_applier"`
@@ -37,16 +38,19 @@ type DealerOrder struct {
 	LogisticsType          string               `json:"logistics_type"`
 	ModifiedTime           string               `json:"modified_time"`
 	OrderStatus            string               `json:"order_status"`
+	PayTime                string               `json:"pay_time"`
 	PayType                string               `json:"pay_type"`
 	QuantityCount          int                  `json:"quantity_count"`
 	Receiver               *Receiver            `json:"receiver"`
 	RefuseReasonApplier    string               `json:"refuse_reason_applier"`
 	RefuseReasonSupplier   string               `json:"refuse_reason_supplier"`
+	SupplierMemo           string               `json:"supplier_memo"`
+	SupplierMemoFlag       int                  `json:"supplier_memo_flag"`
 	SupplierNick           string               `json:"supplier_nick"`
 	TotalPrice             float64              `json:"total_price"`
 }
 
-/* 经销采购申请单商品明细 */
+/* 采购申请/经销采购单中的商品明细 */
 type DealerOrderDetail struct {
 	DealerDetailId int     `json:"dealer_detail_id"`
 	DealerOrderId  int     `json:"dealer_order_id"`
@@ -176,10 +180,13 @@ type FenxiaoProduct struct {
 	Prov                string          `json:"prov"`
 	Quantity            int             `json:"quantity"`
 	QueryItemId         int             `json:"query_item_id"`
+	QuotaQuantity       int             `json:"quota_quantity"`
+	ReservedQuantity    int             `json:"reserved_quantity"`
 	RetailPriceHigh     float64         `json:"retail_price_high"`
 	RetailPriceLow      float64         `json:"retail_price_low"`
 	ScitemId            int             `json:"scitem_id"`
 	Skus                []*FenxiaoSku   `json:"skus"`
+	SpuId               int             `json:"spu_id"`
 	StandardPrice       float64         `json:"standard_price"`
 	StandardRetailPrice float64         `json:"standard_retail_price"`
 	Status              string          `json:"status"`
@@ -207,15 +214,17 @@ type FenxiaoPdu struct {
 
 /* 分销产品SKU */
 type FenxiaoSku struct {
-	CostPrice       string `json:"cost_price"`
-	DealerCostPrice string `json:"dealer_cost_price"`
-	Id              int    `json:"id"`
-	Name            string `json:"name"`
-	OuterId         string `json:"outer_id"`
-	Properties      string `json:"properties"`
-	Quantity        int    `json:"quantity"`
-	ScitemId        int    `json:"scitem_id"`
-	StandardPrice   string `json:"standard_price"`
+	CostPrice        string `json:"cost_price"`
+	DealerCostPrice  string `json:"dealer_cost_price"`
+	Id               int    `json:"id"`
+	Name             string `json:"name"`
+	OuterId          string `json:"outer_id"`
+	Properties       string `json:"properties"`
+	Quantity         int    `json:"quantity"`
+	QuotaQuantity    int    `json:"quota_quantity"`
+	ReservedQuantity int    `json:"reserved_quantity"`
+	ScitemId         int    `json:"scitem_id"`
+	StandardPrice    string `json:"standard_price"`
 }
 
 /* 分销API返回数据结构 */
@@ -258,12 +267,14 @@ type PurchaseOrder struct {
 	AlipayNo             string              `json:"alipay_no"`
 	BuyerNick            string              `json:"buyer_nick"`
 	BuyerPayment         float64             `json:"buyer_payment"`
+	BuyerTaobaoId        string              `json:"buyer_taobao_id"`
 	ConsignTime          string              `json:"consign_time"`
 	Created              string              `json:"created"`
 	DistributorFrom      string              `json:"distributor_from"`
 	DistributorPayment   float64             `json:"distributor_payment"`
 	DistributorUsername  string              `json:"distributor_username"`
 	EndTime              string              `json:"end_time"`
+	Features             []*Feature          `json:"features"`
 	FenxiaoId            int                 `json:"fenxiao_id"`
 	Id                   int                 `json:"id"`
 	IsvCustomKey         []string            `json:"isv_custom_key"`
@@ -290,6 +301,12 @@ type PurchaseOrder struct {
 	TradeType            string              `json:"trade_type"`
 }
 
+/* 类目属性 */
+type Feature struct {
+	AttrKey   string `json:"attr_key"`
+	AttrValue string `json:"attr_value"`
+}
+
 /* 采购单留言列表 */
 type OrderMessage struct {
 	MessageContent string `json:"message_content"`
@@ -300,32 +317,35 @@ type OrderMessage struct {
 
 /* 子采购单详细信息 */
 type SubPurchaseOrder struct {
-	AuctionPrice       float64 `json:"auction_price"`
-	BillFee            float64 `json:"bill_fee"`
-	BuyerPayment       float64 `json:"buyer_payment"`
-	Created            string  `json:"created"`
-	DistributorPayment float64 `json:"distributor_payment"`
-	FenxiaoId          int     `json:"fenxiao_id"`
-	Id                 int     `json:"id"`
-	ItemId             int     `json:"item_id"`
-	ItemOuterId        string  `json:"item_outer_id"`
-	Num                int     `json:"num"`
-	OldSkuProperties   string  `json:"old_sku_properties"`
-	Order200Status     string  `json:"order_200_status"`
-	Price              float64 `json:"price"`
-	RefundFee          float64 `json:"refund_fee"`
-	ScItemId           int     `json:"sc_item_id"`
-	SkuId              int     `json:"sku_id"`
-	SkuOuterId         string  `json:"sku_outer_id"`
-	SkuProperties      string  `json:"sku_properties"`
-	SnapshotUrl        string  `json:"snapshot_url"`
-	Status             string  `json:"status"`
-	TcAdjustFee        int     `json:"tc_adjust_fee"`
-	TcDiscountFee      int     `json:"tc_discount_fee"`
-	TcOrderId          int     `json:"tc_order_id"`
-	TcPreferentialType string  `json:"tc_preferential_type"`
-	Title              string  `json:"title"`
-	TotalFee           float64 `json:"total_fee"`
+	AuctionPrice       float64    `json:"auction_price"`
+	BillFee            float64    `json:"bill_fee"`
+	BuyerPayment       float64    `json:"buyer_payment"`
+	Created            string     `json:"created"`
+	DiscountFee        float64    `json:"discount_fee"`
+	DistributorPayment float64    `json:"distributor_payment"`
+	Features           []*Feature `json:"features"`
+	FenxiaoId          int        `json:"fenxiao_id"`
+	Id                 int        `json:"id"`
+	ItemId             int        `json:"item_id"`
+	ItemOuterId        string     `json:"item_outer_id"`
+	Num                int        `json:"num"`
+	OldSkuProperties   string     `json:"old_sku_properties"`
+	Order200Status     string     `json:"order_200_status"`
+	Price              float64    `json:"price"`
+	PromotionType      string     `json:"promotion_type"`
+	RefundFee          float64    `json:"refund_fee"`
+	ScItemId           int        `json:"sc_item_id"`
+	SkuId              int        `json:"sku_id"`
+	SkuOuterId         string     `json:"sku_outer_id"`
+	SkuProperties      string     `json:"sku_properties"`
+	SnapshotUrl        string     `json:"snapshot_url"`
+	Status             string     `json:"status"`
+	TcAdjustFee        int        `json:"tc_adjust_fee"`
+	TcDiscountFee      int        `json:"tc_discount_fee"`
+	TcOrderId          int        `json:"tc_order_id"`
+	TcPreferentialType string     `json:"tc_preferential_type"`
+	Title              string     `json:"title"`
+	TotalFee           float64    `json:"total_fee"`
 }
 
 /* 等级折扣数据结构 */
@@ -355,13 +375,17 @@ type RefundDetail struct {
 	IsReturnGoods    bool         `json:"is_return_goods"`
 	Modified         string       `json:"modified"`
 	PaySupFee        float64      `json:"pay_sup_fee"`
+	PurchaseOrderId  int          `json:"purchase_order_id"`
 	RefundCreateTime string       `json:"refund_create_time"`
 	RefundDesc       string       `json:"refund_desc"`
 	RefundFee        float64      `json:"refund_fee"`
+	RefundFlowType   int          `json:"refund_flow_type"`
 	RefundReason     string       `json:"refund_reason"`
 	RefundStatus     int          `json:"refund_status"`
 	SubOrderId       int          `json:"sub_order_id"`
 	SupplierNick     string       `json:"supplier_nick"`
+	Timeout          string       `json:"timeout"`
+	ToType           int          `json:"to_type"`
 }
 
 /* 下游买家退款信息 */
@@ -441,6 +465,7 @@ type TipInfo struct {
 /* 授权信息数据结构 */
 type InventoryAuthorizeInfo struct {
 	AuthorizeCode   string `json:"authorize_code"`
+	AuthorizeType   string `json:"authorize_type"`
 	ChannelFlag     int    `json:"channel_flag"`
 	Index           int    `json:"index"`
 	InventoryType   int    `json:"inventory_type"`
@@ -496,6 +521,7 @@ type ScItem struct {
 	ItemType     int    `json:"item_type"`
 	Length       int    `json:"length"`
 	MatterStatus string `json:"matter_status"`
+	Options      int    `json:"options"`
 	OuterCode    string `json:"outer_code"`
 	Price        int    `json:"price"`
 	Properties   string `json:"properties"`
@@ -523,25 +549,6 @@ type ScItemMap struct {
 type QueryPagination struct {
 	PageIndex int `json:"page_index"`
 	PageSize  int `json:"page_size"`
-}
-
-/* 批量异步任务结果 */
-type Task struct {
-	CheckCode   string     `json:"check_code"`
-	Created     string     `json:"created"`
-	DownloadUrl string     `json:"download_url"`
-	Method      string     `json:"method"`
-	Schedule    string     `json:"schedule"`
-	Status      string     `json:"status"`
-	Subtasks    []*Subtask `json:"subtasks"`
-	TaskId      int        `json:"task_id"`
-}
-
-/* 批量异步任务的子任务结果 */
-type Subtask struct {
-	IsSuccess      bool   `json:"is_success"`
-	SubTaskRequest string `json:"sub_task_request"`
-	SubTaskResult  string `json:"sub_task_result"`
 }
 
 /* 库存明细 */

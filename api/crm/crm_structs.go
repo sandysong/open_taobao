@@ -4,7 +4,7 @@
 
 package crm
 
-const VersionNo = "20130808"
+const VersionNo = "20140607"
 
 /* 卖家设置的等级优惠信息 */
 type GradePromotion struct {
@@ -47,7 +47,6 @@ type BasicMember struct {
 /* 会员信息对象 */
 type CrmMember struct {
 	AvgPrice         float64 `json:"avg_price"`
-	BizOrderId       int     `json:"biz_order_id"`
 	BuyerId          int     `json:"buyer_id"`
 	BuyerNick        string  `json:"buyer_nick"`
 	City             string  `json:"city"`
@@ -63,147 +62,6 @@ type CrmMember struct {
 	Status           string  `json:"status"`
 	TradeAmount      float64 `json:"trade_amount"`
 	TradeCount       int     `json:"trade_count"`
-}
-
-/* 动作action */
-type ActionInfo struct {
-	ActionCode string `json:"action_code"`
-	Applier    string `json:"applier"`
-	Id         int    `json:"id"`
-	Name       string `json:"name"`
-	SellerId   int    `json:"seller_id"`
-	Status     int    `json:"status"`
-	Verifier   string `json:"verifier"`
-}
-
-/* 分页结果 */
-type PageResult struct {
-	CurrentPage int `json:"current_page"`
-	PageSize    int `json:"page_size"`
-	TotalAmount int `json:"total_amount"`
-	TotalPage   int `json:"total_page"`
-}
-
-/* 属性（指标）信息 */
-type AttributeVO struct {
-	ClazzType   int           `json:"clazz_type"`
-	Code        string        `json:"code"`
-	Description string        `json:"description"`
-	DocumentId  int           `json:"document_id"`
-	Id          int           `json:"id"`
-	ParamKeys   []*ParamKeyVO `json:"param_keys"`
-	Title       string        `json:"title"`
-	TopAccess   int           `json:"top_access"`
-	TypeId      int           `json:"type_id"`
-	Unit        string        `json:"unit"`
-}
-
-/* 属性必填参数的对象 */
-type ParamKeyVO struct {
-	ClazzType  int    `json:"clazz_type"`
-	Code       string `json:"code"`
-	DocumentId int    `json:"document_id"`
-	Id         int    `json:"id"`
-	Name       string `json:"name"`
-	Sort       int    `json:"sort"`
-	Type       int    `json:"type"`
-	Value      string `json:"value"`
-}
-
-/* 档案对象 */
-type DocumentVO struct {
-	Code       string `json:"code"`
-	Dscription string `json:"dscription"`
-	Id         int    `json:"id"`
-	Name       string `json:"name"`
-}
-
-/* 函数配置 */
-type Function struct {
-	Creator   string `json:"creator"`
-	Id        int    `json:"id"`
-	Name      string `json:"name"`
-	ParseType int    `json:"parse_type"`
-	Rule      string `json:"rule"`
-	Status    int    `json:"status"`
-	Strategy  int    `json:"strategy"`
-	UserId    int    `json:"user_id"`
-}
-
-/* 用于表示分组中的标签 */
-type InnerLabel struct {
-	LabelId int `json:"label_id"`
-	Level   int `json:"level"`
-}
-
-/* 标签组 */
-type HanoiLabelGroup struct {
-	BizStatus   int    `json:"biz_status"`
-	Code        string `json:"code"`
-	Description string `json:"description"`
-	GmtCreate   string `json:"gmt_create"`
-	GmtModified string `json:"gmt_modified"`
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
-	Open        bool   `json:"open"`
-	Scene       int    `json:"scene"`
-	Type        int    `json:"type"`
-}
-
-/* 标签 */
-type Label struct {
-	BizStatus   int    `json:"biz_status"`
-	Code        string `json:"code"`
-	Description string `json:"description"`
-	GmtCreate   string `json:"gmt_create"`
-	GmtModified string `json:"gmt_modified"`
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
-	Open        bool   `json:"open"`
-	Scene       int    `json:"scene"`
-	TemplateId  int    `json:"template_id"`
-}
-
-/* 标签的参数实例化 */
-type ParameterVO struct {
-	Name        string `json:"name"`
-	StringValue string `json:"string_value"`
-}
-
-/* 模板、标签、分组的操作结果 */
-type TemplateResult struct {
-	ErrorMessage string `json:"error_message"`
-	IsSuccess    bool   `json:"is_success"`
-	Total        int    `json:"total"`
-}
-
-/* 值域对象 */
-type RangeVO struct {
-	Description string `json:"description"`
-	DocumentId  int    `json:"document_id"`
-	Id          int    `json:"id"`
-	Key         string `json:"key"`
-	Value       string `json:"value"`
-}
-
-/* 模板 */
-type Template struct {
-	BizStatus    int    `json:"biz_status"`
-	Creater      int    `json:"creater"`
-	Description  string `json:"description"`
-	Expression   string `json:"expression"`
-	GmtCreate    string `json:"gmt_create"`
-	GmtModified  string `json:"gmt_modified"`
-	Id           int    `json:"id"`
-	Name         string `json:"name"`
-	TemplateCode string `json:"template_code"`
-}
-
-/* 类型对象 */
-type TypeVO struct {
-	Description string `json:"description"`
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
 }
 
 /* tmall权益 */

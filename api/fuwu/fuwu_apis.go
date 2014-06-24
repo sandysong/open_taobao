@@ -43,6 +43,7 @@ type FuwuSaleLinkGenResponseResult struct {
 
 /* 用于ISV查询自己名下的应用及收费项目的订单记录（已付款订单）。
 建议用于查询前一日的历史记录，不适合用作实时数据查询。
+现在只能查询90天以内的数据
 该接口限制每分钟所有appkey调用总和只能有800次。 */
 type VasOrderSearchRequest struct {
 	open_taobao.TaobaoMethodRequest
@@ -88,7 +89,7 @@ func (r *VasOrderSearchRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 一页包含的记录数 */
+/* 一页包含的记录数<br /> 支持最大值为：200 */
 func (r *VasOrderSearchRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
@@ -156,7 +157,7 @@ func (r *VasSubscSearchRequest) SetPageNo(value string) {
 	r.SetValue("page_no", value)
 }
 
-/* 一页包含的记录数 */
+/* 一页包含的记录数<br /> 支持最大值为：200 */
 func (r *VasSubscSearchRequest) SetPageSize(value string) {
 	r.SetValue("page_size", value)
 }
