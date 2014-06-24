@@ -72,14 +72,7 @@
     {"Name":"taobaoke", "Caption":"淘客API", 
       "Desc":"提供了淘宝客商品列表和淘宝客单品详情推广，店铺推广，类目和关键字推广以及淘客报表查询等功能.常见的淘客问题，请看该文档的“功能介绍”", 
       "Prefix":[
-      "taobao.taobaoke."
-    ]},
-    {"Name":"notice", "Caption":"主动通知业务API", 
-      "Desc":"配合主动通知业务，提供商品，交易，退款和评价等数据或状态变更的查询功能，使用：http://open.taobao.com/doc/category_list.htm?spm=0.0.0.0.maU6vt&id=87", 
-      "Prefix":[
-      "taobao.comet.discardinfo.get",
-      "taobao.increment.",
-      "taobao.topats.increment.messages.get"
+      "taobao.tbk."
     ]},
     {"Name":"tools", "Caption":"工具类API", 
       "Desc":"提供了系统时间查询、关键词过滤、定时任务管理、异步任务管理等功能的API", 
@@ -122,11 +115,6 @@
       "taobao.marketing.",
       "taobao.promotion.",
       "taobao.ump."
-    ]},
-    {"Name":"udp", "Caption":"数据API", 
-      "Desc":"提供淘宝数据开放", 
-      "Prefix":[
-      "taobao.udp."
     ]},
     {"Name":"hotel", "Caption":"酒店API", 
       "Desc":"淘宝酒店业务", 
